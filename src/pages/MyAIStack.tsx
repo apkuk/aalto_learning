@@ -4,6 +4,7 @@ import ChatTab from './mystack/ChatTab'
 import MediaTab from './mystack/MediaTab'
 import ProductivityTab from './mystack/ProductivityTab'
 import CodingDevTab from './mystack/CodingDevTab'
+import OtherAppsTab from './mystack/OtherAppsTab'
 
 export default function MyAIStack() {
   const [activeTab, setActiveTab] = useState('chat')
@@ -93,6 +94,11 @@ export default function MyAIStack() {
               id: 'coding-dev',
               label: 'Coding & Development',
               content: <CodingDevTab />
+            },
+            {
+              id: 'other-apps',
+              label: 'Other Cool Apps',
+              content: <OtherAppsTab />
             }
           ]}
           activeTab={activeTab}
