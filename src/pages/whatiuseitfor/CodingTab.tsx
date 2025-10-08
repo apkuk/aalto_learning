@@ -462,7 +462,23 @@ export default function CodingTab() {
           </ul>
           <div className="mt-4 bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500">
             <p className="text-sm text-gray-700">
-              <strong>Note:</strong> In a separate session, we can get into how you actually create real digital MVPs using an IDE like VS Code or Cursor, with Claude Code or Codex, Github and a hosting site like Netlify to create a real app.
+              <strong>Note:</strong> Want to learn how to create real digital MVPs using an IDE like VS Code or Cursor, with Claude Code or Codex, Github and a hosting site like Netlify? Check out the{' '}
+              <a
+                href="/resources"
+                onClick={(e) => {
+                  e.preventDefault()
+                  window.location.hash = ''
+                  window.location.href = '/resources'
+                  setTimeout(() => {
+                    const buildAppTab = document.querySelector('[data-tab-id="build-app"]')
+                    if (buildAppTab) buildAppTab.click()
+                  }, 100)
+                }}
+                className="text-blue-600 hover:text-blue-800 font-semibold underline"
+              >
+                Build an App! guide
+              </a>
+              {' '}on the Resources page.
             </p>
           </div>
         </div>
