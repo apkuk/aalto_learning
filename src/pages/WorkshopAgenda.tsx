@@ -1,4 +1,13 @@
+import { useState } from 'react'
+import { Tabs } from '../components/Tabs'
+import DeepResearchTab from './deep-dive/DeepResearchTab'
+import ImageGenerationTab from './deep-dive/ImageGenerationTab'
+import CodingTab from './deep-dive/CodingTab'
+import EfficiencyTab from './deep-dive/EfficiencyTab'
+import ExpertiseTab from './deep-dive/ExpertiseTab'
+
 export default function WorkshopAgenda() {
+  const [activeTab, setActiveTab] = useState('deep-research')
   const agenda = [
     {
       title: 'Introduction to the Session',
@@ -86,8 +95,12 @@ export default function WorkshopAgenda() {
             <h1 className="text-4xl font-bold text-gray-900">
               Workshop Agenda
             </h1>
-            <div className="w-24 h-24 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg flex items-center justify-center">
-              <span className="text-white text-2xl font-bold">AE</span>
+            <div className="w-24 h-24 rounded-lg flex items-center justify-center">
+              <img
+                src="/assets/aalto-energia-logo.svg"
+                alt="Aalto Energia Logo"
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
           <p className="text-xl text-gray-600 mb-4">
@@ -158,7 +171,41 @@ export default function WorkshopAgenda() {
                 </div>
               )}
 
-              {item.subtopics && (
+              {item.title === 'Deep Dives' ? (
+                <div className="mt-6">
+                  <Tabs
+                    tabs={[
+                      {
+                        id: 'deep-research',
+                        label: 'Deep Research',
+                        content: <DeepResearchTab />
+                      },
+                      {
+                        id: 'image-generation',
+                        label: 'Image Generation',
+                        content: <ImageGenerationTab />
+                      },
+                      {
+                        id: 'coding',
+                        label: 'Coding',
+                        content: <CodingTab />
+                      },
+                      {
+                        id: 'efficiency',
+                        label: 'Efficiency',
+                        content: <EfficiencyTab />
+                      },
+                      {
+                        id: 'expertise',
+                        label: 'Expertise',
+                        content: <ExpertiseTab />
+                      }
+                    ]}
+                    activeTab={activeTab}
+                    onTabChange={setActiveTab}
+                  />
+                </div>
+              ) : item.subtopics ? (
                 <div className="mt-4 pl-4 border-l-2 border-gray-300">
                   <p className="font-semibold text-gray-800 mb-2">Topics covered:</p>
                   <ul className="space-y-2">
@@ -170,7 +217,7 @@ export default function WorkshopAgenda() {
                     ))}
                   </ul>
                 </div>
-              )}
+              ) : null}
             </div>
           ))}
         </div>
