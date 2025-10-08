@@ -15,15 +15,15 @@ export default function Home() {
           <ul className="space-y-2 text-lg text-gray-700 ml-6">
             <li className="flex items-start">
               <span className="text-primary mr-3">•</span>
+              <span><strong>Introduction to the Session:</strong> Workshop overview and agenda</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-primary mr-3">•</span>
               <span><strong>My AI Stack:</strong> The AI tools and platforms I use daily</span>
             </li>
             <li className="flex items-start">
               <span className="text-primary mr-3">•</span>
               <span><strong>What I Use AI For:</strong> Real-world applications across 5 key areas</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-3">•</span>
-              <span><strong>Introduction to the Session:</strong> Workshop overview and agenda</span>
             </li>
             <li className="flex items-start">
               <span className="text-primary mr-3">•</span>
