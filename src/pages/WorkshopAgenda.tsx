@@ -44,6 +44,22 @@ export default function WorkshopAgenda() {
       note: 'Includes hands-on component for participants'
     },
     {
+      title: 'The 4Ps of AI Agent Management',
+      duration: '15 minutes',
+      description: 'Framework for managing AI agents effectively',
+      color: 'bg-teal-100 border-teal-400',
+      breakdown: [
+        'First 7 minutes: Andrew presents the 4Ps framework',
+        'Next 8 minutes: Participants explore their own settings'
+      ],
+      subtopics: [
+        'Personas: Defining voice, character, and behavioral rules',
+        'Privacy: Data usage, training opt-outs, and security',
+        'Projects: Workstreams, files, and context management',
+        'Prompts: Crafting effective instructions and interactions'
+      ]
+    },
+    {
       title: 'Deep Dives',
       duration: '60 minutes',
       description: 'In-depth exploration of key AI applications - HALF presentation, HALF hands-on practice for each topic',
@@ -109,7 +125,7 @@ export default function WorkshopAgenda() {
           <div className="flex flex-wrap gap-4 text-sm text-gray-700">
             <div className="flex items-center">
               <span className="font-semibold mr-2">Duration:</span>
-              2 hours (120 minutes)
+              2 hours 15 minutes (135 minutes)
             </div>
             <div className="flex items-center">
               <span className="font-semibold mr-2">Format:</span>

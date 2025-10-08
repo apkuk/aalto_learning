@@ -5,11 +5,12 @@ const navItems = [
   { path: '/', label: 'Home' },
   { path: '/about', label: 'About Me' },
   { path: '/workshop', label: 'Workshop Agenda' },
-  { path: '/timer', label: 'Timer' },
   { path: '/definitions', label: 'Definitions' },
   { path: '/custom-gpt', label: 'Build a Custom GPT' },
   { path: '/deep-research', label: 'Deep Research' },
   { path: '/coding-tools', label: 'Coding & Tools' },
+  { path: '/5ps', label: '4Ps' },
+  { path: '/timer', label: 'Timer' },
 ]
 
 export default function Navigation() {
