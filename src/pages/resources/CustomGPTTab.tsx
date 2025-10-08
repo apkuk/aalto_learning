@@ -1,4 +1,4 @@
-import { CollapsibleSection } from '../../components/CollapsibleSection'
+import CollapsibleSection from '../../components/CollapsibleSection'
 
 export default function CustomGPTTab() {
   return (
