@@ -13,42 +13,42 @@ export default function CodingDevTab() {
     {
       name: 'VS Code',
       url: 'https://code.visualstudio.com/',
-      description: 'Microsoft\'s code editor with extensive AI extensions and integrations',
+      description: 'Microsoft\'s versatile and open-source code editor, which has become the de-facto IDE for many developers. VS Code provides a rich development experience with built-in support for debugging, embedded Git control, syntax highlighting, intelligent code completion with IntelliSense, and a vast ecosystem of extensions. It offers extensive AI capabilities through a rich marketplace of extensions, including the official AI Toolkit for Visual Studio Code, which allows developers to build, test, and deploy intelligent applications using generative AI models from providers like OpenAI, Anthropic, and Google. These extensions provide features like AI-powered code completion, real-time code analysis, automated test generation, and natural language chat for coding assistance.',
       icon: '📝',
       color: 'blue'
     },
     {
       name: 'GitHub Copilot',
       url: 'https://github.com/features/copilot',
-      description: 'AI pair programmer integrated directly into your IDE',
+      description: 'An AI-powered pair programmer from GitHub and OpenAI that provides intelligent code assistance directly within your integrated development environment (IDE). Copilot offers features like autocompleting code snippets and entire functions, converting comments into runnable code, and suggesting the next logical code changes. It includes GitHub Copilot Chat, a conversational AI assistant that can explain code, generate tests, and help with debugging. More recently, GitHub Copilot has introduced an autonomous AI agent that can be assigned a GitHub issue to independently work on code changes and create a pull request for review. A command-line interface (CLI) is also available, allowing you to use Copilot from within the terminal for questions and local file modifications.',
       icon: '👨‍💻',
       color: 'indigo'
     },
     {
       name: 'Claude Code',
       url: 'https://claude.com/claude-code',
-      description: 'CLI tool for AI-assisted coding and full project development',
+      description: 'An agentic coding tool from Anthropic that operates within your terminal to help turn ideas into code more efficiently. Claude Code can directly edit files, run commands, and create commits based on natural language instructions. It is designed with a Unix philosophy, making it composable and scriptable, allowing it to be piped with other command-line tools. The tool maintains an awareness of your entire project structure and can be customized to understand your project\'s specific context, including common commands, core files, and coding styles. Claude Code can also interact with external tools and APIs, enabling it to automate a wide range of development tasks.',
       icon: '⚡',
       color: 'purple'
     },
     {
       name: 'Codex',
       url: 'https://openai.com/codex/',
-      description: 'Pair with Codex in your terminal or IDE - Starting from a prompt or spec, Codex navigates your repo to edit files, run commands, and execute tests. Ship new features, fix bugs, brainstorm solutions, or tackle whatever\'s next with the Codex CLI and IDE extension—available in VSCode, Cursor, and Windsurf. Delegate to Codex in the cloud - Codex runs in the background so you can stay in flow and get more done. Code on your phone - Kick off tasks from the ChatGPT mobile app, wherever inspiration strikes.',
+      description: 'OpenAI\'s series of AI coding tools designed to accelerate development by delegating tasks to powerful cloud and local coding agents. You can pair with Codex directly in your terminal or IDE, where it can navigate your repository to edit files, run commands, and execute tests based on your prompts or specifications. This allows you to ship new features, fix bugs, and brainstorm solutions with the help of the Codex CLI and IDE extensions. For more intensive tasks, you can delegate to Codex in the cloud, where it runs in an isolated sandbox environment with your repository, allowing you to stay in your workflow. Codex is accessible through ChatGPT for users with Plus, Pro, Business, Edu, or Enterprise plans.',
       icon: '🤖',
       color: 'green'
     },
     {
       name: 'GitHub',
       url: 'https://github.com/',
-      description: 'Version control and code hosting with CI/CD capabilities',
+      description: 'A web-based platform for version control and collaboration, built around the Git distributed version control system. It allows developers to store, manage, and track changes to their code in repositories. Key features include branching to work on different versions of a project simultaneously, pull requests to propose and review changes, and issue tracking to manage tasks and bugs. GitHub also provides robust CI/CD (Continuous Integration and Continuous Deployment) capabilities through GitHub Actions, enabling automated builds, tests, and deployments directly from your repository.',
       icon: '🐙',
       color: 'gray'
     },
     {
       name: 'Netlify',
       url: 'https://www.netlify.com/',
-      description: 'Web hosting and deployment platform with automatic builds from Git',
+      description: 'A cloud-based platform for hosting and deploying modern web projects. Netlify simplifies the deployment process by automatically building and deploying your site whenever you push changes to your Git repository. It offers a global Content Delivery Network (CDN) to ensure fast loading times for users worldwide. The platform also provides powerful features like serverless functions for backend tasks, built-in CI/CD, and automatic SSL certificates for secure connections. Netlify is designed to streamline the workflow for developers, allowing them to focus on creating web applications without managing server infrastructure.',
       icon: '🌐',
       color: 'teal'
     }
