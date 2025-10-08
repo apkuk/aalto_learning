@@ -4,6 +4,7 @@ import AIResourcesTab from './resources/AIResourcesTab'
 import LearningResourcesTab from './resources/LearningResourcesTab'
 import CommunitiesTab from './resources/CommunitiesTab'
 import AITermsTab from './resources/AITermsTab'
+import BuildAppTab from './resources/BuildAppTab'
 
 export default function Resources() {
   const [activeTab, setActiveTab] = useState('ai-resources')
@@ -44,6 +45,11 @@ export default function Resources() {
               id: 'ai-terms',
               label: 'AI Terms & Definitions',
               content: <AITermsTab />
+            },
+            {
+              id: 'build-app',
+              label: 'Build an App from Scratch',
+              content: <BuildAppTab />
             }
           ]}
           activeTab={activeTab}
