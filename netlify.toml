@@ -1,14 +1,9 @@
 [build]
-  publish = "."
-  command = "echo 'No build step required'"
+  command = "npm run build"
+  publish = "dist"
 
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff"
-    X-XSS-Protection = "1; mode=block"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+[context.production.environment]
+  NODE_VERSION = "22"
 
 [[redirects]]
   from = "/*"
