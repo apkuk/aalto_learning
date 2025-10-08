@@ -6,7 +6,7 @@ export default function Home() {
         <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">What is this site about?</h2>
           <p className="text-lg text-gray-700 leading-relaxed mb-4">
-            This microsite was built in approximately 15 minutes using AI tools. It serves as a practical
+            This microsite was built in approximately an hour using AI tools. It serves as a practical
             demonstration of what's possible when you leverage modern AI-powered development workflows.
           </p>
           <p className="text-lg text-gray-700 leading-relaxed mb-4">
@@ -15,27 +15,19 @@ export default function Home() {
           <ul className="space-y-2 text-lg text-gray-700 ml-6">
             <li className="flex items-start">
               <span className="text-primary mr-3">•</span>
-              <span><strong>My Tech Stack:</strong> The AI tools and platforms I use daily</span>
+              <span><strong>My AI Stack:</strong> The AI tools and platforms I use daily</span>
             </li>
             <li className="flex items-start">
               <span className="text-primary mr-3">•</span>
-              <span><strong>Workshop Content:</strong> What we'll cover in today's hands-on session</span>
+              <span><strong>What I Use AI For:</strong> Real-world applications across 5 key areas</span>
             </li>
             <li className="flex items-start">
               <span className="text-primary mr-3">•</span>
-              <span><strong>AI Definitions:</strong> Clear explanations of key AI terms and concepts</span>
+              <span><strong>Introduction to the Session:</strong> Workshop overview and agenda</span>
             </li>
             <li className="flex items-start">
               <span className="text-primary mr-3">•</span>
-              <span><strong>Building Custom GPTs:</strong> How to create specialized AI assistants</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-3">•</span>
-              <span><strong>Deep Research:</strong> Techniques for comprehensive AI-powered research</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-3">•</span>
-              <span><strong>Coding & Tools:</strong> How to approach development as someone who can't code traditionally</span>
+              <span><strong>Resources:</strong> AI tools, learning materials, communities, AI terms, and step-by-step app building guides</span>
             </li>
           </ul>
           <p className="text-lg text-gray-700 leading-relaxed mt-4">
