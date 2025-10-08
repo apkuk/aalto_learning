@@ -25,18 +25,11 @@ export default function MediaTab() {
       color: 'blue'
     },
     {
-      name: 'Imagen',
+      name: 'Nano Banana',
       url: 'https://gemini.google.com/',
-      description: 'Imagen (available via Gemini and Google AI Studio) - Google/Gemini\'s image generation model with photorealistic results',
+      description: 'Nano Banana (available via Gemini and Google AI Studio) - Google/Gemini\'s image generation model with photorealistic results',
       icon: '🖼️',
       color: 'green'
-    },
-    {
-      name: 'Motion',
-      url: 'https://www.usemotion.com/',
-      description: 'AI-powered project management and calendar optimization tool',
-      icon: '📅',
-      color: 'orange'
     }
   ]
 
@@ -82,10 +75,10 @@ export default function MediaTab() {
         ))}
       </div>
 
-      {/* Note about Imagen availability */}
+      {/* Note about Nano Banana availability */}
       <div className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500">
         <p className="text-sm text-gray-700">
-          <strong>Note:</strong> Imagen is accessible through both{' '}
+          <strong>Note:</strong> Nano Banana is accessible through both{' '}
           <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
             Gemini
           </a>
