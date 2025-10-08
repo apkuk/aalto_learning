@@ -494,6 +494,35 @@ export default function DeepResearchTab() {
           </div>
         </div>
       </CollapsibleSection>
+
+      {/* Section 4: Practice! Over to you... */}
+      <CollapsibleSection title="Practice! Over to you..." icon="🎯" defaultOpen={false}>
+        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-6 border-l-4 border-yellow-500">
+          <h3 className="text-xl font-bold text-gray-900 mb-4">Try It Yourself!</h3>
+          <ul className="space-y-3">
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Open ChatGPT, Perplexity, Gemini or Claude - one that you haven't used before, and choose a different one each (you might need to create a free account).</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Think about something you need to know a lot more about, that's relevant to your work and for which you need the latest thinking</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Find the "research" or "deep research" toggle, and ensure it's turned on</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Put your prompt, and submit it (we'll come back to it at the end).</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Check the output, and any citations provided.</span>
+            </li>
+          </ul>
+        </div>
+      </CollapsibleSection>
     </div>
   )
 }

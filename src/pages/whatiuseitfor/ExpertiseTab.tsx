@@ -423,6 +423,35 @@ export default function ExpertiseTab() {
           </div>
         </div>
       </CollapsibleSection>
+
+      {/* Section 4: Practice! Over to you... */}
+      <CollapsibleSection title="Practice! Over to you..." icon="🎯" defaultOpen={false}>
+        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-6 border-l-4 border-yellow-500">
+          <h3 className="text-xl font-bold text-gray-900 mb-4">Try It Yourself!</h3>
+          <ul className="space-y-3">
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Imagine a scenario in your personal or professional life where you'd like to hire an expert... e.g. financial advisor, tutor, lawyer, scientist etc.</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Give Claude (with thinking turned on, as well as web search) a detailed prompt that starts with "You are an expert in ...", then describe what you want it to provide to you, with an outline format and tell it to provide references/citations.</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Make it as difficult a question as you can.</span>
+            </li>
+          </ul>
+          <div className="mt-4 bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500">
+            <p className="text-sm text-gray-700 mb-2">
+              <strong>Then do the same, but in an area you are most expert at.</strong>
+            </p>
+            <p className="text-sm text-gray-700">
+              Check the answer for hallucinations. Is it right? Are there areas you think are perhaps a bit off?
+            </p>
+          </div>
+        </div>
+      </CollapsibleSection>
     </div>
   )
 }

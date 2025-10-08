@@ -3,6 +3,7 @@ import { Tabs } from '../components/Tabs'
 import AIResourcesTab from './resources/AIResourcesTab'
 import LearningResourcesTab from './resources/LearningResourcesTab'
 import CommunitiesTab from './resources/CommunitiesTab'
+import AITermsTab from './resources/AITermsTab'
 
 export default function Resources() {
   const [activeTab, setActiveTab] = useState('ai-resources')
@@ -38,6 +39,11 @@ export default function Resources() {
               id: 'communities',
               label: 'Communities & Forums',
               content: <CommunitiesTab />
+            },
+            {
+              id: 'ai-terms',
+              label: 'AI Terms & Definitions',
+              content: <AITermsTab />
             }
           ]}
           activeTab={activeTab}

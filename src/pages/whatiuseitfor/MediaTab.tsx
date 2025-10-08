@@ -1,24 +1,49 @@
+import { useState } from 'react'
 import Card from '../../components/Card'
 import CollapsibleSection from '../../components/CollapsibleSection'
+import VideoModal from '../../components/VideoModal'
 
 export default function MediaTab() {
+  const [isVideoOpen, setIsVideoOpen] = useState(false)
+
   return (
     <div className="space-y-6">
+      {/* Video Modal */}
+      <VideoModal
+        isOpen={isVideoOpen}
+        onClose={() => setIsVideoOpen(false)}
+        videoSrc="/assets/Finnish_AI_Meeting_Video.mp4"
+        title="AI in Action: Finnish Meeting Example"
+      />
+
       {/* Section 1: What I Use It For */}
       <CollapsibleSection title="What I Use It For" icon="🎨" defaultOpen={true}>
         <Card className="overflow-hidden" color="border-pink-400">
           <div className="space-y-6">
             {/* Title and Description */}
-            <div className="flex items-start">
-              <span className="text-5xl mr-4">🎨</span>
-              <div className="flex-1">
-                <h2 className="text-3xl font-bold text-gray-900 mb-3">
-                  Media Generation
-                </h2>
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  Creating professional visuals and videos for presentations, marketing materials, and branding without design skills
-                </p>
+            <div className="flex items-start justify-between">
+              <div className="flex items-start flex-1">
+                <span className="text-5xl mr-4">🎨</span>
+                <div className="flex-1">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-3">
+                    Media Generation
+                  </h2>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    Creating professional visuals and videos for presentations, marketing materials, and branding without design skills
+                  </p>
+                </div>
               </div>
+              {/* Video Button */}
+              <button
+                onClick={() => setIsVideoOpen(true)}
+                className="ml-4 flex-shrink-0 p-3 bg-yellow-100 hover:bg-yellow-200 rounded-full transition-colors group"
+                aria-label="Watch example video"
+                title="Watch AI video example"
+              >
+                <svg className="w-8 h-8 text-yellow-600 group-hover:text-yellow-700" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
+                </svg>
+              </button>
             </div>
 
             {/* Examples */}
@@ -312,6 +337,35 @@ export default function MediaTab() {
               </div>
             </div>
           </div>
+        </div>
+      </CollapsibleSection>
+
+      {/* Section 4: Practice! Over to you... */}
+      <CollapsibleSection title="Practice! Over to you..." icon="🎯" defaultOpen={false}>
+        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-6 border-l-4 border-yellow-500">
+          <h3 className="text-xl font-bold text-gray-900 mb-4">Try It Yourself!</h3>
+          <ul className="space-y-3">
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Think through either a video, or an image that you need.</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Create and copy a prompt to the clipboard.</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>For an image, either use ChatGPT (with 5 chosen as the model), or use Nano Banana in either Gemini or Google AI Studio)</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>For a video, use Gemini and select the video option or use sora.com</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Try both options - which is better? Can you get a better image/video with a second prompt?</span>
+            </li>
+          </ul>
         </div>
       </CollapsibleSection>
     </div>

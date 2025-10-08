@@ -433,6 +433,40 @@ export default function CodingTab() {
           </div>
         </div>
       </CollapsibleSection>
+
+      {/* Section 4: Practice! Over to you... */}
+      <CollapsibleSection title="Practice! Over to you..." icon="🎯" defaultOpen={false}>
+        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-6 border-l-4 border-yellow-500">
+          <h3 className="text-xl font-bold text-gray-900 mb-4">Try It Yourself!</h3>
+          <ul className="space-y-3">
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Open Claude</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Think of a cool interactive web page that you'd like to see</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Create a detailed prompt and provide it to Claude, make sure you ask it to create an artefact as an HTML file</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Let it code, then preview it</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Give it a second prompt, asking it to edit the artefact and make any changes that you think would make it better</span>
+            </li>
+          </ul>
+          <div className="mt-4 bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500">
+            <p className="text-sm text-gray-700">
+              <strong>Note:</strong> In a separate session, we can get into how you actually create real digital MVPs using an IDE like VS Code or Cursor, with Claude Code or Codex, Github and a hosting site like Netlify to create a real app.
+            </p>
+          </div>
+        </div>
+      </CollapsibleSection>
     </div>
   )
 }

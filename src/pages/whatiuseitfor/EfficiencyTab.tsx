@@ -382,6 +382,27 @@ export default function EfficiencyTab() {
           </div>
         </div>
       </CollapsibleSection>
+
+      {/* Section 4: Practice! Over to you... */}
+      <CollapsibleSection title="Practice! Over to you..." icon="🎯" defaultOpen={false}>
+        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-6 border-l-4 border-yellow-500">
+          <h3 className="text-xl font-bold text-gray-900 mb-4">Try It Yourself!</h3>
+          <ul className="space-y-3">
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Think of something that takes you a lot of time, e.g. analysis, administration etc.</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Give ChatGPT a prompt that outlines what you're struggling with, what you'd like as an outcome, and ask for five ideas (and links) to how you could use AI to solve your problem.</span>
+            </li>
+            <li className="flex items-start text-gray-700">
+              <span className="text-yellow-600 mr-3 text-xl font-bold">•</span>
+              <span>Choose one, and ask Claude to implement it for you as a web page</span>
+            </li>
+          </ul>
+        </div>
+      </CollapsibleSection>
     </div>
   )
 }
