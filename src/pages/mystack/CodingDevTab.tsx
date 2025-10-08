@@ -104,28 +104,50 @@ export default function CodingDevTab() {
         <div className="space-y-3 text-gray-700">
           <div className="flex items-start">
             <span className="font-bold text-blue-600 mr-3">1.</span>
-            <p><strong>Claude:</strong> Created the project requirements document (PRD) and planned the site structure</p>
+            <p>
+              <strong>
+                <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  ChatGPT
+                </a>:
+              </strong> Created the project requirements document (PRD) and planned the site structure (just by recording a rambling chat about what I wanted)
+            </p>
           </div>
           <div className="flex items-start">
             <span className="font-bold text-blue-600 mr-3">2.</span>
-            <p><strong>Claude Code:</strong> Built the entire React application with TypeScript and Tailwind CSS</p>
+            <p>
+              <strong>
+                <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  VS Code
+                </a> + <a href="https://claude.com/claude-code" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  Claude Code
+                </a>:
+              </strong> Built the entire React application with TypeScript and Tailwind CSS, made refinements and added custom features
+            </p>
           </div>
           <div className="flex items-start">
             <span className="font-bold text-blue-600 mr-3">3.</span>
-            <p><strong>VS Code + Copilot:</strong> Made refinements and added custom features</p>
+            <p>
+              <strong>
+                <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  GitHub
+                </a>:
+              </strong> Version control and code hosting
+            </p>
           </div>
           <div className="flex items-start">
             <span className="font-bold text-blue-600 mr-3">4.</span>
-            <p><strong>GitHub:</strong> Version control and code hosting</p>
-          </div>
-          <div className="flex items-start">
-            <span className="font-bold text-blue-600 mr-3">5.</span>
-            <p><strong>Netlify:</strong> Automatic deployment - live site in minutes!</p>
+            <p>
+              <strong>
+                <a href="https://www.netlify.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  Netlify
+                </a>:
+              </strong> Automatic deployment - live site in minutes!
+            </p>
           </div>
         </div>
         <div className="mt-4 bg-blue-100 rounded p-4">
           <p className="text-sm text-gray-800 font-semibold">
-            Total Time: ~15 minutes from concept to live deployment
+            Total Time: ~60 minutes from concept to live deployment
           </p>
         </div>
       </div>
