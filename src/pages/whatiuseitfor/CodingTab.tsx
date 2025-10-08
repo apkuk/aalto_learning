@@ -470,7 +470,7 @@ export default function CodingTab() {
                   window.location.hash = ''
                   window.location.href = '/resources'
                   setTimeout(() => {
-                    const buildAppTab = document.querySelector('[data-tab-id="build-app"]')
+                    const buildAppTab = document.querySelector('[data-tab-id="build-app"]') as HTMLButtonElement
                     if (buildAppTab) buildAppTab.click()
                   }, 100)
                 }}

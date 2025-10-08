@@ -1,3 +1,5 @@
+import CollapsibleSection from '../../components/CollapsibleSection'
+
 export default function AITermsTab() {
   const termCategories = [
     {
@@ -134,19 +136,97 @@ export default function AITermsTab() {
           usage: 'Use vibe coding when you want to build software without deep programming knowledge. Perfect for rapid prototyping, creating MVPs, automating tasks, or learning to code. Instead of memorizing syntax, you describe your intent and the AI handles implementation details.'
         }
       ]
+    },
+    {
+      category: 'Multi-modal AI',
+      terms: [
+        {
+          term: 'Voice AI',
+          fullName: 'Voice AI Technologies',
+          definition: 'AI capabilities for processing and generating spoken language, including speech recognition, transcription, translation, text-to-speech, and real-time voice agents that can have conversations.',
+          examples: [
+            { name: 'OpenAI Whisper', url: 'https://openai.com/research/whisper' },
+            { name: 'Google Speech-to-Text', url: 'https://cloud.google.com/speech-to-text' },
+            { name: 'ElevenLabs', url: 'https://elevenlabs.io' },
+            { name: 'ChatGPT Voice', url: 'https://chat.openai.com' }
+          ],
+          usage: 'Use voice AI for transcription of meetings/interviews, real-time translation, creating audiobooks or podcasts from text, building voice assistants, accessibility features, and hands-free interaction. Voice agents can handle customer service calls, conduct research interviews, or provide interactive tutoring.'
+        },
+        {
+          term: 'Image Generation',
+          fullName: 'AI Image & Media Generation',
+          definition: 'AI models that create images, videos, and visual content from text descriptions or transform existing media. Includes text-to-image, image-to-image, and increasingly video generation capabilities.',
+          examples: [
+            { name: 'DALL·E 3', url: 'https://openai.com/dall-e-3' },
+            { name: 'Midjourney', url: 'https://www.midjourney.com' },
+            { name: 'Stable Diffusion', url: 'https://stability.ai' },
+            { name: 'Runway ML', url: 'https://runwayml.com' }
+          ],
+          usage: 'Use image generation for rapid prototyping of visual concepts, creating marketing materials, generating illustrations for presentations, designing UI mockups, or producing unique artwork. Video generation is emerging for creating animations, explainer videos, and short-form content. Useful when you need custom visuals without hiring designers or photographers.'
+        },
+        {
+          term: 'Canvas',
+          fullName: 'AI Collaborative Canvas',
+          definition: 'An interactive workspace where AI can help create, edit, and refine documents, code, or visual content collaboratively. Provides a side-by-side view for iterative work with AI.',
+          examples: [
+            { name: 'Claude Canvas', url: 'https://claude.ai' },
+            { name: 'ChatGPT Canvas', url: 'https://chat.openai.com' },
+            { name: 'Notion AI', url: 'https://www.notion.so/product/ai' },
+            { name: 'Miro AI', url: 'https://miro.com/ai/' }
+          ],
+          usage: 'Use canvas for collaborative writing and editing, code development with real-time feedback, creating structured documents, brainstorming and planning, or any work that benefits from iterative refinement with AI. Canvas allows you to see changes in context rather than replacing entire blocks of text.'
+        },
+        {
+          term: 'Web Search',
+          fullName: 'AI-Powered Web Search',
+          definition: 'AI capability to search the internet in real-time, retrieve current information, and synthesize findings from multiple sources. Goes beyond static training data to access up-to-date information.',
+          examples: [
+            { name: 'Perplexity AI', url: 'https://www.perplexity.ai' },
+            { name: 'ChatGPT with Search', url: 'https://chat.openai.com' },
+            { name: 'Google Gemini', url: 'https://gemini.google.com' },
+            { name: 'Microsoft Copilot', url: 'https://copilot.microsoft.com' }
+          ],
+          usage: 'Use web search-enabled AI for current events, real-time data (stock prices, weather, sports scores), fact-checking recent information, finding latest research or documentation, comparing current product reviews, or any task requiring information published after the AI\'s training cutoff date.'
+        },
+        {
+          term: 'Code Interpreter',
+          fullName: 'Code Interpreter & Computer Use',
+          definition: 'AI capability to write and execute code, analyze data files, create visualizations, and increasingly interact with computer interfaces directly to perform tasks. Enables AI to go beyond text generation to actually "do" things.',
+          examples: [
+            { name: 'ChatGPT Code Interpreter', url: 'https://chat.openai.com' },
+            { name: 'Claude Computer Use', url: 'https://www.anthropic.com/news/3-5-models-and-computer-use' },
+            { name: 'Google Colab', url: 'https://colab.research.google.com' },
+            { name: 'Jupyter Notebooks', url: 'https://jupyter.org' }
+          ],
+          usage: 'Use code interpreter for data analysis and visualization, processing uploaded files (CSV, Excel, PDFs), mathematical calculations, creating charts and graphs, file format conversions, and running simulations. Computer use extends this to web browsing, form filling, clicking buttons, and interacting with software interfaces autonomously.'
+        },
+        {
+          term: 'File & Semantic Search',
+          fullName: 'File Upload & Semantic Search',
+          definition: 'AI capability to ingest documents, images, and files, then search through them based on meaning and context rather than just keywords. Creates a knowledge base from your uploaded content.',
+          examples: [
+            { name: 'ChatGPT File Upload', url: 'https://chat.openai.com' },
+            { name: 'Claude Projects', url: 'https://claude.ai' },
+            { name: 'Google NotebookLM', url: 'https://notebooklm.google.com' },
+            { name: 'Perplexity Collections', url: 'https://www.perplexity.ai' }
+          ],
+          usage: 'Use file upload and semantic search to analyze contracts or legal documents, research across multiple papers or reports, extract insights from financial statements, compare policy documents, create summaries of large document sets, or build a personal knowledge base. AI can answer questions by finding relevant passages across all uploaded files.'
+        }
+      ]
     }
   ]
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-6">
       {termCategories.map((category, categoryIdx) => (
-        <div key={categoryIdx}>
-          <h2 className="text-3xl font-bold text-gray-900 mb-6 pb-2 border-b-4 border-primary">
-            {category.category}
-          </h2>
+        <CollapsibleSection
+          key={categoryIdx}
+          title={category.category}
+          defaultOpen={categoryIdx === 0}
+        >
           <div className="grid md:grid-cols-2 gap-6">
             {category.terms.map((item, idx) => (
-              <div key={idx} className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+              <div key={idx} className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow border border-gray-100">
                 <div className="mb-4">
                   <h3 className="text-2xl font-bold text-primary mb-2">
                     {item.term}
@@ -183,7 +263,7 @@ export default function AITermsTab() {
               </div>
             ))}
           </div>
-        </div>
+        </CollapsibleSection>
       ))}
     </div>
   )

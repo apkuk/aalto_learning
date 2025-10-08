@@ -29,12 +29,12 @@ export default function Introduction() {
           tabs={[
             {
               id: 'who-am-i',
-              label: 'Introduction to Andrew / Who Am I',
+              label: 'Who Am I?',
               content: <SessionOverview />
             },
             {
               id: 'session-overview',
-              label: 'Introduction to the Session',
+              label: 'Agenda',
               content: <WorkshopAgendaTab />
             }
           ]}
