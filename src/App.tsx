@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
+import About from './pages/About'
 import WorkshopAgenda from './pages/WorkshopAgenda'
 import Definitions from './pages/Definitions'
 import BuildCustomGPT from './pages/BuildCustomGPT'
@@ -13,6 +14,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/workshop" element={<WorkshopAgenda />} />
           <Route path="/definitions" element={<Definitions />} />
           <Route path="/custom-gpt" element={<BuildCustomGPT />} />

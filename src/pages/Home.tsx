@@ -17,12 +17,10 @@ export default function Home() {
           </p>
           <div className="flex justify-center space-x-4">
             <a
-              href="https://github.com/apkuk"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/about"
               className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors font-medium"
             >
-              GitHub
+              About Andrew
             </a>
             <a
               href="/workshop"
