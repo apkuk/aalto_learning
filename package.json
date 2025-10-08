@@ -1,0 +1,13 @@
+{
+  "name": "ai-mvp-learning-platform",
+  "version": "1.0.0",
+  "description": "Interactive learning platform for building AI MVPs",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'No build step required'"
+  },
+  "keywords": ["ai", "mvp", "learning", "tutorial", "netlify"],
+  "author": "",
+  "license": "MIT"
+}

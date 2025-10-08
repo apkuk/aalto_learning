@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI MVP Builder - Learn to Build AI Products</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 AI MVP Builder</h1>
+            <p class="tagline">Learn to build AI products in 5 simple steps</p>
+        </header>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <main id="content">
+            <!-- Welcome Screen -->
+            <section class="step active" id="welcome">
+                <h2>Welcome to AI MVP Building!</h2>
+                <p>This interactive guide will teach you how to build your first AI MVP (Minimum Viable Product) from scratch.</p>
+
+                <div class="info-box">
+                    <h3>What You'll Learn:</h3>
+                    <ul>
+                        <li>Understanding AI MVP concepts</li>
+                        <li>Choosing the right AI tools and APIs</li>
+                        <li>Building a simple prototype</li>
+                        <li>Testing and iterating your product</li>
+                        <li>Deploying to production</li>
+                    </ul>
+                </div>
+
+                <div class="cta">
+                    <button class="btn-primary" onclick="nextStep()">Start Learning →</button>
+                </div>
+            </section>
+
+            <!-- Step 1: Understanding AI MVPs -->
+            <section class="step" id="step1">
+                <div class="step-header">
+                    <span class="step-number">Step 1 of 5</span>
+                    <h2>Understanding AI MVPs</h2>
+                </div>
+
+                <div class="content-card">
+                    <h3>What is an AI MVP?</h3>
+                    <p>An AI MVP is the simplest version of an AI-powered product that solves a real problem. It focuses on core functionality without unnecessary features.</p>
+
+                    <div class="example-box">
+                        <h4>Example AI MVP Ideas:</h4>
+                        <div class="ideas-grid">
+                            <div class="idea-card">
+                                <span class="icon">📧</span>
+                                <h5>Email Assistant</h5>
+                                <p>Summarizes long emails and drafts replies</p>
+                            </div>
+                            <div class="idea-card">
+                                <span class="icon">📝</span>
+                                <h5>Content Generator</h5>
+                                <p>Creates social media posts from blog articles</p>
+                            </div>
+                            <div class="idea-card">
+                                <span class="icon">🎨</span>
+                                <h5>Image Analyzer</h5>
+                                <p>Extracts text and data from screenshots</p>
+                            </div>
+                            <div class="idea-card">
+                                <span class="icon">💬</span>
+                                <h5>Customer Support Bot</h5>
+                                <p>Answers FAQs using company documentation</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-box">
+                        <h4>Quick Check:</h4>
+                        <p>What makes a good AI MVP?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" value="wrong1">
+                                <span>Has every possible feature</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" value="correct">
+                                <span>Solves one problem really well</span>
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" value="wrong2">
+                                <span>Uses the most advanced AI models</span>
+                            </label>
+                        </div>
+                        <button class="btn-secondary" onclick="checkAnswer('q1', 'correct', 1)">Check Answer</button>
+                        <div class="feedback" id="feedback1"></div>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button class="btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn-primary" onclick="nextStep()">Next Step →</button>
+                </div>
+            </section>
+
+            <!-- Step 2: Choosing AI Tools -->
+            <section class="step" id="step2">
+                <div class="step-header">
+                    <span class="step-number">Step 2 of 5</span>
+                    <h2>Choosing the Right AI Tools</h2>
+                </div>
+
+                <div class="content-card">
+                    <h3>Popular AI APIs & Tools</h3>
+                    <p>You don't need to build AI from scratch. These APIs make it easy:</p>
+
+                    <div class="tools-grid">
+                        <div class="tool-card">
+                            <h4>OpenAI API</h4>
+                            <p><strong>Best for:</strong> Text generation, chat, code</p>
+                            <p><strong>Pricing:</strong> Pay-per-use (~$0.002/1K tokens)</p>
+                            <p><strong>Difficulty:</strong> ⭐⭐ Easy</p>
+                            <a href="https://platform.openai.com" target="_blank" class="link">Visit OpenAI →</a>
+                        </div>
+
+                        <div class="tool-card">
+                            <h4>Anthropic Claude</h4>
+                            <p><strong>Best for:</strong> Long documents, analysis</p>
+                            <p><strong>Pricing:</strong> Pay-per-use (~$0.003/1K tokens)</p>
+                            <p><strong>Difficulty:</strong> ⭐⭐ Easy</p>
+                            <a href="https://www.anthropic.com" target="_blank" class="link">Visit Anthropic →</a>
+                        </div>
+
+                        <div class="tool-card">
+                            <h4>Replicate</h4>
+                            <p><strong>Best for:</strong> Image generation, models</p>
+                            <p><strong>Pricing:</strong> Pay-per-use (varies by model)</p>
+                            <p><strong>Difficulty:</strong> ⭐⭐ Easy</p>
+                            <a href="https://replicate.com" target="_blank" class="link">Visit Replicate →</a>
+                        </div>
+
+                        <div class="tool-card">
+                            <h4>Hugging Face</h4>
+                            <p><strong>Best for:</strong> Free models, experimentation</p>
+                            <p><strong>Pricing:</strong> Free tier available</p>
+                            <p><strong>Difficulty:</strong> ⭐⭐⭐ Medium</p>
+                            <a href="https://huggingface.co" target="_blank" class="link">Visit Hugging Face →</a>
+                        </div>
+                    </div>
+
+                    <div class="tip-box">
+                        <h4>💡 Pro Tip:</h4>
+                        <p>Start with OpenAI's API - it's well-documented, has generous free credits, and works for most use cases.</p>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button class="btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn-primary" onclick="nextStep()">Next Step →</button>
+                </div>
+            </section>
+
+            <!-- Step 3: Building Your Prototype -->
+            <section class="step" id="step3">
+                <div class="step-header">
+                    <span class="step-number">Step 3 of 5</span>
+                    <h2>Building Your Prototype</h2>
+                </div>
+
+                <div class="content-card">
+                    <h3>Simple AI MVP Architecture</h3>
+
+                    <div class="architecture-diagram">
+                        <div class="arch-box">Frontend<br/>(HTML/CSS/JS)</div>
+                        <div class="arrow">→</div>
+                        <div class="arch-box">Backend/Serverless<br/>(API Routes)</div>
+                        <div class="arrow">→</div>
+                        <div class="arch-box">AI API<br/>(OpenAI, etc.)</div>
+                    </div>
+
+                    <h3>Code Example: Simple AI Chat</h3>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <button class="copy-btn" onclick="copyCode('code1')">Copy</button>
+                        </div>
+                        <pre id="code1"><code>// Frontend: Send message to AI
+async function sendMessage(userMessage) {
+  const response = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: userMessage })
+  });
+
+  const data = await response.json();
+  return data.reply;
+}
+
+// Backend: Process with OpenAI
+export default async function handler(req, res) {
+  const { message } = req.body;
+
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: 'gpt-4',
+      messages: [{ role: 'user', content: message }]
+    })
+  });
+
+  const data = await response.json();
+  res.json({ reply: data.choices[0].message.content });
+}</code></pre>
+                    </div>
+
+                    <div class="checklist-box">
+                        <h4>Development Checklist:</h4>
+                        <label class="checklist-item">
+                            <input type="checkbox" id="check1">
+                            <span>Set up basic HTML/CSS interface</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" id="check2">
+                            <span>Get API keys from your chosen provider</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" id="check3">
+                            <span>Create serverless function or backend endpoint</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" id="check4">
+                            <span>Connect frontend to backend</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" id="check5">
+                            <span>Test with real inputs</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button class="btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn-primary" onclick="nextStep()">Next Step →</button>
+                </div>
+            </section>
+
+            <!-- Step 4: Testing & Iteration -->
+            <section class="step" id="step4">
+                <div class="step-header">
+                    <span class="step-number">Step 4 of 5</span>
+                    <h2>Testing & Iterating</h2>
+                </div>
+
+                <div class="content-card">
+                    <h3>Test Your MVP Early</h3>
+                    <p>Don't wait for perfection. Get real feedback fast!</p>
+
+                    <div class="testing-grid">
+                        <div class="testing-card">
+                            <h4>1. Internal Testing</h4>
+                            <p>Test yourself with edge cases:</p>
+                            <ul>
+                                <li>Empty inputs</li>
+                                <li>Very long inputs</li>
+                                <li>Special characters</li>
+                                <li>Common user mistakes</li>
+                            </ul>
+                        </div>
+
+                        <div class="testing-card">
+                            <h4>2. Friends & Family</h4>
+                            <p>Share with 5-10 people who will give honest feedback:</p>
+                            <ul>
+                                <li>Is it easy to use?</li>
+                                <li>Does it solve the problem?</li>
+                                <li>What's confusing?</li>
+                                <li>What's missing?</li>
+                            </ul>
+                        </div>
+
+                        <div class="testing-card">
+                            <h4>3. Early Users</h4>
+                            <p>Find your first real users:</p>
+                            <ul>
+                                <li>Post on Reddit/Twitter</li>
+                                <li>Join relevant communities</li>
+                                <li>Use Product Hunt</li>
+                                <li>Direct outreach</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="metrics-box">
+                        <h4>Key Metrics to Track:</h4>
+                        <div class="metrics-grid">
+                            <div class="metric">
+                                <span class="metric-icon">👥</span>
+                                <strong>Active Users</strong>
+                                <p>How many people use it?</p>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-icon">🔄</span>
+                                <strong>Retention</strong>
+                                <p>Do they come back?</p>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-icon">⚡</span>
+                                <strong>Task Completion</strong>
+                                <p>Can they finish what they started?</p>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-icon">💰</span>
+                                <strong>API Costs</strong>
+                                <p>Is it sustainable?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4>⚠️ Common Pitfalls:</h4>
+                        <ul>
+                            <li>Building too many features before launch</li>
+                            <li>Not handling AI errors gracefully</li>
+                            <li>Ignoring API costs and rate limits</li>
+                            <li>Making UI too complex</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button class="btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn-primary" onclick="nextStep()">Next Step →</button>
+                </div>
+            </section>
+
+            <!-- Step 5: Deployment -->
+            <section class="step" id="step5">
+                <div class="step-header">
+                    <span class="step-number">Step 5 of 5</span>
+                    <h2>Deploying to Production</h2>
+                </div>
+
+                <div class="content-card">
+                    <h3>Launch Your AI MVP</h3>
+                    <p>Time to ship! Here are the best platforms for deploying AI apps:</p>
+
+                    <div class="deployment-grid">
+                        <div class="deploy-card featured">
+                            <h4>⚡ Netlify</h4>
+                            <p><strong>Best for:</strong> Static sites + serverless functions</p>
+                            <div class="deploy-features">
+                                <span class="badge">Free Tier</span>
+                                <span class="badge">Easy Setup</span>
+                                <span class="badge">Git Integration</span>
+                            </div>
+                            <div class="deploy-steps">
+                                <code>1. Push to GitHub</code>
+                                <code>2. Connect to Netlify</code>
+                                <code>3. Add API keys to environment</code>
+                                <code>4. Deploy! 🚀</code>
+                            </div>
+                        </div>
+
+                        <div class="deploy-card">
+                            <h4>▲ Vercel</h4>
+                            <p><strong>Best for:</strong> Next.js apps, Edge functions</p>
+                            <div class="deploy-features">
+                                <span class="badge">Free Tier</span>
+                                <span class="badge">Fast Deploy</span>
+                            </div>
+                        </div>
+
+                        <div class="deploy-card">
+                            <h4>🚂 Railway</h4>
+                            <p><strong>Best for:</strong> Full-stack apps with databases</p>
+                            <div class="deploy-features">
+                                <span class="badge">Free Trial</span>
+                                <span class="badge">Database Included</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="security-box">
+                        <h4>🔒 Security Checklist:</h4>
+                        <label class="checklist-item">
+                            <input type="checkbox">
+                            <span>Store API keys as environment variables</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox">
+                            <span>Add rate limiting to prevent abuse</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox">
+                            <span>Implement user authentication if needed</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox">
+                            <span>Set up monitoring for errors and costs</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox">
+                            <span>Add content moderation for user inputs</span>
+                        </label>
+                    </div>
+
+                    <div class="success-box">
+                        <h3>🎉 Congratulations!</h3>
+                        <p>You now know how to build and deploy AI MVPs. Here's what to do next:</p>
+                        <ul>
+                            <li>Pick a simple idea and start building TODAY</li>
+                            <li>Join AI builder communities (Twitter, Reddit, Discord)</li>
+                            <li>Share your progress and get feedback</li>
+                            <li>Iterate based on user needs</li>
+                        </ul>
+                        <button class="btn-primary large" onclick="resetTutorial()">Start Over</button>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button class="btn-secondary" onclick="previousStep()">← Back</button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Built to help aspiring AI builders get started | <a href="https://github.com" target="_blank">View on GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
