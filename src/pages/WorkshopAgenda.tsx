@@ -28,12 +28,12 @@ export default function WorkshopAgenda() {
     },
     {
       title: 'My AI Stack',
-      duration: '20 minutes',
+      duration: '15 minutes',
       description: 'Overview of tools used and how they integrate',
       color: 'bg-purple-100 border-purple-400',
       breakdown: [
-        'First 10 minutes: Andrew presents the AI stack',
-        'Next 10 minutes: YOU play with the tools yourself!'
+        'First 7 minutes: Andrew presents the AI stack',
+        'Next 8 minutes: YOU play with the tools yourself!'
       ]
     },
     {
@@ -45,12 +45,12 @@ export default function WorkshopAgenda() {
     },
     {
       title: 'The 4Ps of AI Agent Management',
-      duration: '15 minutes',
+      duration: '10 minutes',
       description: 'Framework for managing AI agents effectively',
       color: 'bg-teal-100 border-teal-400',
       breakdown: [
-        'First 7 minutes: Andrew presents the 4Ps framework',
-        'Next 8 minutes: Participants explore their own settings'
+        'First 5 minutes: Andrew presents the 4Ps framework',
+        'Next 5 minutes: Participants explore their own settings'
       ],
       subtopics: [
         'Personas: Defining voice, character, and behavioral rules',
@@ -61,7 +61,7 @@ export default function WorkshopAgenda() {
     },
     {
       title: 'Deep Dives',
-      duration: '60 minutes',
+      duration: '50 minutes',
       description: 'In-depth exploration of key AI applications - HALF presentation, HALF hands-on practice for each topic',
       color: 'bg-red-100 border-red-400',
       subtopics: [
@@ -74,7 +74,7 @@ export default function WorkshopAgenda() {
     },
     {
       title: 'Wrap & Q&A',
-      duration: '10 minutes',
+      duration: '5 minutes',
       description: 'Key takeaways and questions from participants',
       color: 'bg-indigo-100 border-indigo-400'
     },
@@ -86,7 +86,7 @@ export default function WorkshopAgenda() {
     },
     {
       title: 'What are you going to do now?',
-      duration: 'Sprint Activity',
+      duration: '10 minutes',
       description: 'Your hands-on MVP building journey starts here!',
       color: 'bg-orange-100 border-orange-400',
       subtopics: [
@@ -125,7 +125,7 @@ export default function WorkshopAgenda() {
           <div className="flex flex-wrap gap-4 text-sm text-gray-700">
             <div className="flex items-center">
               <span className="font-semibold mr-2">Duration:</span>
-              2 hours 15 minutes (135 minutes)
+              2 hours (120 minutes)
             </div>
             <div className="flex items-center">
               <span className="font-semibold mr-2">Format:</span>
