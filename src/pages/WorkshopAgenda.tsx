@@ -16,8 +16,10 @@ export default function WorkshopAgenda() {
       color: 'bg-green-100 border-green-400',
       emphasis: [
         'HANDS-ON workshop - you will PRACTICE, not just watch',
-        'Get your hands dirty with real AI tools',
-        'Purpose: Have FUN while learning!'
+        'AI is best learned by DOING - embrace the experience!',
+        'You WILL make mistakes. The AI will make mistakes. That\'s how you learn!',
+        'Mistakes are your teachers - they\'re opportunities for insight',
+        'Purpose: Have FUN while learning through direct experience'
       ]
     },
     {
