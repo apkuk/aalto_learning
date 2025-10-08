@@ -3,8 +3,14 @@ import { Link, useLocation } from 'react-router-dom'
 
 const navItems = [
   { path: '/', label: 'Home' },
+  { path: '/intro-session', label: 'Introduction' },
   { path: '/about', label: 'About Me' },
-  { path: '/workshop', label: 'Workshop Agenda' },
+  { path: '/my-ai-stack', label: 'My AI Stack' },
+  { path: '/what-i-use-ai-for', label: 'What I Use AI For' },
+  { path: '/5ps', label: '4Ps' },
+  { path: '/deep-dives', label: 'Deep Dives' },
+  { path: '/next-steps', label: 'Next Steps' },
+  { path: '/resources', label: 'Resources' },
   { path: '/timer', label: 'Timer' },
 ]
 

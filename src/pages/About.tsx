@@ -314,7 +314,7 @@ export default function About() {
           <div className="mb-6 pt-6 border-t border-white/20">
             <p className="font-semibold mb-3">Professional Networks</p>
             <a
-              href="https://www.linkedin.com/in/andrewkilshaw/"
+              href="https://www.linkedin.com/in/apkilshaw/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors mb-3"
