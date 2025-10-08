@@ -5,6 +5,7 @@ import LearningResourcesTab from './resources/LearningResourcesTab'
 import CommunitiesTab from './resources/CommunitiesTab'
 import AITermsTab from './resources/AITermsTab'
 import BuildAppTab from './resources/BuildAppTab'
+import CustomGPTTab from './resources/CustomGPTTab'
 
 export default function Resources() {
   const [activeTab, setActiveTab] = useState('ai-resources')
@@ -28,28 +29,33 @@ export default function Resources() {
           tabs={[
             {
               id: 'ai-resources',
-              label: 'Links to AI Resources',
+              label: 'AI Resources',
               content: <AIResourcesTab />
             },
             {
               id: 'learning',
-              label: 'Learning Resources',
+              label: 'Learning',
               content: <LearningResourcesTab />
             },
             {
               id: 'communities',
-              label: 'Communities & Forums',
+              label: 'Communities',
               content: <CommunitiesTab />
             },
             {
               id: 'ai-terms',
-              label: 'AI Terms & Definitions',
+              label: 'Definitions',
               content: <AITermsTab />
             },
             {
               id: 'build-app',
-              label: 'Build an App from Scratch',
+              label: 'Build an App!',
               content: <BuildAppTab />
+            },
+            {
+              id: 'custom-gpt',
+              label: 'Build a Custom GPT',
+              content: <CustomGPTTab />
             }
           ]}
           activeTab={activeTab}
