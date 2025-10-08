@@ -1,11 +1,10 @@
 import Card from '../../components/Card'
-import Badge from '../../components/Badge'
 
 interface AITool {
   name: string
+  url: string
   description: string
   icon: string
-  useCases: string[]
   color: 'blue' | 'green' | 'purple' | 'orange' | 'red' | 'yellow' | 'gray' | 'teal' | 'indigo' | 'pink'
 }
 
@@ -13,31 +12,31 @@ export default function MediaTab() {
   const tools: AITool[] = [
     {
       name: 'Sora',
+      url: 'https://openai.com/sora/',
       description: 'OpenAI\'s advanced video generation model for creating realistic and imaginative video content',
       icon: '🎬',
-      useCases: ['Video creation', 'Marketing content', 'Concept videos'],
       color: 'purple'
     },
     {
       name: 'Veo',
+      url: 'https://deepmind.google/technologies/veo/',
       description: 'Google/Gemini\'s video generation model for high-quality video synthesis',
       icon: '📹',
-      useCases: ['Video generation', 'Visual storytelling', 'Content creation'],
       color: 'blue'
     },
     {
       name: 'Imagen',
-      description: 'Google/Gemini\'s image generation model with photorealistic results',
+      url: 'https://gemini.google.com/',
+      description: 'Imagen (available via Gemini and Google AI Studio) - Google/Gemini\'s image generation model with photorealistic results',
       icon: '🖼️',
-      useCases: ['Product visualization', 'Marketing materials', 'Concept art'],
       color: 'green'
     },
     {
-      name: 'ChatGPT Image Generation',
-      description: 'Built-in image generation within ChatGPT using DALL-E technology',
-      icon: '🎨',
-      useCases: ['Presentation graphics', 'Quick visuals', 'Integrated workflow'],
-      color: 'pink'
+      name: 'Motion',
+      url: 'https://www.usemotion.com/',
+      description: 'AI-powered project management and calendar optimization tool',
+      icon: '📅',
+      color: 'orange'
     }
   ]
 
@@ -51,11 +50,11 @@ export default function MediaTab() {
       </div>
 
       {/* Tools Grid */}
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-1 gap-6">
         {tools.map((tool) => (
           <Card
             key={tool.name}
-            className="hover:scale-105 transition-transform"
+            className="hover:scale-[1.02] transition-transform"
             color={`border-${tool.color}-400`}
           >
             <div className="space-y-4">
@@ -63,32 +62,39 @@ export default function MediaTab() {
                 <div className="flex items-center">
                   <span className="text-4xl mr-3">{tool.icon}</span>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900">{tool.name}</h3>
-                    <Badge color={tool.color} size="small">
-                      Media
-                    </Badge>
+                    <a
+                      href={tool.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xl font-bold text-primary hover:underline"
+                    >
+                      {tool.name} →
+                    </a>
                   </div>
                 </div>
               </div>
 
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 leading-relaxed">
                 {tool.description}
               </p>
-
-              <div>
-                <p className="font-semibold text-gray-900 text-sm mb-2">I use it for:</p>
-                <ul className="space-y-1">
-                  {tool.useCases.map((useCase, idx) => (
-                    <li key={idx} className="flex items-start text-sm text-gray-600">
-                      <span className="text-primary mr-2">•</span>
-                      <span>{useCase}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
           </Card>
         ))}
+      </div>
+
+      {/* Note about Imagen availability */}
+      <div className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500">
+        <p className="text-sm text-gray-700">
+          <strong>Note:</strong> Imagen is accessible through both{' '}
+          <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+            Gemini
+          </a>
+          {' '}and{' '}
+          <a href="https://aistudio.google.com/gen-media" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+            Google AI Studio
+          </a>
+          .
+        </p>
       </div>
 
       {/* Impact Statement */}

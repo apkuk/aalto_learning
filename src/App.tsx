@@ -5,8 +5,7 @@ import About from './pages/About'
 import Introduction from './pages/Introduction'
 import MyAIStack from './pages/MyAIStack'
 import WhatIUseAIFor from './pages/WhatIUseAIFor'
-import FivePs from './pages/FivePs'
-import DeepDives from './pages/DeepDives'
+import FourPs from './pages/FourPs'
 import NextSteps from './pages/NextSteps'
 import Resources from './pages/Resources'
 import TimerPage from './pages/TimerPage'
@@ -21,8 +20,7 @@ function App() {
           <Route path="/intro-session" element={<Introduction />} />
           <Route path="/my-ai-stack" element={<MyAIStack />} />
           <Route path="/what-i-use-ai-for" element={<WhatIUseAIFor />} />
-          <Route path="/5ps" element={<FivePs />} />
-          <Route path="/deep-dives" element={<DeepDives />} />
+          <Route path="/5ps" element={<FourPs />} />
           <Route path="/next-steps" element={<NextSteps />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/timer" element={<TimerPage />} />

@@ -5,7 +5,7 @@ import PrivacyTab from './4Ps/PrivacyTab'
 import ProjectsTab from './4Ps/ProjectsTab'
 import PromptsTab from './4Ps/PromptsTab'
 
-export default function FivePs() {
+export default function FourPs() {
   const [activeTab, setActiveTab] = useState('personas')
 
   return (

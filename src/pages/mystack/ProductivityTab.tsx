@@ -1,24 +1,21 @@
 import Card from '../../components/Card'
-import Badge from '../../components/Badge'
 
 interface AITool {
   name: string
+  url: string
   description: string
   icon: string
-  useCases: string[]
   color: 'blue' | 'green' | 'purple' | 'orange' | 'red' | 'yellow' | 'gray' | 'teal' | 'indigo' | 'pink'
-  url?: string
 }
 
 export default function ProductivityTab() {
   const tools: AITool[] = [
     {
       name: 'Motion',
+      url: 'https://www.usemotion.com/',
       description: 'AI-powered calendar and project management that automatically schedules your tasks and meetings',
       icon: '📅',
-      useCases: ['Automatic task scheduling', 'Calendar optimization', 'Project management'],
-      color: 'indigo',
-      url: 'https://www.usemotion.com/'
+      color: 'indigo'
     }
   ]
 
@@ -36,7 +33,7 @@ export default function ProductivityTab() {
         {tools.map((tool) => (
           <Card
             key={tool.name}
-            className="hover:scale-105 transition-transform"
+            className="hover:scale-[1.02] transition-transform"
             color={`border-${tool.color}-400`}
           >
             <div className="space-y-4">
@@ -44,39 +41,21 @@ export default function ProductivityTab() {
                 <div className="flex items-center">
                   <span className="text-4xl mr-3">{tool.icon}</span>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900">{tool.name}</h3>
-                    <Badge color={tool.color} size="small">
-                      Productivity
-                    </Badge>
+                    <a
+                      href={tool.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xl font-bold text-primary hover:underline"
+                    >
+                      {tool.name} →
+                    </a>
                   </div>
                 </div>
-                {tool.url && (
-                  <a
-                    href={tool.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-primary hover:underline"
-                  >
-                    Visit →
-                  </a>
-                )}
               </div>
 
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 leading-relaxed">
                 {tool.description}
               </p>
-
-              <div>
-                <p className="font-semibold text-gray-900 text-sm mb-2">I use it for:</p>
-                <ul className="space-y-1">
-                  {tool.useCases.map((useCase, idx) => (
-                    <li key={idx} className="flex items-start text-sm text-gray-600">
-                      <span className="text-primary mr-2">•</span>
-                      <span>{useCase}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
           </Card>
         ))}
@@ -121,13 +100,6 @@ export default function ProductivityTab() {
             </p>
           </div>
         </div>
-      </div>
-
-      {/* Additional Tools Note */}
-      <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
-        <p className="text-sm text-gray-700">
-          <strong>Note:</strong> While I primarily use Motion for productivity, the AI ecosystem also includes workflow automation tools like Make.com, n8n, and Zapier for connecting different apps and automating complex workflows. Choose the tool that best fits your specific automation needs.
-        </p>
       </div>
     </div>
   )

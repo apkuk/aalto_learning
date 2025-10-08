@@ -4,7 +4,7 @@ import SessionOverview from './Intro/SessionOverview'
 import WorkshopAgendaTab from './Intro/WorkshopAgendaTab'
 
 export default function Introduction() {
-  const [activeTab, setActiveTab] = useState('session-overview')
+  const [activeTab, setActiveTab] = useState('who-am-i')
 
   return (
     <div className="bg-gradient-to-b from-blue-50 to-white py-12">
@@ -28,13 +28,13 @@ export default function Introduction() {
         <Tabs
           tabs={[
             {
-              id: 'session-overview',
-              label: 'Session Overview',
+              id: 'who-am-i',
+              label: 'Introduction to Andrew / Who Am I',
               content: <SessionOverview />
             },
             {
-              id: 'workshop-agenda',
-              label: 'Workshop Agenda',
+              id: 'session-overview',
+              label: 'Introduction to the Session',
               content: <WorkshopAgendaTab />
             }
           ]}

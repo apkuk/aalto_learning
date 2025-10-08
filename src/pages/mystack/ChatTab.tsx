@@ -1,11 +1,10 @@
 import Card from '../../components/Card'
-import Badge from '../../components/Badge'
 
 interface AITool {
   name: string
+  url: string
   description: string
   icon: string
-  useCases: string[]
   color: 'blue' | 'green' | 'purple' | 'orange' | 'red' | 'yellow' | 'gray' | 'teal' | 'indigo' | 'pink'
 }
 
@@ -13,37 +12,37 @@ export default function ChatTab() {
   const tools: AITool[] = [
     {
       name: 'ChatGPT',
-      description: 'OpenAI\'s conversational AI for general tasks, brainstorming, and research',
+      url: 'https://chat.openai.com/',
+      description: 'ChatGPT (Pro account) - Expertise in many domain areas, Deep Research, Dictation/Voice',
       icon: '💬',
-      useCases: ['Quick questions', 'Content drafting', 'General assistance'],
       color: 'green'
     },
     {
       name: 'Claude',
-      description: 'Anthropic\'s AI assistant, excellent for nuanced conversations and analysis',
+      url: 'https://claude.ai/',
+      description: 'Claude (Max account) - Creating artefacts such as documentation/beautiful code MVPs, creating MS Office docs, creative writing',
       icon: '🤖',
-      useCases: ['Deep analysis', 'Document review', 'Complex reasoning'],
       color: 'blue'
     },
     {
       name: 'Gemini',
-      description: 'Google\'s AI with deep integration into Google Workspace',
+      url: 'https://gemini.google.com/',
+      description: 'Gemini (Pro account free with my cell phone account) - media (images/video)',
       icon: '✨',
-      useCases: ['Google integration', 'Multi-modal tasks', 'Research'],
       color: 'purple'
     },
     {
       name: 'Perplexity',
-      description: 'AI-powered search engine with source citations',
+      url: 'https://www.perplexity.ai/',
+      description: 'Perplexity (Free) - smart web search, deep research',
       icon: '🔍',
-      useCases: ['Research with sources', 'Current events', 'Fact-checking'],
       color: 'teal'
     },
     {
       name: 'Google AI Studio',
-      description: 'Experimental platform for working with Gemini models, large context windows, and prompt engineering',
+      url: 'https://aistudio.google.com/',
+      description: 'Google AI Studio (free) - large context chats, trying out upcoming Google features',
       icon: '🔬',
-      useCases: ['Large document analysis', 'Prompt experimentation', 'Model testing'],
       color: 'indigo'
     }
   ]
@@ -58,11 +57,11 @@ export default function ChatTab() {
       </div>
 
       {/* Tools Grid */}
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-1 gap-6">
         {tools.map((tool) => (
           <Card
             key={tool.name}
-            className="hover:scale-105 transition-transform"
+            className="hover:scale-[1.02] transition-transform"
             color={`border-${tool.color}-400`}
           >
             <div className="space-y-4">
@@ -70,29 +69,21 @@ export default function ChatTab() {
                 <div className="flex items-center">
                   <span className="text-4xl mr-3">{tool.icon}</span>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900">{tool.name}</h3>
-                    <Badge color={tool.color} size="small">
-                      Chat & Research
-                    </Badge>
+                    <a
+                      href={tool.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xl font-bold text-primary hover:underline"
+                    >
+                      {tool.name} →
+                    </a>
                   </div>
                 </div>
               </div>
 
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 leading-relaxed">
                 {tool.description}
               </p>
-
-              <div>
-                <p className="font-semibold text-gray-900 text-sm mb-2">I use it for:</p>
-                <ul className="space-y-1">
-                  {tool.useCases.map((useCase, idx) => (
-                    <li key={idx} className="flex items-start text-sm text-gray-600">
-                      <span className="text-primary mr-2">•</span>
-                      <span>{useCase}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
           </Card>
         ))}
