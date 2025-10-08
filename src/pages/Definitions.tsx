@@ -1,6 +1,7 @@
 interface Definition {
   term: string
   definition: string
+  usedFor?: string
   link: string
   category: 'Core Concepts' | 'Technologies' | 'Techniques' | 'Platforms'
 }
@@ -9,97 +10,113 @@ export default function Definitions() {
   const definitions: Definition[] = [
     {
       term: 'LLM (Large Language Model)',
-      definition: 'A deep learning model trained on massive text datasets to understand and generate human-like text. Examples include GPT-4, Claude, and Gemini.',
+      definition: 'A deep learning model trained on massive text datasets to understand and generate human-like text. Examples: Claude Sonnet 4.5, Gemini Pro 2.5, GPT-5',
+      usedFor: 'Writing content, answering questions, coding assistance, analyzing documents, translating languages, summarizing information, and creative tasks',
       link: 'https://openai.com/research/language-models',
       category: 'Core Concepts'
     },
     {
       term: 'API (Application Programming Interface)',
       definition: 'A set of protocols and tools that allows different software applications to communicate with each other. AI APIs enable programmatic access to AI models.',
+      usedFor: 'Building custom applications that integrate AI capabilities, automating workflows, connecting different software systems, and accessing AI models programmatically',
       link: 'https://platform.openai.com/docs/api-reference',
       category: 'Technologies'
     },
     {
       term: 'Vector Store',
       definition: 'A database optimized for storing and querying high-dimensional vectors (embeddings), enabling efficient similarity search for AI applications.',
+      usedFor: 'Semantic search, finding similar documents or images, building recommendation systems, and powering RAG (Retrieval Augmented Generation) applications',
       link: 'https://www.pinecone.io/learn/vector-database/',
       category: 'Technologies'
     },
     {
       term: 'Embeddings',
       definition: 'Numerical representations of data (text, images, etc.) as vectors in high-dimensional space, capturing semantic meaning and enabling similarity comparisons.',
+      usedFor: 'Measuring similarity between texts, semantic search, clustering related content, powering recommendation engines, and finding related documents',
       link: 'https://platform.openai.com/docs/guides/embeddings',
       category: 'Core Concepts'
     },
     {
       term: 'Prompt Engineering',
       definition: 'The practice of designing and optimizing input prompts to elicit desired responses from AI models, crucial for effective AI utilization.',
+      usedFor: 'Getting better AI responses, improving accuracy and relevance, creating reusable prompt templates, and maximizing the effectiveness of AI tools',
       link: 'https://www.promptingguide.ai/',
       category: 'Techniques'
     },
     {
       term: 'Prompt Chaining',
       definition: 'A technique where the output of one prompt becomes the input for another, enabling complex multi-step reasoning and task completion.',
+      usedFor: 'Breaking down complex tasks into steps, improving accuracy on multi-stage problems, building workflows, and handling tasks that require multiple perspectives',
       link: 'https://docs.anthropic.com/claude/docs/prompt-chaining',
       category: 'Techniques'
     },
     {
       term: 'AI Agent',
       definition: 'An autonomous system that uses AI to perceive its environment, make decisions, and take actions to achieve specific goals without constant human intervention.',
+      usedFor: 'Automating repetitive tasks, handling customer service inquiries, conducting research, managing workflows, and performing multi-step operations independently',
       link: 'https://www.anthropic.com/research/building-effective-agents',
       category: 'Core Concepts'
     },
     {
       term: 'Fine-tuning',
       definition: 'The process of further training a pre-trained model on specific data to specialize it for particular tasks or domains.',
+      usedFor: 'Adapting AI models to specific industries or use cases, improving performance on specialized tasks, creating custom brand voices, and handling domain-specific terminology',
       link: 'https://platform.openai.com/docs/guides/fine-tuning',
       category: 'Techniques'
     },
     {
       term: 'RAG (Retrieval Augmented Generation)',
       definition: 'A technique that enhances LLM responses by retrieving relevant information from external knowledge bases before generating answers.',
+      usedFor: 'Answering questions about specific documents, providing up-to-date information, reducing hallucinations, and grounding AI responses in real data',
       link: 'https://aws.amazon.com/what-is/retrieval-augmented-generation/',
       category: 'Techniques'
     },
     {
       term: 'Token',
       definition: 'The basic unit of text processing in LLMs. A token can be a word, part of a word, or punctuation. Models have token limits for input and output.',
+      usedFor: 'Understanding AI pricing (charged per token), measuring text length for AI processing, and staying within model limits for conversations',
       link: 'https://platform.openai.com/tokenizer',
       category: 'Core Concepts'
     },
     {
       term: 'Temperature',
       definition: 'A parameter controlling randomness in AI model outputs. Lower values (0-0.3) produce focused responses, higher values (0.7-1.0) increase creativity.',
+      usedFor: 'Controlling output variability - use low for factual tasks (data analysis, technical writing), high for creative tasks (brainstorming, storytelling)',
       link: 'https://platform.openai.com/docs/guides/text-generation',
       category: 'Techniques'
     },
     {
       term: 'GPT (Generative Pre-trained Transformer)',
-      definition: 'A type of neural network architecture designed for natural language processing, forming the basis of models like GPT-4 and ChatGPT.',
+      definition: 'A type of neural network architecture designed for natural language processing, forming the basis of models like GPT-5 and ChatGPT.',
+      usedFor: 'Understanding how modern AI language models work - powers ChatGPT, writing assistants, code generation tools, and conversational AI',
       link: 'https://openai.com/research/gpt-4',
       category: 'Technologies'
     },
     {
       term: 'Multimodal AI',
       definition: 'AI systems capable of processing and generating multiple types of data (text, images, audio, video) in an integrated manner.',
+      usedFor: 'Analyzing images and answering questions about them, generating images from text, transcribing audio, creating videos, and understanding mixed content',
       link: 'https://openai.com/research/gpt-4v-system-card',
       category: 'Core Concepts'
     },
     {
       term: 'Claude',
       definition: 'Anthropic\'s AI assistant focused on being helpful, harmless, and honest, with strong capabilities in analysis, coding, and creative tasks.',
+      usedFor: 'Long document analysis, thoughtful writing and editing, coding assistance, research synthesis, and tasks requiring nuanced understanding',
       link: 'https://www.anthropic.com/claude',
       category: 'Platforms'
     },
     {
       term: 'Gemini',
       definition: 'Google\'s multimodal AI model family designed for diverse tasks including text, code, image, and video understanding.',
+      usedFor: 'Real-time web search, accessing current information, multimodal tasks (text, images, video), and integration with Google services',
       link: 'https://deepmind.google/technologies/gemini/',
       category: 'Platforms'
     },
     {
       term: 'Context Window',
       definition: 'The maximum amount of text (in tokens) an AI model can process at once, including both input prompt and generated response.',
+      usedFor: 'Understanding how much text you can feed an AI in one conversation, working with long documents, and choosing the right model for your needs',
       link: 'https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them',
       category: 'Core Concepts'
     }
@@ -147,6 +164,12 @@ export default function Definitions() {
                     <p className="text-gray-700 mb-4 leading-relaxed">
                       {def.definition}
                     </p>
+                    {def.usedFor && (
+                      <div className="bg-blue-50 rounded-lg p-3 mb-4">
+                        <p className="text-sm font-semibold text-gray-900 mb-1">What is it used for?</p>
+                        <p className="text-sm text-gray-700 leading-relaxed">{def.usedFor}</p>
+                      </div>
+                    )}
                     <a
                       href={def.link}
                       target="_blank"

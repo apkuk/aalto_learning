@@ -1,33 +1,43 @@
 export default function WorkshopAgenda() {
   const agenda = [
     {
-      title: 'Introduction to Andrew',
+      title: 'Introduction to the Session',
+      duration: '5 minutes',
+      description: 'Workshop goals, format, and expectations',
+      color: 'bg-green-100 border-green-400',
+      emphasis: [
+        'HANDS-ON workshop - you will PRACTICE, not just watch',
+        'Get your hands dirty with real AI tools',
+        'Purpose: Have FUN while learning!'
+      ]
+    },
+    {
+      title: 'Introduction to Andrew / Who Am I',
       duration: '10 minutes',
       description: 'Background, AI journey, and credibility in the field',
       color: 'bg-blue-100 border-blue-400'
     },
     {
-      title: 'Introduction to the Session',
-      duration: '5 minutes',
-      description: 'Workshop goals, format, and expectations',
-      color: 'bg-green-100 border-green-400'
-    },
-    {
       title: 'My AI Stack',
-      duration: '10 minutes',
+      duration: '20 minutes',
       description: 'Overview of tools used and how they integrate',
-      color: 'bg-purple-100 border-purple-400'
+      color: 'bg-purple-100 border-purple-400',
+      breakdown: [
+        'First 10 minutes: Andrew presents the AI stack',
+        'Next 10 minutes: YOU play with the tools yourself!'
+      ]
     },
     {
       title: 'What I Use AI For',
       duration: '10 minutes',
-      description: 'Use cases: research, images, coding, efficiency, expertise',
-      color: 'bg-yellow-100 border-yellow-400'
+      description: 'Real-world use cases with hands-on practice opportunities',
+      color: 'bg-yellow-100 border-yellow-400',
+      note: 'Includes hands-on component for participants'
     },
     {
       title: 'Deep Dives',
       duration: '60 minutes',
-      description: 'In-depth exploration of key AI applications',
+      description: 'In-depth exploration of key AI applications - HALF presentation, HALF hands-on practice for each topic',
       color: 'bg-red-100 border-red-400',
       subtopics: [
         'Deep Research: Prompt engineering, browsing, and AI agents',
@@ -48,6 +58,22 @@ export default function WorkshopAgenda() {
       duration: '5 minutes',
       description: 'Links to microsite, GitHub, and further reading',
       color: 'bg-pink-100 border-pink-400'
+    },
+    {
+      title: 'What are you going to do now?',
+      duration: 'Sprint Activity',
+      description: 'Your hands-on MVP building journey starts here!',
+      color: 'bg-orange-100 border-orange-400',
+      subtopics: [
+        'Go away and brainstorm ideas for your own MVP',
+        'Learn how to create a Project Requirements Document (PRD)',
+        'Set up VS Code with GitHub Copilot OR Claude Code',
+        'Use Claude Pro OR ChatGPT Plus to develop your ideas',
+        'Take your PRD and work with coding agents to build a basic MVP',
+        'Publish your project to GitHub',
+        'Configure GitHub to auto-deploy to Netlify',
+        'See and test your live site in action!'
+      ]
     }
   ]
 
@@ -74,8 +100,13 @@ export default function WorkshopAgenda() {
             </div>
             <div className="flex items-center">
               <span className="font-semibold mr-2">Format:</span>
-              Interactive presentation with demos
+              HANDS-ON Interactive Workshop
             </div>
+          </div>
+          <div className="mt-4 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+            <p className="text-lg font-bold text-gray-900">
+              This is a HANDS-ON workshop - you'll PRACTICE, not just watch!
+            </p>
           </div>
         </div>
 
@@ -92,6 +123,40 @@ export default function WorkshopAgenda() {
                 </span>
               </div>
               <p className="text-gray-700 mb-3">{item.description}</p>
+
+              {item.emphasis && (
+                <div className="mt-4 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+                  <p className="font-bold text-gray-800 mb-2">Workshop Focus:</p>
+                  <ul className="space-y-2">
+                    {item.emphasis.map((point, idx) => (
+                      <li key={idx} className="flex items-start">
+                        <span className="text-yellow-600 mr-2 font-bold">→</span>
+                        <span className="text-gray-800 font-semibold">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {item.breakdown && (
+                <div className="mt-4 bg-purple-50 border-l-4 border-purple-400 p-4 rounded">
+                  <p className="font-bold text-gray-800 mb-2">Session Breakdown:</p>
+                  <ul className="space-y-2">
+                    {item.breakdown.map((point, idx) => (
+                      <li key={idx} className="flex items-start">
+                        <span className="text-purple-600 mr-2 font-bold">→</span>
+                        <span className="text-gray-800">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {item.note && (
+                <div className="mt-3 text-sm italic text-gray-600 bg-gray-50 p-3 rounded">
+                  Note: {item.note}
+                </div>
+              )}
 
               {item.subtopics && (
                 <div className="mt-4 pl-4 border-l-2 border-gray-300">
@@ -116,11 +181,11 @@ export default function WorkshopAgenda() {
           <ul className="space-y-3">
             <li className="flex items-start">
               <span className="mr-3 text-2xl">✓</span>
-              <span>Understanding of modern AI tools and their practical applications</span>
+              <span>HANDS-ON experience with modern AI tools and their practical applications</span>
             </li>
             <li className="flex items-start">
               <span className="mr-3 text-2xl">✓</span>
-              <span>Hands-on knowledge of building and deploying AI solutions</span>
+              <span>Real practice building and deploying AI solutions - not just watching!</span>
             </li>
             <li className="flex items-start">
               <span className="mr-3 text-2xl">✓</span>
@@ -129,6 +194,14 @@ export default function WorkshopAgenda() {
             <li className="flex items-start">
               <span className="mr-3 text-2xl">✓</span>
               <span>Practical strategies for integrating AI into your workflow</span>
+            </li>
+            <li className="flex items-start">
+              <span className="mr-3 text-2xl">✓</span>
+              <span>A clear path forward to build your own MVP with AI coding agents</span>
+            </li>
+            <li className="flex items-start">
+              <span className="mr-3 text-2xl">✓</span>
+              <span>Most importantly: Have FUN while learning!</span>
             </li>
           </ul>
         </div>

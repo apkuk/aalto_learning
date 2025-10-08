@@ -2,43 +2,45 @@ export default function Home() {
   return (
     <div className="bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <div className="mb-8">
-            <div className="w-32 h-32 bg-gradient-to-br from-primary to-secondary rounded-full mx-auto flex items-center justify-center text-white text-4xl font-bold">
-              AK
-            </div>
-          </div>
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Andrew Kilshaw
-          </h1>
-          <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
-            Latest on AI, curated for practical use — from deep research to custom GPTs, coding integrations, and workshop materials
-          </p>
-          <div className="flex justify-center space-x-4">
-            <a
-              href="/about"
-              className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors font-medium"
-            >
-              About Andrew
-            </a>
-            <a
-              href="/workshop"
-              className="bg-white text-primary border-2 border-primary px-6 py-3 rounded-lg hover:bg-primary/5 transition-colors font-medium"
-            >
-              View Workshop
-            </a>
-          </div>
-        </div>
-
-        {/* Mission Statement */}
+        {/* What is this site about */}
         <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Mission</h2>
-          <p className="text-lg text-gray-700 leading-relaxed">
-            This platform serves as a living, up-to-date resource on AI — providing curated content,
-            practical guides, and comprehensive definitions. Whether you're attending one of my workshops
-            or exploring AI independently, you'll find actionable insights and resources to advance your
-            understanding and implementation of AI technologies.
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">What is this site about?</h2>
+          <p className="text-lg text-gray-700 leading-relaxed mb-4">
+            This microsite was built in approximately 15 minutes using AI tools. It serves as a practical
+            demonstration of what's possible when you leverage modern AI-powered development workflows.
+          </p>
+          <p className="text-lg text-gray-700 leading-relaxed mb-4">
+            Throughout this resource, I'll walk you through:
+          </p>
+          <ul className="space-y-2 text-lg text-gray-700 ml-6">
+            <li className="flex items-start">
+              <span className="text-primary mr-3">•</span>
+              <span><strong>My Tech Stack:</strong> The AI tools and platforms I use daily</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-primary mr-3">•</span>
+              <span><strong>Workshop Content:</strong> What we'll cover in today's hands-on session</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-primary mr-3">•</span>
+              <span><strong>AI Definitions:</strong> Clear explanations of key AI terms and concepts</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-primary mr-3">•</span>
+              <span><strong>Building Custom GPTs:</strong> How to create specialized AI assistants</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-primary mr-3">•</span>
+              <span><strong>Deep Research:</strong> Techniques for comprehensive AI-powered research</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-primary mr-3">•</span>
+              <span><strong>Coding & Tools:</strong> How to approach development as someone who can't code traditionally</span>
+            </li>
+          </ul>
+          <p className="text-lg text-gray-700 leading-relaxed mt-4">
+            This site itself is proof that with the right AI tools and approach, anyone can create
+            professional digital solutions quickly and effectively.
           </p>
         </div>
 
@@ -94,7 +96,7 @@ export default function Home() {
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">💻 Coding Integration</h3>
               <p className="text-gray-700">
-                GitHub workflows, VS Code setup, Claude Code, and deployment pipelines
+                IDE workflows, version control, AI assistants, and deployment pipelines
               </p>
             </div>
             <div>

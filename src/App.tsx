@@ -7,6 +7,7 @@ import Definitions from './pages/Definitions'
 import BuildCustomGPT from './pages/BuildCustomGPT'
 import DeepResearch from './pages/DeepResearch'
 import CodingTools from './pages/CodingTools'
+import TimerPage from './pages/TimerPage'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/workshop" element={<WorkshopAgenda />} />
+          <Route path="/timer" element={<TimerPage />} />
           <Route path="/definitions" element={<Definitions />} />
           <Route path="/custom-gpt" element={<BuildCustomGPT />} />
           <Route path="/deep-research" element={<DeepResearch />} />

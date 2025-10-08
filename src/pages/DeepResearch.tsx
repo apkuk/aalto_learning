@@ -12,9 +12,9 @@ interface ResearchTool {
 export default function DeepResearch() {
   const tools: ResearchTool[] = [
     {
-      name: 'ChatGPT (GPT-4)',
+      name: 'ChatGPT (GPT-5)',
       provider: 'OpenAI',
-      description: 'Advanced conversational AI with strong reasoning, coding, and creative capabilities. GPT-4 excels at complex analysis and multi-step problem solving.',
+      description: 'Advanced conversational AI with strong reasoning, coding, and creative capabilities. GPT-5 excels at complex analysis and multi-step problem solving.',
       strengths: [
         'Excellent reasoning and analysis',
         'Strong code generation and debugging',
@@ -127,6 +127,148 @@ export default function DeepResearch() {
             <p className="text-sm text-gray-700">
               <strong>Pro Tip:</strong> Use multiple tools for comprehensive research. Each has unique strengths —
               combine them for best results. Cross-reference important facts across platforms.
+            </p>
+          </div>
+        </div>
+
+        {/* How I Use Deep Research */}
+        <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl shadow-md p-8 mb-8 border-2 border-purple-200">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">How I Use Deep Research</h2>
+          <p className="text-gray-700 mb-6 leading-relaxed">
+            When stakes are high - like strategy decisions, market trends analysis, or important research where
+            I need to avoid hallucinations and get comprehensive, accurate information - I use this workflow:
+          </p>
+
+          <div className="space-y-6">
+            {/* Step 1 */}
+            <div className="bg-white rounded-lg p-6 shadow-sm">
+              <div className="flex items-start">
+                <div className="bg-purple-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold mr-4 flex-shrink-0 text-lg">
+                  1
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">Create a One-Page Prompt</h3>
+                  <p className="text-gray-700">
+                    Use ChatGPT to create a detailed, one-page prompt that outlines exactly what you want the Deep
+                    Research to accomplish. Be specific about the scope, depth, and format of the research you need.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="bg-white rounded-lg p-6 shadow-sm">
+              <div className="flex items-start">
+                <div className="bg-purple-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold mr-4 flex-shrink-0 text-lg">
+                  2
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">Feed Prompt to Five Different LLMs</h3>
+                  <p className="text-gray-700 mb-3">
+                    Take that same prompt and run it through all five major research tools:
+                  </p>
+                  <ul className="space-y-2">
+                    <li className="flex items-center text-gray-700">
+                      <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium mr-3">ChatGPT</span>
+                      <span className="text-sm">Click "Deep Research" mode with GPT-5</span>
+                    </li>
+                    <li className="flex items-center text-gray-700">
+                      <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-medium mr-3">Claude</span>
+                      <span className="text-sm">Select "Research mode" in Anthropic</span>
+                    </li>
+                    <li className="flex items-center text-gray-700">
+                      <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium mr-3">Gemini</span>
+                      <span className="text-sm">Use "Research mode"</span>
+                    </li>
+                    <li className="flex items-center text-gray-700">
+                      <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium mr-3">Grok</span>
+                      <span className="text-sm">Research mode for real-time insights</span>
+                    </li>
+                    <li className="flex items-center text-gray-700">
+                      <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium mr-3">Perplexity</span>
+                      <span className="text-sm">Built for research with citations</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="bg-white rounded-lg p-6 shadow-sm">
+              <div className="flex items-start">
+                <div className="bg-purple-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold mr-4 flex-shrink-0 text-lg">
+                  3
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">Get Output from All Five</h3>
+                  <p className="text-gray-700">
+                    Wait for each LLM to complete its research. Each will bring different strengths - GPT-5's reasoning,
+                    Claude's analysis, Gemini's real-time data, Grok's social insights, and Perplexity's citations.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 4 */}
+            <div className="bg-white rounded-lg p-6 shadow-sm">
+              <div className="flex items-start">
+                <div className="bg-purple-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold mr-4 flex-shrink-0 text-lg">
+                  4
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">Combine Into One Document</h3>
+                  <p className="text-gray-700">
+                    Copy-paste all five outputs into a single document. Now you have comprehensive research from multiple
+                    perspectives, reducing bias and hallucinations.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 5 */}
+            <div className="bg-white rounded-lg p-6 shadow-sm">
+              <div className="flex items-start">
+                <div className="bg-purple-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold mr-4 flex-shrink-0 text-lg">
+                  5
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">Synthesize with Large Context Window</h3>
+                  <p className="text-gray-700 mb-3">
+                    Feed the combined document into a tool with a large context window, like:
+                  </p>
+                  <div className="bg-blue-50 rounded-lg p-4">
+                    <p className="font-semibold text-gray-900 mb-2">Google AI Studio with Gemini 2.5 Pro</p>
+                    <p className="text-sm text-gray-700">
+                      With its massive context window (1M+ tokens), it can process all the research at once.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 6 */}
+            <div className="bg-white rounded-lg p-6 shadow-sm">
+              <div className="flex items-start">
+                <div className="bg-purple-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold mr-4 flex-shrink-0 text-lg">
+                  6
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">Get Final Synthesis</h3>
+                  <p className="text-gray-700">
+                    Ask the synthesis tool to pull out all the best information, identify common themes, highlight
+                    disagreements, and create a comprehensive final report. This gives you the most accurate,
+                    well-rounded research possible.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 bg-yellow-50 border-l-4 border-yellow-500 p-4">
+            <p className="text-sm text-gray-700">
+              <strong>Why This Works:</strong> Different LLMs have different training data, strengths, and access to
+              information. By combining them, you get multiple perspectives, reduce hallucinations, and ensure you're
+              not missing critical information. The final synthesis step pulls it all together into actionable insights.
             </p>
           </div>
         </div>
