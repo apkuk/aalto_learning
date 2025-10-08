@@ -8,7 +8,6 @@ import WhatIUseAIFor from './pages/WhatIUseAIFor'
 import FourPs from './pages/FourPs'
 import NextSteps from './pages/NextSteps'
 import Resources from './pages/Resources'
-import TimerPage from './pages/TimerPage'
 
 function App() {
   return (
@@ -23,7 +22,6 @@ function App() {
           <Route path="/5ps" element={<FourPs />} />
           <Route path="/next-steps" element={<NextSteps />} />
           <Route path="/resources" element={<Resources />} />
-          <Route path="/timer" element={<TimerPage />} />
         </Routes>
       </Layout>
     </Router>
