@@ -1,10 +1,22 @@
 [build]
   command = "npm run build"
   publish = "dist"
+  functions = "netlify/functions"
 
 [context.production.environment]
   NODE_VERSION = "22"
 
+# Netlify Functions configuration
+[functions]
+  directory = "netlify/functions"
+
+# API proxy endpoints
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA fallback - must be last
 [[redirects]]
   from = "/*"
   to = "/index.html"

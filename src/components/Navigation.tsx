@@ -11,6 +11,7 @@ const navItems = [
   { path: '/5ps', label: '4Ps' },
   { path: '/next-steps', label: 'Next Steps' },
   { path: '/resources', label: 'Resources' },
+  { path: '/insights', label: 'Insights' },
 ]
 
 const timerOptions = [
