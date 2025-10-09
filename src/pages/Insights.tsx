@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import jsPDF from 'jspdf'
 
 type ReadinessLevel = 'high' | 'medium' | 'low'
 
@@ -62,12 +63,12 @@ const readinessLabel: Record<ReadinessLevel, string> = {
 }
 
 const readinessBadge: Record<ReadinessLevel, string> = {
-  high: 'bg-emerald-500/15 text-emerald-300 border-emerald-400/40',
-  medium: 'bg-amber-500/15 text-amber-200 border-amber-400/40',
-  low: 'bg-rose-500/15 text-rose-200 border-rose-400/40'
+  high: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  medium: 'bg-amber-50 text-amber-700 border-amber-200',
+  low: 'bg-rose-50 text-rose-700 border-rose-200'
 }
 
-const scorePalette = ['from-sky-400 to-indigo-500', 'from-purple-400 to-fuchsia-500', 'from-orange-400 to-amber-500']
+const scorePalette = ['from-sky-300 to-indigo-400', 'from-purple-300 to-fuchsia-400', 'from-orange-300 to-amber-400']
 
 const Insights = () => {
   const [summary, setSummary] = useState<SummaryData | null>(null)
@@ -75,6 +76,7 @@ const Insights = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<'overview' | 'verbatim'>('overview')
+  const [isGenerating, setIsGenerating] = useState(false)
 
   const API = import.meta.env.PROD
     ? '/api/insights'
@@ -196,12 +198,246 @@ const Insights = () => {
     return null
   }, [interviews])
 
+  const handleGeneratePdf = () => {
+    if (!summary || !interviews) return
+
+    setIsGenerating(true)
+
+    try {
+      const doc = new jsPDF({ unit: 'pt', format: 'a4' })
+      const pageWidth = doc.internal.pageSize.getWidth()
+      const pageHeight = doc.internal.pageSize.getHeight()
+      const margin = 48
+      const contentWidth = pageWidth - margin * 2
+      let y = margin
+      const lineHeight = 20
+      const labelWidth = 160
+
+      const ensureSpace = (height: number) => {
+        if (y + height > pageHeight - margin) {
+          doc.addPage()
+          y = margin
+        }
+      }
+
+      const addDivider = () => {
+        ensureSpace(lineHeight)
+        doc.setDrawColor(225, 232, 240)
+        doc.setLineWidth(1)
+        doc.line(margin, y, pageWidth - margin, y)
+        y += lineHeight / 2
+      }
+
+      const addCenteredHeading = (text: string, subtext?: string) => {
+        doc.setFont('helvetica', 'bold')
+        doc.setFontSize(22)
+        doc.text(text, pageWidth / 2, y, { align: 'center' })
+        y += 34
+        if (subtext) {
+          doc.setFont('helvetica', 'normal')
+          doc.setFontSize(12)
+          doc.text(subtext, pageWidth / 2, y, { align: 'center' })
+          y += 26
+        }
+        doc.setFont('helvetica', 'normal')
+        doc.setFontSize(12)
+        ensureSpace(lineHeight)
+        addDivider()
+      }
+
+      const addSectionTitle = (text: string) => {
+        ensureSpace(lineHeight * 1.5)
+        doc.setFont('helvetica', 'bold')
+        doc.setFontSize(14)
+        doc.text(text, margin, y)
+        y += lineHeight
+        doc.setFont('helvetica', 'normal')
+        doc.setFontSize(12)
+        ensureSpace(lineHeight / 2)
+      }
+
+      const addKeyValue = (label: string, value: string) => {
+        ensureSpace(lineHeight)
+        doc.setFont('helvetica', 'bold')
+        doc.setFontSize(12)
+        doc.text(`${label}:`, margin, y)
+        doc.setFontSize(12)
+        const lines = doc.splitTextToSize(value, contentWidth - labelWidth)
+        doc.setFont('helvetica', 'normal')
+        doc.text(lines, margin + labelWidth, y)
+        y += Math.max(lineHeight, lines.length * (lineHeight - 4))
+      }
+
+      const addParagraph = (text: string) => {
+        ensureSpace(lineHeight)
+        doc.setFont('helvetica', 'normal')
+        doc.setFontSize(12)
+        const lines = doc.splitTextToSize(text, contentWidth)
+        ensureSpace(lines.length * (lineHeight - 2))
+        doc.text(lines, margin, y)
+        y += lines.length * (lineHeight - 2)
+      }
+
+      const addList = (title: string, items: string[]) => {
+        if (!items.length) return
+        ensureSpace(lineHeight)
+        doc.setFont('helvetica', 'bold')
+        doc.text(`${title}:`, margin, y)
+        doc.setFont('helvetica', 'normal')
+        y += lineHeight - 6
+        items.forEach((item) => {
+          const lines = doc.splitTextToSize(`• ${item}`, contentWidth - 16)
+          ensureSpace(lines.length * (lineHeight - 2))
+          doc.text(lines, margin + 16, y)
+          y += lines.length * (lineHeight - 2)
+        })
+        ensureSpace(lineHeight / 2)
+      }
+
+      addCenteredHeading(
+        'Aalto AI Discovery Report',
+        `Generated on ${new Date().toLocaleString()}`
+      )
+
+      addSectionTitle('Pulse Dashboard Summary')
+      addKeyValue('Interviews captured', `${totalInterviews}`)
+      addKeyValue(
+        'Average interview duration',
+        averageDuration ? `${averageDuration} minutes` : 'N/A'
+      )
+      addKeyValue(
+        'Top readiness pulse',
+        topReadiness
+          ? `${readinessLabel[topReadiness.level]} (${topReadiness.percent}%)`
+          : 'Not enough data'
+      )
+      addKeyValue(
+        'Languages represented',
+        languages.length ? languages.join(', ') : 'English (default)'
+      )
+
+      addSectionTitle('Overall Readiness Breakdown')
+      readinessTotals.breakdown.forEach(({ level, value, percent }) => {
+        addParagraph(
+          `${readinessLabel[level]}: ${value} interview${value === 1 ? '' : 's'} (${percent}%)`
+        )
+      })
+      ensureSpace(lineHeight / 2)
+
+      const topWords = summary.top_challenge_words || []
+      if (topWords.length) {
+        addSectionTitle('Top Challenge Themes')
+        topWords.forEach(({ word, count }) => {
+          addParagraph(`${word} (×${count})`)
+        })
+      }
+
+      if (departments.length) {
+        addSectionTitle('Departments in the Conversation')
+        addParagraph(departments.join(', '))
+      }
+
+      ensureSpace(lineHeight * 2)
+      doc.addPage()
+      y = margin
+
+      addSectionTitle('Verbatim Library Overview')
+
+      interviews.items.forEach((row, index) => {
+        if (index > 0) {
+          ensureSpace(40)
+        }
+
+        const interviewTitle =
+          row.Name || row['Reference ID'] || `Interview ${index + 1}`
+
+        addSectionTitle(interviewTitle)
+
+        addKeyValue(
+          'Role / Department',
+          `${row.Role || 'Unknown role'} · ${row.Department || 'Unassigned department'}`
+        )
+        addKeyValue('Reference ID', String(row['Reference ID'] || 'N/A'))
+        addKeyValue(
+          'Interviewed on',
+          formatDate(row['Interview Date'] || row.Timestamp || '')
+        )
+        addKeyValue(
+          'Overall readiness',
+          String(row['Overall Readiness'] || 'Not captured')
+        )
+
+        const scoresSummary = [
+          `Technical ${toScore(row['Technical Score'])?.toFixed(1) ?? '–'}/5`,
+          `Cultural ${toScore(row['Cultural Score'])?.toFixed(1) ?? '–'}/5`,
+          `Resourcing ${toScore(row['Resource Score'])?.toFixed(1) ?? '–'}/5`
+        ].join(' | ')
+
+        addKeyValue('Readiness scores', scoresSummary)
+        addKeyValue(
+          'Duration',
+          row['Duration (min)'] ? `${row['Duration (min)']} minutes` : 'Not provided'
+        )
+        addKeyValue('Language', (row.Language || 'EN').toString().toUpperCase())
+
+        addList(
+          'Current challenges',
+          parseList(row['Current Challenges'])
+        )
+        addList(
+          'Manual processes',
+          parseList(row['Manual Processes'])
+        )
+        addList(
+          'AI opportunities',
+          parseList(row['AI Opportunities'])
+        )
+        addList(
+          'Key insights',
+          parseList(row['Key Insights'])
+        )
+        addList(
+          'Notable quotes',
+          parseList(row['Notable Quotes'])
+        )
+
+        const recommendations = [
+          row['Immediate Recommendation']
+            ? `Immediate: ${row['Immediate Recommendation']}`
+            : null,
+          row['Short-term Recommendation']
+            ? `Short-term: ${row['Short-term Recommendation']}`
+            : null,
+          row['Strategic Recommendation']
+            ? `Strategic: ${row['Strategic Recommendation']}`
+            : null
+        ].filter(Boolean) as string[]
+
+        addList('Recommendations', recommendations)
+
+        ensureSpace(lineHeight)
+        addDivider()
+
+        if (y > pageHeight - margin * 2) {
+          doc.addPage()
+          y = margin
+        }
+      })
+
+      doc.save('aalto-ai-discovery-report.pdf')
+    } catch (err) {
+      console.error('Failed to generate PDF', err)
+    } finally {
+      setIsGenerating(false)
+    }
+  }
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-slate-200">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center text-gray-600">
         <div className="text-center space-y-4">
-          <div className="mx-auto h-16 w-16 animate-spin rounded-full border-4 border-emerald-500/30 border-t-emerald-400" />
-          <p className="text-lg tracking-wide uppercase text-slate-400">Synching live insights…</p>
+          <div className="mx-auto h-16 w-16 animate-spin rounded-full border-4 border-primary/20 border-t-primary" />
+          <p className="text-lg tracking-wide uppercase text-gray-500">Synching live insights…</p>
         </div>
       </div>
     )
@@ -209,11 +445,11 @@ const Insights = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <div className="rounded-2xl bg-slate-900/80 border border-rose-500/40 p-10 text-center text-slate-300 shadow-2xl">
-          <h2 className="text-2xl font-semibold text-rose-200 mb-3">We hit a snag</h2>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="rounded-2xl bg-white border border-rose-200 p-10 text-center text-gray-700 shadow-xl">
+          <h2 className="text-2xl font-semibold text-rose-600 mb-3">We hit a snag</h2>
           <p className="mb-6">{error}</p>
-          <p className="text-sm text-slate-500">Try refreshing, or check the Apps Script + Netlify logs.</p>
+          <p className="text-sm text-gray-500">Try refreshing, or check the Apps Script + Netlify logs.</p>
         </div>
       </div>
     )
@@ -224,6 +460,10 @@ const Insights = () => {
   const sortedReadiness = [...readinessTotals.breakdown].sort((a, b) => b.value - a.value)
   const topReadiness = sortedReadiness[0]
 
+  const topChallengeWords = summary?.top_challenge_words || []
+  const topChallengeMax =
+    topChallengeWords.reduce((max, item) => Math.max(max, item.count), 0) || 1
+
   const overviewContent = (
     <div className="space-y-10">
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
@@ -231,42 +471,49 @@ const Insights = () => {
           title="Interviews Captured"
           highlight={`${totalInterviews}`}
           subtitle="Live sync from Google Sheets"
-          glow="from-emerald-400/50 via-emerald-500/20 to-teal-500/10"
+          glow="from-emerald-200/40 via-emerald-100/20 to-transparent"
+          info="Total discovery interviews completed across process, data, decision-making, and energy-sector question sets."
           footer={`${departments.length} departments · ${languages.length ? languages.join(' / ') : 'EN'}`}
         />
         <MetricCard
           title="Average Duration"
           highlight={averageDuration ? `${averageDuration} min` : '—'}
           subtitle="Participant time invested"
-          glow="from-sky-400/50 via-sky-500/20 to-indigo-500/10"
+          glow="from-sky-200/40 via-sky-100/20 to-transparent"
+          info="Average minutes participants spent covering the full interview framework (opening, deep dive, sector-specific, readiness)."
           footer={`${interviews?.items?.length || 0} latest interviews analysed`}
         />
         <MetricCard
           title="Top Readiness Pulse"
           highlight={topReadiness?.percent ? `${topReadiness.percent}%` : '—'}
           subtitle={readinessLabel[topReadiness?.level || 'high']}
-          glow="from-violet-400/40 via-purple-500/20 to-fuchsia-500/10"
+          glow="from-violet-200/35 via-violet-100/20 to-transparent"
+          info="Share of interviewees rating overall readiness after discussing technical stack, culture, and resourcing questions."
           footer={`${readinessTotals.total} readiness datapoints`}
         />
         <MetricCard
           title="Languages Detected"
           highlight={languages.length ? languages.join(' • ') : 'EN'}
           subtitle="Interview language mix"
-          glow="from-amber-400/40 via-orange-500/20 to-red-500/10"
+          glow="from-amber-200/35 via-orange-100/20 to-transparent"
+          info="Preferred language captured during context-setting so follow-ups respect Finnish/English communication preferences."
           footer={`${(interviews?.items || []).filter((row) => row.Language).length} interviews tagged`}
         />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <section className="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/70 p-8 shadow-lg">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/10 via-transparent to-sky-500/10" />
+        <section className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-8 shadow-lg">
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/40 via-transparent to-sky-100/30" />
           <div className="relative">
             <header className="flex items-center justify-between gap-6">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-emerald-200/70">Readiness Pulse</p>
-                <h3 className="text-2xl font-semibold text-white mt-2">Confidence Across the Organisation</h3>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-600/70">Readiness Pulse</p>
+                  <InfoTooltip text="Shows how many interviewees reported high, medium, or low overall readiness after discussing technical, cultural, and resource questions." />
+                </div>
+                <h3 className="text-2xl font-semibold text-gray-900 mt-2">Confidence Across the Organisation</h3>
               </div>
-              <span className="rounded-full border border-emerald-400/40 px-4 py-1 text-sm text-emerald-200/80">
+              <span className="rounded-full border border-emerald-200 px-4 py-1 text-sm text-emerald-600 bg-emerald-50">
                 {readinessTotals.total} signals
               </span>
             </header>
@@ -274,11 +521,11 @@ const Insights = () => {
             <div className="mt-6 space-y-5">
               {readinessTotals.breakdown.map(({ level, value, percent }) => (
                 <div key={level}>
-                  <div className="flex items-center justify-between text-sm text-slate-300">
-                    <span className="font-semibold uppercase tracking-wide text-slate-200">{readinessLabel[level]}</span>
+                  <div className="flex items-center justify-between text-sm text-gray-600">
+                    <span className="font-semibold uppercase tracking-wide text-gray-700">{readinessLabel[level]}</span>
                     <span>{percent}% · {value} interviews</span>
                   </div>
-                  <div className="mt-2 h-3 rounded-full bg-slate-800/80 overflow-hidden">
+                  <div className="mt-2 h-3 rounded-full bg-gray-100 overflow-hidden">
                     <div
                       className={`h-full bg-gradient-to-r ${readinessGradient[level]} transition-all duration-500`}
                       style={{ width: `${percent}%` }}
@@ -290,13 +537,16 @@ const Insights = () => {
           </div>
         </section>
 
-        <section className="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/70 p-8 shadow-lg">
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-400/10 via-transparent to-fuchsia-500/10" />
+        <section className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-8 shadow-lg">
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-100/40 via-transparent to-fuchsia-100/30" />
           <div className="relative">
             <header className="flex justify-between items-start gap-6">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-indigo-200/70">Capability Levels</p>
-                <h3 className="text-2xl font-semibold text-white mt-2">AI Readiness Scores</h3>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-600/70">Capability Levels</p>
+                  <InfoTooltip text="Average 1-5 scores from the readiness assessment covering technology stack, change culture, and available people/budget." />
+                </div>
+                <h3 className="text-2xl font-semibold text-gray-900 mt-2">AI Readiness Scores</h3>
               </div>
             </header>
 
@@ -310,12 +560,12 @@ const Insights = () => {
                 .map((item, index) => {
                   const percent = Math.min(100, Math.max(0, ((item.value || 0) / 5) * 100))
                   return (
-                    <div key={item.label} className="rounded-2xl border border-white/5 bg-white/5 p-5 backdrop-blur-sm">
-                      <div className="flex items-center justify-between text-sm text-slate-200">
-                        <span className="font-medium tracking-wide uppercase text-slate-100">{item.label}</span>
+                    <div key={item.label} className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+                      <div className="flex items-center justify-between text-sm text-gray-600">
+                        <span className="font-medium tracking-wide uppercase text-gray-700">{item.label}</span>
                         <span className="text-lg font-semibold">{Number(item.value).toFixed(1)} / 5</span>
                       </div>
-                      <div className="mt-3 h-2.5 rounded-full bg-slate-800/80 overflow-hidden">
+                      <div className="mt-3 h-2.5 rounded-full bg-gray-200 overflow-hidden">
                         <div
                           className={`h-full bg-gradient-to-r ${scorePalette[index % scorePalette.length]}`}
                           style={{ width: `${percent}%` }}
@@ -330,39 +580,41 @@ const Insights = () => {
       </div>
 
       <div className="grid gap-6 xl:grid-cols-3">
-        <section className="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/70 p-8 shadow-lg xl:col-span-2">
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-emerald-500/10" />
+        <section className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-8 shadow-lg xl:col-span-2">
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-100/40 via-transparent to-emerald-100/30" />
           <div className="relative">
             <header className="flex items-center justify-between gap-6">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-cyan-200/70">Signal Amplifier</p>
-                <h3 className="text-2xl font-semibold text-white mt-2">Top Challenge Keywords</h3>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-600/70">Signal Amplifier</p>
+                  <InfoTooltip text="Keywords extracted from answers about inefficient processes, data pain points, and decision bottlenecks." />
+                </div>
+                <h3 className="text-2xl font-semibold text-gray-900 mt-2">Top Challenge Keywords</h3>
               </div>
-              <span className="rounded-full border border-cyan-400/50 px-4 py-1 text-sm text-cyan-200/80">
+              <span className="rounded-full border border-cyan-200 px-4 py-1 text-sm text-cyan-600 bg-cyan-50">
                 {(summary?.top_challenge_words || []).length || 0} themes
               </span>
             </header>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              {(summary?.top_challenge_words || []).map(({ word, count }, index, arr) => {
-                const maxCount = arr.reduce((max, item) => Math.max(max, item.count), 1)
-                const scale = Math.max(0.35, count / maxCount)
+              {topChallengeWords.map(({ word, count }) => {
+                const scale = Math.max(0.35, count / topChallengeMax)
                 return (
                   <span
                     key={word}
-                    className="rounded-2xl border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-white shadow-lg"
+                    className="rounded-2xl border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-medium text-cyan-700 shadow-sm"
                     style={{
                       transform: `scale(${0.9 + scale * 0.2})`,
-                      background: `linear-gradient(135deg, rgba(56, 189, 248, ${0.15 + scale * 0.35}), rgba(45, 212, 191, ${0.2 + scale * 0.4}))`
+                      background: `linear-gradient(135deg, rgba(125, 211, 252, ${0.3 + scale * 0.25}), rgba(16, 185, 129, ${0.15 + scale * 0.2}))`
                     }}
                   >
                     {word}{' '}
-                    <span className="text-xs text-white/70">×{count}</span>
+                    <span className="text-xs text-cyan-700/70">×{count}</span>
                   </span>
                 )
               })}
               {!summary?.top_challenge_words?.length && (
-                <p className="text-slate-400 text-sm">
+                <p className="text-gray-500 text-sm">
                   No keyword data yet — capture a few interviews to light this up.
                 </p>
               )}
@@ -370,36 +622,39 @@ const Insights = () => {
           </div>
         </section>
 
-        <section className="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/70 p-8 shadow-lg">
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-400/10 via-transparent to-orange-500/10" />
+        <section className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-8 shadow-lg">
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-100/40 via-transparent to-orange-100/30" />
           <div className="relative space-y-5">
             <header>
-              <p className="text-sm uppercase tracking-[0.3em] text-amber-200/70">Coverage Map</p>
-              <h3 className="text-2xl font-semibold text-white mt-2">Departments in the Mix</h3>
+              <div className="flex items-center gap-2">
+                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-amber-600/70">Coverage Map</p>
+                <InfoTooltip text="Shows which departments participated, aligning with the role-specific question tracks in the framework." />
+              </div>
+              <h3 className="text-2xl font-semibold text-gray-900 mt-2">Departments in the Mix</h3>
             </header>
 
             <div className="flex flex-wrap gap-2">
               {departments.map((dept) => (
                 <span
                   key={dept}
-                  className="rounded-full border border-white/10 bg-white/10 px-4 py-1.5 text-sm text-white/90"
+                  className="rounded-full border border-gray-200 bg-gray-100 px-4 py-1.5 text-sm text-gray-700"
                 >
                   {dept}
                 </span>
               ))}
               {!departments.length && (
-                <p className="text-slate-400 text-sm">Departments will appear here once interviews are logged.</p>
+                <p className="text-gray-500 text-sm">Departments will appear here once interviews are logged.</p>
               )}
             </div>
 
             {latestHighlight && (
-              <div className="mt-6 rounded-2xl border border-white/5 bg-white/10 p-5 text-sm text-slate-100">
-                <p className="text-xs uppercase tracking-[0.25em] text-white/50 mb-2">Latest Spotlight</p>
-                <p className="text-base font-semibold text-white">
+              <div className="mt-6 rounded-2xl border border-gray-200 bg-gray-50 p-5 text-sm text-gray-700">
+                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500 mb-2">Latest Spotlight</p>
+                <p className="text-base font-semibold text-gray-900">
                   {latestHighlight.name} · {latestHighlight.role}
                 </p>
                 {latestHighlight.recommendations?.[0] && (
-                  <p className="mt-3 italic text-white/80">
+                  <p className="mt-3 italic text-gray-600">
                     “{latestHighlight.recommendations[0]}”
                   </p>
                 )}
@@ -410,16 +665,16 @@ const Insights = () => {
       </div>
 
       {spotlightQuote && (
-        <section className="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/70 p-10 shadow-lg">
-          <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-400/10 via-transparent to-sky-500/10" />
-          <div className="relative max-w-4xl mx-auto text-center text-white">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-1 text-xs uppercase tracking-[0.4em] text-white/70">
+        <section className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-10 shadow-xl">
+          <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-100/40 via-transparent to-sky-100/30" />
+          <div className="relative max-w-4xl mx-auto text-center text-gray-800">
+            <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-100 px-5 py-1 text-xs uppercase tracking-[0.4em] text-gray-600">
               Notable Quote
             </span>
-            <p className="mt-6 text-2xl sm:text-3xl font-light leading-relaxed text-white/90">
+            <p className="mt-6 text-2xl sm:text-3xl font-light leading-relaxed text-gray-800">
               “{spotlightQuote.quote}”
             </p>
-            <p className="mt-4 text-sm uppercase tracking-[0.3em] text-white/60">
+            <p className="mt-4 text-sm uppercase tracking-[0.3em] text-gray-500">
               {spotlightQuote.name} · {spotlightQuote.role}
             </p>
           </div>
@@ -444,9 +699,21 @@ const Insights = () => {
         }
 
         const scores = [
-          { label: 'Technical', value: toScore(row['Technical Score']) },
-          { label: 'Cultural', value: toScore(row['Cultural Score']) },
-          { label: 'Resourcing', value: toScore(row['Resource Score']) }
+          {
+            label: 'Technical',
+            value: toScore(row['Technical Score']),
+            info: 'Based on questions about current technology stack, integrations, data infrastructure, and security posture.'
+          },
+          {
+            label: 'Cultural',
+            value: toScore(row['Cultural Score']),
+            info: 'Reflects responses about change readiness, leadership appetite, and innovation mindset.'
+          },
+          {
+            label: 'Resourcing',
+            value: toScore(row['Resource Score']),
+            info: 'Summarises budget, skills, and capacity discussed when exploring resource readiness.'
+          }
         ]
 
         const readiness = toReadinessLevel(row['Overall Readiness'])
@@ -457,20 +724,20 @@ const Insights = () => {
         return (
           <article
             key={row['Reference ID'] || `${row.Name}-${index}`}
-            className="group relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/75 p-8 shadow-2xl backdrop-blur"
+            className="group relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-8 shadow-xl"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-purple-500/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-emerald-200/20 via-transparent to-purple-200/20 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
             <div className="relative space-y-8">
-              <header className="flex flex-wrap items-start justify-between gap-6 border-b border-white/5 pb-6">
+              <header className="flex flex-wrap items-start justify-between gap-6 border-b border-gray-100 pb-6">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-white/50">
+                  <p className="text-xs uppercase tracking-[0.3em] text-gray-500">
                     {formatDate(row['Interview Date'] || row.Timestamp)}
                   </p>
-                  <h3 className="mt-2 text-3xl font-semibold text-white">
+                  <h3 className="mt-2 text-3xl font-semibold text-gray-900">
                     {row.Name || 'Unnamed Participant'}
                   </h3>
-                  <p className="text-white/70 mt-1">
+                  <p className="text-gray-600 mt-1">
                     {row.Role || 'Role unknown'} · {row.Department || 'Department TBD'}
                   </p>
                 </div>
@@ -482,12 +749,12 @@ const Insights = () => {
                     </span>
                   )}
                   {row.Status && (
-                    <span className="rounded-full border border-white/10 bg-white/10 px-4 py-1 text-xs uppercase tracking-[0.25em] text-white/70">
+                    <span className="rounded-full border border-gray-200 bg-gray-100 px-4 py-1 text-xs uppercase tracking-[0.25em] text-gray-600">
                       {String(row.Status)}
                     </span>
                   )}
                   {row['Reference ID'] && (
-                    <span className="text-xs text-white/50 tracking-[0.3em] uppercase">
+                    <span className="text-xs text-gray-400 tracking-[0.3em] uppercase">
                       {row['Reference ID']}
                     </span>
                   )}
@@ -498,17 +765,20 @@ const Insights = () => {
                 {scores.map((score, scoreIndex) => (
                   <div
                     key={score.label}
-                    className="rounded-2xl border border-white/5 bg-white/5 p-5 text-white/90"
+                    className="rounded-2xl border border-gray-200 bg-gray-50 p-5 text-gray-700"
                   >
-                    <p className="text-xs uppercase tracking-[0.25em] text-white/60">{score.label} Capacity</p>
-                    <div className="mt-3 flex items-end justify-between">
-                      <span className="text-3xl font-semibold">
-                        {score.value !== null ? score.value.toFixed(1) : '—'}
-                        <span className="text-sm text-white/60 font-light"> / 5</span>
-                      </span>
-                      <span className="text-xs text-white/50">Latest self-assessment</span>
+                    <div className="flex items-center gap-2">
+                      <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500">{score.label} Capacity</p>
+                      {score.info && <InfoTooltip text={score.info} />}
                     </div>
-                    <div className="mt-4 h-2 rounded-full bg-white/10 overflow-hidden">
+                    <div className="mt-3 flex items-end justify-between">
+                      <span className="text-3xl font-semibold text-gray-900">
+                        {score.value !== null ? score.value.toFixed(1) : '—'}
+                        <span className="text-sm text-gray-500 font-light"> / 5</span>
+                      </span>
+                      <span className="text-xs text-gray-400">Latest self-assessment</span>
+                    </div>
+                    <div className="mt-4 h-2 rounded-full bg-gray-200 overflow-hidden">
                       <div
                         className={`h-full bg-gradient-to-r ${scorePalette[scoreIndex % scorePalette.length]}`}
                         style={{ width: `${score.value ? Math.min(100, (score.value / 5) * 100) : 0}%` }}
@@ -519,10 +789,26 @@ const Insights = () => {
               </section>
 
               <section className="grid gap-6 lg:grid-cols-2">
-                <InsightList title="🔥 Current Challenges" items={challenges} />
-                <InsightList title="⚙️ Manual Processes" items={processes} />
-                <InsightList title="🤖 AI Opportunities" items={opportunities} />
-                <InsightList title="💡 Key Insights" items={insights} />
+                <InsightList
+                  title="🔥 Current Challenges"
+                  items={challenges}
+                  info="Direct quotes from process and operations questions about bottlenecks, frustrations, and inefficiencies."
+                />
+                <InsightList
+                  title="⚙️ Manual Processes"
+                  items={processes}
+                  info="Highlights tasks participants identified as manual or repetitive during workflow discussions."
+                />
+                <InsightList
+                  title="🤖 AI Opportunities"
+                  items={opportunities}
+                  info="Ideas captured when exploring immediate, short-term, and strategic AI opportunities in the interview."
+                />
+                <InsightList
+                  title="💡 Key Insights"
+                  items={insights}
+                  info="Synthesis of the most important takeaways spanning readiness, sector context, and success vision prompts."
+                />
               </section>
 
               <section className="grid gap-6 md:grid-cols-3">
@@ -530,30 +816,33 @@ const Insights = () => {
                   title="Immediate Play"
                   emoji="⚡"
                   description={recommendations.immediate || '—'}
-                  tone="from-emerald-400/20 to-emerald-500/10"
+                  tone="from-emerald-100/60 via-emerald-50/30 to-transparent"
+                  info="Pulled from the immediate (0-3 month) AI use cases discussed during opportunity identification."
                 />
                 <RecommendationCard
                   title="Short-term Move"
                   emoji="🚀"
                   description={recommendations.shortTerm || '—'}
-                  tone="from-sky-400/20 to-indigo-500/10"
+                  tone="from-sky-100/60 via-sky-50/30 to-transparent"
+                  info="Links to 3-9 month AI initiatives highlighted in the interview roadmap conversation."
                 />
                 <RecommendationCard
                   title="Strategic Bet"
                   emoji="🌌"
                   description={recommendations.strategic || '—'}
-                  tone="from-purple-400/20 to-fuchsia-500/10"
+                  tone="from-purple-100/60 via-purple-50/30 to-transparent"
+                  info="Informed by the strategic (9-24 month) ambition prompts covering grid optimisation, trading, and renewables."
                 />
               </section>
 
               {quotes.length > 0 && (
-                <section className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                  <p className="text-xs uppercase tracking-[0.3em] text-white/50 mb-4">
+                <section className="rounded-3xl border border-gray-200 bg-gray-50 p-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-500 mb-4">
                     Notable quote
                   </p>
                   <div className="space-y-3">
                     {quotes.map((quote, quoteIndex) => (
-                      <p key={quoteIndex} className="text-lg font-light leading-relaxed text-white/85">
+                      <p key={quoteIndex} className="text-lg font-light leading-relaxed text-gray-700">
                         “{quote}”
                       </p>
                     ))}
@@ -561,7 +850,7 @@ const Insights = () => {
                 </section>
               )}
 
-              <footer className="flex flex-wrap items-center gap-4 text-xs uppercase tracking-[0.25em] text-white/40">
+              <footer className="flex flex-wrap items-center gap-4 text-xs uppercase tracking-[0.25em] text-gray-400">
                 <span>
                   Duration · {durationLabel}
                 </span>
@@ -576,8 +865,8 @@ const Insights = () => {
       })}
 
       {!interviews?.items?.length && (
-        <div className="rounded-3xl border border-dashed border-white/20 bg-slate-900/50 p-12 text-center text-white/60">
-          <h3 className="text-2xl font-semibold text-white mb-3">No interviews yet</h3>
+        <div className="rounded-3xl border border-dashed border-gray-300 bg-white p-12 text-center text-gray-500">
+          <h3 className="text-2xl font-semibold text-gray-900 mb-3">No interviews yet</h3>
           <p>
             Once you capture interviews through the GPT, every verbatim insight will land here automatically.
           </p>
@@ -587,24 +876,36 @@ const Insights = () => {
   )
 
   return (
-    <div className="min-h-screen bg-slate-950 py-12 text-slate-100">
+    <div className="min-h-screen bg-gray-50 py-12 text-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-        <section className="relative overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900/80 to-slate-950 p-10 shadow-2xl">
-          <div className="absolute inset-0 opacity-60 mix-blend-screen" style={{ background: 'radial-gradient(circle at top left, rgba(16, 185, 129, 0.35), transparent 55%)' }} />
-          <div className="absolute inset-0 opacity-40 mix-blend-screen" style={{ background: 'radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.25), transparent 55%)' }} />
+        <section className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-10 shadow-xl">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/5 to-primary/5" />
           <div className="relative space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs uppercase tracking-[0.4em] text-white/60">
-              Live Intelligence
+            <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-primary">
+                  Live Intelligence
+                </div>
+                <div className="max-w-3xl space-y-4">
+                  <h1 className="text-4xl sm:text-5xl font-semibold text-gray-900">
+                    Aalto AI Discovery Command Centre
+                  </h1>
+                  <p className="text-lg text-gray-600">
+                    Real-time pulse across every discovery interview — readiness, opportunities, and verbatim insight to fuel your next move.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={handleGeneratePdf}
+                disabled={!summary || !interviews || isGenerating}
+                className="inline-flex items-center gap-2 self-start rounded-full border border-primary bg-primary px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition hover:bg-primary/90 focus:outline-none focus:ring-4 focus:ring-primary/30 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400 disabled:shadow-none"
+              >
+                <span aria-hidden="true">📄</span>
+                {isGenerating ? 'Generating...' : 'Download Report'}
+              </button>
             </div>
-            <div className="max-w-3xl space-y-4">
-              <h1 className="text-4xl sm:text-5xl font-semibold text-white">
-                Aalto AI Discovery Command Centre
-              </h1>
-              <p className="text-lg text-white/70">
-                Real-time pulse across every discovery interview — readiness, opportunities, and verbatim insight to fuel your next move.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3 pt-4">
+            <div className="flex flex-wrap gap-3 pt-2">
               <TabButton
                 label="Pulse Dashboard"
                 isActive={activeTab === 'overview'}
@@ -635,17 +936,21 @@ type MetricCardProps = {
   subtitle: string
   glow: string
   footer: string
+  info?: string
 }
 
-const MetricCard = ({ title, highlight, subtitle, glow, footer }: MetricCardProps) => (
-  <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 text-white/80 shadow-xl backdrop-blur">
-    <div className={`absolute inset-0 bg-gradient-to-br ${glow} opacity-60`} />
+const MetricCard = ({ title, highlight, subtitle, glow, footer, info }: MetricCardProps) => (
+  <div className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-6 text-gray-600 shadow-lg">
+    <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${glow}`} />
     <div className="relative space-y-3">
-      <p className="text-xs uppercase tracking-[0.3em] text-white/60">{title}</p>
-      <p className="text-3xl font-semibold text-white">{highlight}</p>
-      <p className="text-sm text-white/60">{subtitle}</p>
+      <div className="flex items-center gap-2">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-500">{title}</p>
+        {info && <InfoTooltip text={info} />}
+      </div>
+      <p className="text-3xl font-semibold text-gray-900">{highlight}</p>
+      <p className="text-sm text-gray-600">{subtitle}</p>
     </div>
-    <div className="relative mt-6 border-t border-white/10 pt-3 text-xs uppercase tracking-[0.25em] text-white/40">
+    <div className="relative mt-6 border-t border-gray-100 pt-3 text-xs uppercase tracking-[0.25em] text-gray-400">
       {footer}
     </div>
   </div>
@@ -662,33 +967,89 @@ const TabButton = ({ label, isActive, onClick }: TabButtonProps) => (
     onClick={onClick}
     className={`rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
       isActive
-        ? 'border-emerald-400/80 bg-emerald-500/20 text-white shadow-lg shadow-emerald-500/30'
-        : 'border-white/10 bg-white/5 text-white/70 hover:border-white/30 hover:text-white'
+        ? 'border-primary bg-primary text-white shadow-md shadow-primary/20'
+        : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-100 hover:text-gray-900'
     }`}
   >
     {label}
   </button>
 )
 
+type InfoTooltipProps = {
+  text: string
+}
+
+const InfoTooltip = ({ text }: InfoTooltipProps) => {
+  const [open, setOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!buttonRef.current) return
+      if (buttonRef.current.contains(event.target as Node)) return
+      setOpen(false)
+    }
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleEscape)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleEscape)
+    }
+  }, [open])
+
+  return (
+    <span className="relative inline-block">
+      <button
+        ref={buttonRef}
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        aria-expanded={open}
+        aria-label={text}
+        className="flex h-5 w-5 items-center justify-center rounded-full border border-gray-300 bg-white text-[11px] font-semibold text-gray-500 transition hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
+      >
+        i
+      </button>
+      {open && (
+        <span className="absolute left-1/2 top-full z-20 mt-2 w-64 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-left text-xs text-white shadow-xl">
+          {text}
+        </span>
+      )}
+    </span>
+  )
+}
+
 type InsightListProps = {
   title: string
   items: string[]
+  info?: string
 }
 
-const InsightList = ({ title, items }: InsightListProps) => (
-  <div className="rounded-3xl border border-white/5 bg-white/5 p-6 text-white/80">
-    <p className="text-sm uppercase tracking-[0.25em] text-white/50 mb-4">{title}</p>
+const InsightList = ({ title, items, info }: InsightListProps) => (
+  <div className="rounded-3xl border border-gray-200 bg-white p-6 text-gray-700 shadow-sm">
+    <div className="mb-4 flex items-center gap-2">
+      <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gray-500">{title}</p>
+      {info && <InfoTooltip text={info} />}
+    </div>
     {items.length ? (
-      <ul className="space-y-3 text-sm leading-relaxed text-white/85">
+      <ul className="space-y-3 text-sm leading-relaxed text-gray-700">
         {items.map((item, index) => (
           <li key={index} className="flex items-start gap-2">
-            <span className="mt-1 h-2 w-2 rounded-full bg-emerald-300/70" />
+            <span className="mt-1 h-2 w-2 rounded-full bg-primary" />
             <span>{item}</span>
           </li>
         ))}
       </ul>
     ) : (
-      <p className="text-sm text-white/40">No data captured yet.</p>
+      <p className="text-sm text-gray-400">No data captured yet.</p>
     )}
   </div>
 )
@@ -698,17 +1059,19 @@ type RecommendationCardProps = {
   emoji: string
   description: string
   tone: string
+  info?: string
 }
 
-const RecommendationCard = ({ title, emoji, description, tone }: RecommendationCardProps) => (
-  <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 text-white/80">
-    <div className={`absolute inset-0 bg-gradient-to-br ${tone}`} />
+const RecommendationCard = ({ title, emoji, description, tone, info }: RecommendationCardProps) => (
+  <div className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-6 text-gray-700 shadow-sm">
+    <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${tone}`} />
     <div className="relative space-y-3">
       <div className="flex items-center gap-3">
         <span className="text-xl">{emoji}</span>
-        <p className="text-sm uppercase tracking-[0.25em] text-white/60">{title}</p>
+        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gray-500">{title}</p>
+        {info && <InfoTooltip text={info} />}
       </div>
-      <p className="text-sm leading-relaxed text-white/85">
+      <p className="text-sm leading-relaxed text-gray-700">
         {description || '—'}
       </p>
     </div>
