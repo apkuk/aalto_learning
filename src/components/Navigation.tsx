@@ -7,6 +7,7 @@ const mainNavItems = [
   { path: '/', labelKey: 'nav.home' },
   { path: '/about', labelKey: 'nav.about' },
   { path: '/intro-session', labelKey: 'nav.introduction' },
+  // Workshop dropdown will be inserted here
   { path: '/resources', labelKey: 'nav.resources' },
   { path: '/insights', labelKey: 'nav.insights' },
   { path: '/next-steps', labelKey: 'nav.nextSteps' },
@@ -60,12 +61,12 @@ export default function Navigation() {
             </div>
 
             {/* Center: Desktop Navigation */}
-            <div className="flex items-center justify-center space-x-1">
-              {mainNavItems.map((item) => (
+            <div className="flex items-center justify-center gap-0.5">
+              {mainNavItems.slice(0, 3).map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-2 py-2 rounded-md text-xs font-medium transition-colors whitespace-nowrap ${
                     location.pathname === item.path
                       ? 'bg-primary text-white'
                       : 'text-gray-700 hover:bg-gray-100'
@@ -75,11 +76,11 @@ export default function Navigation() {
                 </Link>
               ))}
 
-              {/* Workshop Dropdown */}
+              {/* Workshop Dropdown - inserted after Introduction */}
               <div ref={dropdownRef} className="relative">
                 <button
                   onClick={() => setWorkshopDropdownOpen(!workshopDropdownOpen)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1 ${
+                  className={`px-2 py-2 rounded-md text-xs font-medium transition-colors flex items-center gap-1 whitespace-nowrap ${
                     isWorkshopActive
                       ? 'bg-primary text-white'
                       : 'text-gray-700 hover:bg-gray-100'
@@ -89,7 +90,7 @@ export default function Navigation() {
                 >
                   {t('nav.workshop')}
                   <svg
-                    className={`w-4 h-4 transition-transform ${workshopDropdownOpen ? 'rotate-180' : ''}`}
+                    className={`w-3 h-3 transition-transform ${workshopDropdownOpen ? 'rotate-180' : ''}`}
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -99,7 +100,7 @@ export default function Navigation() {
                 </button>
 
                 {workshopDropdownOpen && (
-                  <div className="absolute top-full right-0 mt-1 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                  <div className="absolute top-full left-0 mt-1 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
                     <div className="py-1" role="menu">
                       {workshopItems.map((item) => (
                         <Link
@@ -120,6 +121,21 @@ export default function Navigation() {
                   </div>
                 )}
               </div>
+
+              {/* Remaining nav items after Workshop dropdown */}
+              {mainNavItems.slice(3).map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`px-2 py-2 rounded-md text-xs font-medium transition-colors whitespace-nowrap ${
+                    location.pathname === item.path
+                      ? 'bg-primary text-white'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  {t(item.labelKey)}
+                </Link>
+              ))}
             </div>
 
             {/* Right: Language Switcher */}
