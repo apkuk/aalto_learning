@@ -9,6 +9,7 @@ import FourPs from './pages/FourPs'
 import NextSteps from './pages/NextSteps'
 import Resources from './pages/Resources'
 import Insights from './pages/Insights'
+import Summary from './pages/Summary'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/next-steps" element={<NextSteps />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/insights" element={<Insights />} />
+          <Route path="/summary" element={<Summary />} />
         </Routes>
       </Layout>
     </Router>

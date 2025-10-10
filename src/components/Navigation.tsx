@@ -12,6 +12,7 @@ const navItems = [
   { path: '/next-steps', label: 'Next Steps' },
   { path: '/resources', label: 'Resources' },
   { path: '/insights', label: 'Insights' },
+  { path: '/summary', label: 'Summary' },
 ]
 
 const timerOptions = [
