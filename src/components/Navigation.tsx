@@ -1,31 +1,51 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import FloatingTimer from './FloatingTimer'
 
-const navItems = [
+const mainNavItems = [
   { path: '/', labelKey: 'nav.home' },
   { path: '/about', labelKey: 'nav.about' },
   { path: '/intro-session', labelKey: 'nav.introduction' },
+  { path: '/resources', labelKey: 'nav.resources' },
+  { path: '/insights', labelKey: 'nav.insights' },
+  { path: '/next-steps', labelKey: 'nav.nextSteps' },
+]
+
+const workshopItems = [
   { path: '/my-ai-stack', labelKey: 'nav.myStack' },
   { path: '/what-i-use-ai-for', labelKey: 'nav.whatIUse' },
   { path: '/5ps', labelKey: 'nav.fourPs' },
-  { path: '/next-steps', labelKey: 'nav.nextSteps' },
-  { path: '/resources', labelKey: 'nav.resources' },
-  { path: '/insights', labelKey: 'nav.insights' },
   { path: '/summary', labelKey: 'nav.summary' },
 ]
+
+const allNavItems = [...mainNavItems, ...workshopItems]
 
 export default function Navigation() {
   const location = useLocation()
   const { t, i18n } = useTranslation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [workshopDropdownOpen, setWorkshopDropdownOpen] = useState(false)
   const [floatingTimerOpen, setFloatingTimerOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
   const selectedMinutes = 5
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng)
   }
+
+  const isWorkshopActive = workshopItems.some(item => location.pathname === item.path)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setWorkshopDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   return (
     <>
@@ -41,7 +61,7 @@ export default function Navigation() {
 
             {/* Center: Desktop Navigation */}
             <div className="flex items-center justify-center space-x-1">
-              {navItems.map((item) => (
+              {mainNavItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
@@ -54,6 +74,52 @@ export default function Navigation() {
                   {t(item.labelKey)}
                 </Link>
               ))}
+
+              {/* Workshop Dropdown */}
+              <div ref={dropdownRef} className="relative">
+                <button
+                  onClick={() => setWorkshopDropdownOpen(!workshopDropdownOpen)}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1 ${
+                    isWorkshopActive
+                      ? 'bg-primary text-white'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                  aria-expanded={workshopDropdownOpen}
+                  aria-haspopup="true"
+                >
+                  {t('nav.workshop')}
+                  <svg
+                    className={`w-4 h-4 transition-transform ${workshopDropdownOpen ? 'rotate-180' : ''}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {workshopDropdownOpen && (
+                  <div className="absolute top-full right-0 mt-1 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                    <div className="py-1" role="menu">
+                      {workshopItems.map((item) => (
+                        <Link
+                          key={item.path}
+                          to={item.path}
+                          onClick={() => setWorkshopDropdownOpen(false)}
+                          className={`block px-4 py-2 text-sm transition-colors ${
+                            location.pathname === item.path
+                              ? 'bg-primary text-white'
+                              : 'text-gray-700 hover:bg-gray-100'
+                          }`}
+                          role="menuitem"
+                        >
+                          {t(item.labelKey)}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Right: Language Switcher */}
@@ -149,7 +215,7 @@ export default function Navigation() {
                 </button>
               </div>
 
-              {navItems.map((item) => (
+              {allNavItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
