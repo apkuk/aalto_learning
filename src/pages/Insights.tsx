@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import jsPDF from 'jspdf'
 
 type ReadinessLevel = 'high' | 'medium' | 'low'
@@ -56,11 +57,7 @@ const readinessGradient: Record<ReadinessLevel, string> = {
   low: 'from-rose-400 via-rose-500 to-rose-600'
 }
 
-const readinessLabel: Record<ReadinessLevel, string> = {
-  high: 'High Readiness',
-  medium: 'Medium Readiness',
-  low: 'Low Readiness'
-}
+// Note: readinessLabel is now created as a function inside the component to access translations
 
 const readinessBadge: Record<ReadinessLevel, string> = {
   high: 'bg-emerald-50 text-emerald-700 border-emerald-200',
@@ -71,12 +68,20 @@ const readinessBadge: Record<ReadinessLevel, string> = {
 const scorePalette = ['from-sky-300 to-indigo-400', 'from-purple-300 to-fuchsia-400', 'from-orange-300 to-amber-400']
 
 const Insights = () => {
+  const { t } = useTranslation()
   const [summary, setSummary] = useState<SummaryData | null>(null)
   const [interviews, setInterviews] = useState<InterviewsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<'overview' | 'verbatim'>('overview')
   const [isGenerating, setIsGenerating] = useState(false)
+
+  // Create readinessLabel as a function to access translations
+  const readinessLabel: Record<ReadinessLevel, string> = {
+    high: t('insights.readiness.highReadiness'),
+    medium: t('insights.readiness.mediumReadiness'),
+    low: t('insights.readiness.lowReadiness')
+  }
 
   const API = import.meta.env.PROD
     ? '/api/insights'
@@ -111,13 +116,13 @@ const Insights = () => {
         setLoading(false)
       } catch (err) {
         console.error('Error fetching insights:', err)
-        setError('Failed to load insights data')
+        setError(t('insights.errorTitle'))
         setLoading(false)
       }
     }
 
     fetchData()
-  }, [API])
+  }, [API, t])
 
   const readinessTotals = useMemo(() => {
     const distribution = summary?.readiness
@@ -142,6 +147,8 @@ const Insights = () => {
     )
     return Array.from(unique).sort((a, b) => a.localeCompare(b))
   }, [interviews])
+
+  // Note: 'Unassigned' is kept as-is for consistency with data, not translated
 
   const languages = useMemo(() => {
     if (!interviews?.items) return []
@@ -295,28 +302,28 @@ const Insights = () => {
       }
 
       addCenteredHeading(
-        'Aalto AI Discovery Report',
-        `Generated on ${new Date().toLocaleString()}`
+        t('insights.pdf.title'),
+        t('insights.pdf.generatedOn', { date: new Date().toLocaleString() })
       )
 
-      addSectionTitle('Pulse Dashboard Summary')
-      addKeyValue('Interviews captured', `${totalInterviews}`)
+      addSectionTitle(t('insights.pdf.pulseTitle'))
+      addKeyValue(t('insights.pdf.interviewsCaptured'), `${totalInterviews}`)
       addKeyValue(
-        'Average interview duration',
+        t('insights.pdf.avgDuration'),
         averageDuration ? `${averageDuration} minutes` : 'N/A'
       )
       addKeyValue(
-        'Top readiness pulse',
+        t('insights.pdf.topReadiness'),
         topReadiness
           ? `${readinessLabel[topReadiness.level]} (${topReadiness.percent}%)`
           : 'Not enough data'
       )
       addKeyValue(
-        'Languages represented',
+        t('insights.pdf.languages'),
         languages.length ? languages.join(', ') : 'English (default)'
       )
 
-      addSectionTitle('Overall Readiness Breakdown')
+      addSectionTitle(t('insights.pdf.readinessBreakdown'))
       readinessTotals.breakdown.forEach(({ level, value, percent }) => {
         addParagraph(
           `${readinessLabel[level]}: ${value} interview${value === 1 ? '' : 's'} (${percent}%)`
@@ -326,14 +333,14 @@ const Insights = () => {
 
       const topWords = summary.top_challenge_words || []
       if (topWords.length) {
-        addSectionTitle('Top Challenge Themes')
+        addSectionTitle(t('insights.pdf.topChallenges'))
         topWords.forEach(({ word, count }) => {
           addParagraph(`${word} (×${count})`)
         })
       }
 
       if (departments.length) {
-        addSectionTitle('Departments in the Conversation')
+        addSectionTitle(t('insights.pdf.departments'))
         addParagraph(departments.join(', '))
       }
 
@@ -341,7 +348,7 @@ const Insights = () => {
       doc.addPage()
       y = margin
 
-      addSectionTitle('Verbatim Library Overview')
+      addSectionTitle(t('insights.pdf.verbatimTitle'))
 
       interviews.items.forEach((row, index) => {
         if (index > 0) {
@@ -354,66 +361,66 @@ const Insights = () => {
         addSectionTitle(interviewTitle)
 
         addKeyValue(
-          'Role / Department',
+          t('insights.pdf.roleDept'),
           `${row.Role || 'Unknown role'} · ${row.Department || 'Unassigned department'}`
         )
-        addKeyValue('Reference ID', String(row['Reference ID'] || 'N/A'))
+        addKeyValue(t('insights.pdf.refId'), String(row['Reference ID'] || 'N/A'))
         addKeyValue(
-          'Interviewed on',
+          t('insights.pdf.interviewedOn'),
           formatDate(row['Interview Date'] || row.Timestamp || '')
         )
         addKeyValue(
-          'Overall readiness',
-          String(row['Overall Readiness'] || 'Not captured')
+          t('insights.pdf.overallReadiness'),
+          String(row['Overall Readiness'] || t('insights.pdf.notCaptured'))
         )
 
         const scoresSummary = [
-          `Technical ${toScore(row['Technical Score'])?.toFixed(1) ?? '–'}/5`,
-          `Cultural ${toScore(row['Cultural Score'])?.toFixed(1) ?? '–'}/5`,
-          `Resourcing ${toScore(row['Resource Score'])?.toFixed(1) ?? '–'}/5`
+          `${t('insights.pdf.technicalScore')} ${toScore(row['Technical Score'])?.toFixed(1) ?? '–'}/5`,
+          `${t('insights.pdf.culturalScore')} ${toScore(row['Cultural Score'])?.toFixed(1) ?? '–'}/5`,
+          `${t('insights.pdf.resourcingScore')} ${toScore(row['Resource Score'])?.toFixed(1) ?? '–'}/5`
         ].join(' | ')
 
-        addKeyValue('Readiness scores', scoresSummary)
+        addKeyValue(t('insights.pdf.readinessScores'), scoresSummary)
         addKeyValue(
-          'Duration',
-          row['Duration (min)'] ? `${row['Duration (min)']} minutes` : 'Not provided'
+          t('insights.verbatim.duration', { duration: '' }).split('·')[0].trim(),
+          row['Duration (min)'] ? `${row['Duration (min)']} minutes` : t('insights.pdf.notProvided')
         )
-        addKeyValue('Language', (row.Language || 'EN').toString().toUpperCase())
+        addKeyValue(t('insights.verbatim.language', { language: '' }).split('·')[0].trim(), (row.Language || 'EN').toString().toUpperCase())
 
         addList(
-          'Current challenges',
+          t('insights.pdf.currentChallenges'),
           parseList(row['Current Challenges'])
         )
         addList(
-          'Manual processes',
+          t('insights.pdf.manualProcesses'),
           parseList(row['Manual Processes'])
         )
         addList(
-          'AI opportunities',
+          t('insights.pdf.aiOpportunities'),
           parseList(row['AI Opportunities'])
         )
         addList(
-          'Key insights',
+          t('insights.pdf.keyInsights'),
           parseList(row['Key Insights'])
         )
         addList(
-          'Notable quotes',
+          t('insights.pdf.notableQuotes'),
           parseList(row['Notable Quotes'])
         )
 
         const recommendations = [
           row['Immediate Recommendation']
-            ? `Immediate: ${row['Immediate Recommendation']}`
+            ? `${t('insights.pdf.immediate')}: ${row['Immediate Recommendation']}`
             : null,
           row['Short-term Recommendation']
-            ? `Short-term: ${row['Short-term Recommendation']}`
+            ? `${t('insights.pdf.shortTerm')}: ${row['Short-term Recommendation']}`
             : null,
           row['Strategic Recommendation']
-            ? `Strategic: ${row['Strategic Recommendation']}`
+            ? `${t('insights.pdf.strategic')}: ${row['Strategic Recommendation']}`
             : null
         ].filter(Boolean) as string[]
 
-        addList('Recommendations', recommendations)
+        addList(t('insights.pdf.recommendations'), recommendations)
 
         ensureSpace(lineHeight)
         addDivider()
@@ -437,7 +444,7 @@ const Insights = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center text-gray-600">
         <div className="text-center space-y-4">
           <div className="mx-auto h-16 w-16 animate-spin rounded-full border-4 border-primary/20 border-t-primary" />
-          <p className="text-lg tracking-wide uppercase text-gray-500">Synching live insights…</p>
+          <p className="text-lg tracking-wide uppercase text-gray-500">{t('insights.loading')}</p>
         </div>
       </div>
     )
@@ -447,9 +454,9 @@ const Insights = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="rounded-2xl bg-white border border-rose-200 p-10 text-center text-gray-700 shadow-xl">
-          <h2 className="text-2xl font-semibold text-rose-600 mb-3">We hit a snag</h2>
+          <h2 className="text-2xl font-semibold text-rose-600 mb-3">{t('insights.errorTitle')}</h2>
           <p className="mb-6">{error}</p>
-          <p className="text-sm text-gray-500">Try refreshing, or check the Apps Script + Netlify logs.</p>
+          <p className="text-sm text-gray-500">{t('insights.errorRetry')}</p>
         </div>
       </div>
     )
@@ -468,36 +475,39 @@ const Insights = () => {
     <div className="space-y-10">
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         <MetricCard
-          title="Interviews Captured"
+          title={t('insights.metrics.interviewsCapturedTitle')}
           highlight={`${totalInterviews}`}
-          subtitle="Live sync from Google Sheets"
+          subtitle={t('insights.metrics.interviewsCapturedSubtitle')}
           glow="from-emerald-200/40 via-emerald-100/20 to-transparent"
-          info="Total discovery interviews completed across process, data, decision-making, and energy-sector question sets."
-          footer={`${departments.length} departments · ${languages.length ? languages.join(' / ') : 'EN'}`}
+          info={t('insights.metrics.interviewsCapturedInfo')}
+          footer={t('insights.metrics.interviewsCapturedFooter', {
+            count: departments.length,
+            languages: languages.length ? languages.join(' / ') : 'EN'
+          })}
         />
         <MetricCard
-          title="Average Duration"
+          title={t('insights.metrics.avgDurationTitle')}
           highlight={averageDuration ? `${averageDuration} min` : '—'}
-          subtitle="Participant time invested"
+          subtitle={t('insights.metrics.avgDurationSubtitle')}
           glow="from-sky-200/40 via-sky-100/20 to-transparent"
-          info="Average minutes participants spent covering the full interview framework (opening, deep dive, sector-specific, readiness)."
-          footer={`${interviews?.items?.length || 0} latest interviews analysed`}
+          info={t('insights.metrics.avgDurationInfo')}
+          footer={t('insights.metrics.avgDurationFooter', { count: interviews?.items?.length || 0 })}
         />
         <MetricCard
-          title="Top Readiness Pulse"
+          title={t('insights.metrics.topReadinessTitle')}
           highlight={topReadiness?.percent ? `${topReadiness.percent}%` : '—'}
           subtitle={readinessLabel[topReadiness?.level || 'high']}
           glow="from-violet-200/35 via-violet-100/20 to-transparent"
-          info="Share of interviewees rating overall readiness after discussing technical stack, culture, and resourcing questions."
-          footer={`${readinessTotals.total} readiness datapoints`}
+          info={t('insights.metrics.topReadinessInfo')}
+          footer={t('insights.metrics.topReadinessFooter', { count: readinessTotals.total })}
         />
         <MetricCard
-          title="Languages Detected"
+          title={t('insights.metrics.languagesTitle')}
           highlight={languages.length ? languages.join(' • ') : 'EN'}
-          subtitle="Interview language mix"
+          subtitle={t('insights.metrics.languagesSubtitle')}
           glow="from-amber-200/35 via-orange-100/20 to-transparent"
-          info="Preferred language captured during context-setting so follow-ups respect Finnish/English communication preferences."
-          footer={`${(interviews?.items || []).filter((row) => row.Language).length} interviews tagged`}
+          info={t('insights.metrics.languagesInfo')}
+          footer={t('insights.metrics.languagesFooter', { count: (interviews?.items || []).filter((row) => row.Language).length })}
         />
       </div>
 
@@ -508,13 +518,13 @@ const Insights = () => {
             <header className="flex items-center justify-between gap-6">
               <div>
                 <div className="flex items-center gap-2">
-                  <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-600/70">Readiness Pulse</p>
-                  <InfoTooltip text="Shows how many interviewees reported high, medium, or low overall readiness after discussing technical, cultural, and resource questions." />
+                  <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-600/70">{t('insights.readiness.sectionBadge')}</p>
+                  <InfoTooltip text={t('insights.readiness.readinessInfo')} />
                 </div>
-                <h3 className="text-2xl font-semibold text-gray-900 mt-2">Confidence Across the Organisation</h3>
+                <h3 className="text-2xl font-semibold text-gray-900 mt-2">{t('insights.readiness.sectionTitle')}</h3>
               </div>
               <span className="rounded-full border border-emerald-200 px-4 py-1 text-sm text-emerald-600 bg-emerald-50">
-                {readinessTotals.total} signals
+                {t('insights.readiness.signalsLabel', { count: readinessTotals.total })}
               </span>
             </header>
 
@@ -543,18 +553,18 @@ const Insights = () => {
             <header className="flex justify-between items-start gap-6">
               <div>
                 <div className="flex items-center gap-2">
-                  <p className="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-600/70">Capability Levels</p>
-                  <InfoTooltip text="Average 1-5 scores from the readiness assessment covering technology stack, change culture, and available people/budget." />
+                  <p className="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-600/70">{t('insights.scores.sectionBadge')}</p>
+                  <InfoTooltip text={t('insights.scores.scoresInfo')} />
                 </div>
-                <h3 className="text-2xl font-semibold text-gray-900 mt-2">AI Readiness Scores</h3>
+                <h3 className="text-2xl font-semibold text-gray-900 mt-2">{t('insights.scores.sectionTitle')}</h3>
               </div>
             </header>
 
             <div className="mt-8 grid gap-5">
               {[
-                { label: 'Technical', value: summary?.technical_avg },
-                { label: 'Cultural', value: summary?.cultural_avg },
-                { label: 'Resourcing', value: summary?.resource_avg }
+                { label: t('insights.scores.technical'), value: summary?.technical_avg },
+                { label: t('insights.scores.cultural'), value: summary?.cultural_avg },
+                { label: t('insights.scores.resourcing'), value: summary?.resource_avg }
               ]
                 .filter((item) => typeof item.value === 'number')
                 .map((item, index) => {
@@ -586,13 +596,13 @@ const Insights = () => {
             <header className="flex items-center justify-between gap-6">
               <div>
                 <div className="flex items-center gap-2">
-                  <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-600/70">Signal Amplifier</p>
-                  <InfoTooltip text="Keywords extracted from answers about inefficient processes, data pain points, and decision bottlenecks." />
+                  <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-600/70">{t('insights.challenges.sectionBadge')}</p>
+                  <InfoTooltip text={t('insights.challenges.challengesInfo')} />
                 </div>
-                <h3 className="text-2xl font-semibold text-gray-900 mt-2">Top Challenge Keywords</h3>
+                <h3 className="text-2xl font-semibold text-gray-900 mt-2">{t('insights.challenges.sectionTitle')}</h3>
               </div>
               <span className="rounded-full border border-cyan-200 px-4 py-1 text-sm text-cyan-600 bg-cyan-50">
-                {(summary?.top_challenge_words || []).length || 0} themes
+                {t('insights.challenges.themesLabel', { count: (summary?.top_challenge_words || []).length || 0 })}
               </span>
             </header>
 
@@ -615,7 +625,7 @@ const Insights = () => {
               })}
               {!summary?.top_challenge_words?.length && (
                 <p className="text-gray-500 text-sm">
-                  No keyword data yet — capture a few interviews to light this up.
+                  {t('insights.challenges.noData')}
                 </p>
               )}
             </div>
@@ -627,10 +637,10 @@ const Insights = () => {
           <div className="relative space-y-5">
             <header>
               <div className="flex items-center gap-2">
-                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-amber-600/70">Coverage Map</p>
-                <InfoTooltip text="Shows which departments participated, aligning with the role-specific question tracks in the framework." />
+                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-amber-600/70">{t('insights.departments.sectionBadge')}</p>
+                <InfoTooltip text={t('insights.departments.departmentsInfo')} />
               </div>
-              <h3 className="text-2xl font-semibold text-gray-900 mt-2">Departments in the Mix</h3>
+              <h3 className="text-2xl font-semibold text-gray-900 mt-2">{t('insights.departments.sectionTitle')}</h3>
             </header>
 
             <div className="flex flex-wrap gap-2">
@@ -643,19 +653,19 @@ const Insights = () => {
                 </span>
               ))}
               {!departments.length && (
-                <p className="text-gray-500 text-sm">Departments will appear here once interviews are logged.</p>
+                <p className="text-gray-500 text-sm">{t('insights.departments.noData')}</p>
               )}
             </div>
 
             {latestHighlight && (
               <div className="mt-6 rounded-2xl border border-gray-200 bg-gray-50 p-5 text-sm text-gray-700">
-                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500 mb-2">Latest Spotlight</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500 mb-2">{t('insights.departments.latestSpotlight')}</p>
                 <p className="text-base font-semibold text-gray-900">
                   {latestHighlight.name} · {latestHighlight.role}
                 </p>
                 {latestHighlight.recommendations?.[0] && (
                   <p className="mt-3 italic text-gray-600">
-                    “{latestHighlight.recommendations[0]}”
+                    "{latestHighlight.recommendations[0]}"
                   </p>
                 )}
               </div>
@@ -669,10 +679,10 @@ const Insights = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-100/40 via-transparent to-sky-100/30" />
           <div className="relative max-w-4xl mx-auto text-center text-gray-800">
             <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-100 px-5 py-1 text-xs uppercase tracking-[0.4em] text-gray-600">
-              Notable Quote
+              {t('insights.quote.badge')}
             </span>
             <p className="mt-6 text-2xl sm:text-3xl font-light leading-relaxed text-gray-800">
-              “{spotlightQuote.quote}”
+              "{spotlightQuote.quote}"
             </p>
             <p className="mt-4 text-sm uppercase tracking-[0.3em] text-gray-500">
               {spotlightQuote.name} · {spotlightQuote.role}
@@ -700,17 +710,17 @@ const Insights = () => {
 
         const scores = [
           {
-            label: 'Technical',
+            label: t('insights.scores.technical'),
             value: toScore(row['Technical Score']),
             info: 'Based on questions about current technology stack, integrations, data infrastructure, and security posture.'
           },
           {
-            label: 'Cultural',
+            label: t('insights.scores.cultural'),
             value: toScore(row['Cultural Score']),
             info: 'Reflects responses about change readiness, leadership appetite, and innovation mindset.'
           },
           {
-            label: 'Resourcing',
+            label: t('insights.scores.resourcing'),
             value: toScore(row['Resource Score']),
             info: 'Summarises budget, skills, and capacity discussed when exploring resource readiness.'
           }
@@ -768,7 +778,11 @@ const Insights = () => {
                     className="rounded-2xl border border-gray-200 bg-gray-50 p-5 text-gray-700"
                   >
                     <div className="flex items-center gap-2">
-                      <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500">{score.label} Capacity</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500">
+                        {score.label === t('insights.scores.technical') && t('insights.verbatim.technicalCapacity')}
+                        {score.label === t('insights.scores.cultural') && t('insights.verbatim.culturalCapacity')}
+                        {score.label === t('insights.scores.resourcing') && t('insights.verbatim.resourcingCapacity')}
+                      </p>
                       {score.info && <InfoTooltip text={score.info} />}
                     </div>
                     <div className="mt-3 flex items-end justify-between">
@@ -776,7 +790,7 @@ const Insights = () => {
                         {score.value !== null ? score.value.toFixed(1) : '—'}
                         <span className="text-sm text-gray-500 font-light"> / 5</span>
                       </span>
-                      <span className="text-xs text-gray-400">Latest self-assessment</span>
+                      <span className="text-xs text-gray-400">{t('insights.verbatim.latestSelfAssessment')}</span>
                     </div>
                     <div className="mt-4 h-2 rounded-full bg-gray-200 overflow-hidden">
                       <div
@@ -790,60 +804,60 @@ const Insights = () => {
 
               <section className="grid gap-6 lg:grid-cols-2">
                 <InsightList
-                  title="🔥 Current Challenges"
+                  title={t('insights.verbatim.currentChallenges')}
                   items={challenges}
-                  info="Direct quotes from process and operations questions about bottlenecks, frustrations, and inefficiencies."
+                  info={t('insights.verbatim.currentChallengesInfo')}
                 />
                 <InsightList
-                  title="⚙️ Manual Processes"
+                  title={t('insights.verbatim.manualProcesses')}
                   items={processes}
-                  info="Highlights tasks participants identified as manual or repetitive during workflow discussions."
+                  info={t('insights.verbatim.manualProcessesInfo')}
                 />
                 <InsightList
-                  title="🤖 AI Opportunities"
+                  title={t('insights.verbatim.aiOpportunities')}
                   items={opportunities}
-                  info="Ideas captured when exploring immediate, short-term, and strategic AI opportunities in the interview."
+                  info={t('insights.verbatim.aiOpportunitiesInfo')}
                 />
                 <InsightList
-                  title="💡 Key Insights"
+                  title={t('insights.verbatim.keyInsights')}
                   items={insights}
-                  info="Synthesis of the most important takeaways spanning readiness, sector context, and success vision prompts."
+                  info={t('insights.verbatim.keyInsightsInfo')}
                 />
               </section>
 
               <section className="grid gap-6 md:grid-cols-3">
                 <RecommendationCard
-                  title="Immediate Play"
+                  title={t('insights.verbatim.immediatePlay')}
                   emoji="⚡"
                   description={recommendations.immediate || '—'}
                   tone="from-emerald-100/60 via-emerald-50/30 to-transparent"
-                  info="Pulled from the immediate (0-3 month) AI use cases discussed during opportunity identification."
+                  info={t('insights.verbatim.immediatePlayInfo')}
                 />
                 <RecommendationCard
-                  title="Short-term Move"
+                  title={t('insights.verbatim.shortTermMove')}
                   emoji="🚀"
                   description={recommendations.shortTerm || '—'}
                   tone="from-sky-100/60 via-sky-50/30 to-transparent"
-                  info="Links to 3-9 month AI initiatives highlighted in the interview roadmap conversation."
+                  info={t('insights.verbatim.shortTermMoveInfo')}
                 />
                 <RecommendationCard
-                  title="Strategic Bet"
+                  title={t('insights.verbatim.strategicBet')}
                   emoji="🌌"
                   description={recommendations.strategic || '—'}
                   tone="from-purple-100/60 via-purple-50/30 to-transparent"
-                  info="Informed by the strategic (9-24 month) ambition prompts covering grid optimisation, trading, and renewables."
+                  info={t('insights.verbatim.strategicBetInfo')}
                 />
               </section>
 
               {quotes.length > 0 && (
                 <section className="rounded-3xl border border-gray-200 bg-gray-50 p-6">
                   <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-500 mb-4">
-                    Notable quote
+                    {t('insights.verbatim.notableQuote')}
                   </p>
                   <div className="space-y-3">
                     {quotes.map((quote, quoteIndex) => (
                       <p key={quoteIndex} className="text-lg font-light leading-relaxed text-gray-700">
-                        “{quote}”
+                        "{quote}"
                       </p>
                     ))}
                   </div>
@@ -852,11 +866,11 @@ const Insights = () => {
 
               <footer className="flex flex-wrap items-center gap-4 text-xs uppercase tracking-[0.25em] text-gray-400">
                 <span>
-                  Duration · {durationLabel}
+                  {t('insights.verbatim.duration', { duration: durationLabel })}
                 </span>
-                <span>Language · {language}</span>
+                <span>{t('insights.verbatim.language', { language })}</span>
                 {row.Email && (
-                  <span className="truncate">Email · {row.Email}</span>
+                  <span className="truncate">{t('insights.verbatim.email', { email: row.Email })}</span>
                 )}
               </footer>
             </div>
@@ -866,9 +880,9 @@ const Insights = () => {
 
       {!interviews?.items?.length && (
         <div className="rounded-3xl border border-dashed border-gray-300 bg-white p-12 text-center text-gray-500">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-3">No interviews yet</h3>
+          <h3 className="text-2xl font-semibold text-gray-900 mb-3">{t('insights.verbatim.noInterviewsTitle')}</h3>
           <p>
-            Once you capture interviews through the GPT, every verbatim insight will land here automatically.
+            {t('insights.verbatim.noInterviewsText')}
           </p>
         </div>
       )}
@@ -884,14 +898,14 @@ const Insights = () => {
             <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
               <div className="space-y-4">
                 <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-primary">
-                  Live Intelligence
+                  {t('insights.header.badge')}
                 </div>
                 <div className="max-w-3xl space-y-4">
                   <h1 className="text-4xl sm:text-5xl font-semibold text-gray-900">
-                    Aalto AI Discovery Command Centre
+                    {t('insights.header.title')}
                   </h1>
                   <p className="text-lg text-gray-600">
-                    Real-time pulse across every discovery interview — readiness, opportunities, and verbatim insight to fuel your next move.
+                    {t('insights.header.subtitle')}
                   </p>
                 </div>
               </div>
@@ -902,17 +916,17 @@ const Insights = () => {
                 className="inline-flex items-center gap-2 self-start rounded-full border border-primary bg-primary px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition hover:bg-primary/90 focus:outline-none focus:ring-4 focus:ring-primary/30 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400 disabled:shadow-none"
               >
                 <span aria-hidden="true">📄</span>
-                {isGenerating ? 'Generating...' : 'Download Report'}
+                {isGenerating ? t('insights.header.downloadingButton') : t('insights.header.downloadButton')}
               </button>
             </div>
             <div className="flex flex-wrap gap-3 pt-2">
               <TabButton
-                label="Pulse Dashboard"
+                label={t('insights.tabs.pulseDashboard')}
                 isActive={activeTab === 'overview'}
                 onClick={() => setActiveTab('overview')}
               />
               <TabButton
-                label="Verbatim Library"
+                label={t('insights.tabs.verbatimLibrary')}
                 isActive={activeTab === 'verbatim'}
                 onClick={() => setActiveTab('verbatim')}
               />
@@ -1033,26 +1047,29 @@ type InsightListProps = {
   info?: string
 }
 
-const InsightList = ({ title, items, info }: InsightListProps) => (
-  <div className="rounded-3xl border border-gray-200 bg-white p-6 text-gray-700 shadow-sm">
-    <div className="mb-4 flex items-center gap-2">
-      <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gray-500">{title}</p>
-      {info && <InfoTooltip text={info} />}
+const InsightList = ({ title, items, info }: InsightListProps) => {
+  const { t } = useTranslation()
+  return (
+    <div className="rounded-3xl border border-gray-200 bg-white p-6 text-gray-700 shadow-sm">
+      <div className="mb-4 flex items-center gap-2">
+        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gray-500">{title}</p>
+        {info && <InfoTooltip text={info} />}
+      </div>
+      {items.length ? (
+        <ul className="space-y-3 text-sm leading-relaxed text-gray-700">
+          {items.map((item, index) => (
+            <li key={index} className="flex items-start gap-2">
+              <span className="mt-1 h-2 w-2 rounded-full bg-primary" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-sm text-gray-400">{t('insights.verbatim.noData')}</p>
+      )}
     </div>
-    {items.length ? (
-      <ul className="space-y-3 text-sm leading-relaxed text-gray-700">
-        {items.map((item, index) => (
-          <li key={index} className="flex items-start gap-2">
-            <span className="mt-1 h-2 w-2 rounded-full bg-primary" />
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p className="text-sm text-gray-400">No data captured yet.</p>
-    )}
-  </div>
-)
+  )
+}
 
 type RecommendationCardProps = {
   title: string

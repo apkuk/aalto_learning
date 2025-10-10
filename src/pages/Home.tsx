@@ -1,6 +1,8 @@
 import { useRef, useState, type MouseEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function Home() {
+  const { t } = useTranslation();
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -29,7 +31,7 @@ export default function Home() {
   return (
     <div className="bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="flex justify-center mb-10">
+        <div className="flex flex-wrap justify-center gap-4 mb-10">
           <button
             type="button"
             onClick={() => setIsVideoOpen(true)}
@@ -49,43 +51,63 @@ export default function Home() {
               </svg>
             </span>
             <div className="text-left">
-              <p className="text-lg font-semibold text-gray-900">Watch Our Story</p>
-              <p className="text-sm text-gray-600">Learn how Finnish AI powers renewable energy</p>
+              <p className="text-lg font-semibold text-gray-900">{t('home.videoButton')}</p>
             </div>
           </button>
+
+          <a
+            href="https://chatgpt.com/share/68e91205-5520-800a-928d-8a24bf5e484e"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-4 rounded-2xl border border-primary bg-gradient-to-r from-primary to-secondary px-5 py-4 shadow-md transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          >
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-white group-hover:bg-white/30">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-7 w-7"
+                aria-hidden="true"
+              >
+                <path d="M5.055 7.06C3.805 6.347 2.25 7.25 2.25 8.69v8.122c0 1.44 1.555 2.343 2.805 1.628L12 14.471v2.34c0 1.44 1.555 2.343 2.805 1.628l7.108-4.061c1.26-.72 1.26-2.536 0-3.256l-7.108-4.061C13.555 6.346 12 7.249 12 8.689v2.34L5.055 7.06Z" />
+              </svg>
+            </span>
+            <div className="text-left">
+              <p className="text-lg font-semibold text-white">{t('home.ctaButton')}</p>
+              <p className="text-sm text-white/90">{t('home.ctaSubtitle')}</p>
+            </div>
+          </a>
         </div>
 
         {/* What is this site about */}
         <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">What is this site about?</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('home.siteTitle')}</h2>
           <p className="text-lg text-gray-700 leading-relaxed mb-4">
-            This microsite was built in approximately an hour using AI tools. It serves as a practical
-            demonstration of what's possible when you leverage modern AI-powered development workflows.
+            {t('home.intro1')}
           </p>
           <p className="text-lg text-gray-700 leading-relaxed mb-4">
-            Throughout this resource, I'll walk you through:
+            {t('home.intro2')}
           </p>
           <ul className="space-y-2 text-lg text-gray-700 ml-6">
             <li className="flex items-start">
               <span className="text-primary mr-3">•</span>
-              <span><strong>Introduction to the Session:</strong> Workshop overview and agenda</span>
+              <span><strong>{t('home.bullet1Title')}</strong> {t('home.bullet1')}</span>
             </li>
             <li className="flex items-start">
               <span className="text-primary mr-3">•</span>
-              <span><strong>My AI Stack:</strong> The AI tools and platforms I use daily</span>
+              <span><strong>{t('home.bullet2Title')}</strong> {t('home.bullet2')}</span>
             </li>
             <li className="flex items-start">
               <span className="text-primary mr-3">•</span>
-              <span><strong>What I Use AI For:</strong> Real-world applications across 5 key areas</span>
+              <span><strong>{t('home.bullet3Title')}</strong> {t('home.bullet3')}</span>
             </li>
             <li className="flex items-start">
               <span className="text-primary mr-3">•</span>
-              <span><strong>Resources:</strong> AI tools, learning materials, communities, AI terms, and step-by-step app building guides</span>
+              <span><strong>{t('home.bullet4Title')}</strong> {t('home.bullet4')}</span>
             </li>
           </ul>
           <p className="text-lg text-gray-700 leading-relaxed mt-4">
-            This site itself is proof that with the right AI tools and approach, anyone can create
-            professional digital solutions quickly and effectively.
+            {t('home.conclusion')}
           </p>
         </div>
 
@@ -94,60 +116,60 @@ export default function Home() {
           <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow">
             <div className="text-3xl mb-3">📚</div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Comprehensive Glossary
+              {t('home.feature1Title')}
             </h3>
             <p className="text-gray-600">
-              Clear definitions of key AI, ML, and platform terms with links to authoritative sources
+              {t('home.feature1')}
             </p>
           </div>
 
           <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow">
             <div className="text-3xl mb-3">🎓</div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Workshop Materials
+              {t('home.feature2Title')}
             </h3>
             <p className="text-gray-600">
-              Detailed agendas, walkthroughs, and resources for hands-on learning experiences
+              {t('home.feature2')}
             </p>
           </div>
 
           <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow">
             <div className="text-3xl mb-3">🔧</div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Practical Guides
+              {t('home.feature3Title')}
             </h3>
             <p className="text-gray-600">
-              Step-by-step tutorials for building custom GPTs, deep research, and coding integrations
+              {t('home.feature3')}
             </p>
           </div>
         </div>
 
         {/* What You'll Find */}
         <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl p-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">What You'll Find Here</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">{t('home.whatYouFind')}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">🔍 Deep Research Tools</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">🔍 {t('home.section1Title')}</h3>
               <p className="text-gray-700">
-                Comparative guides for Gemini, Claude, Grok, and OpenAI with example prompts and best practices
+                {t('home.section1')}
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">🤖 Custom GPT Building</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">🤖 {t('home.section2Title')}</h3>
               <p className="text-gray-700">
-                Architecture overviews, prompt design strategies, and agent orchestration techniques
+                {t('home.section2')}
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">💻 Coding Integration</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">💻 {t('home.section3Title')}</h3>
               <p className="text-gray-700">
-                IDE workflows, version control, AI assistants, and deployment pipelines
+                {t('home.section3')}
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">📖 AI Definitions</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">📖 {t('home.section4Title')}</h3>
               <p className="text-gray-700">
-                Clear, concise explanations of LLMs, embeddings, vector stores, APIs, and more
+                {t('home.section4')}
               </p>
             </div>
           </div>
@@ -171,9 +193,18 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={handleClose}
-                  className="absolute top-4 right-4 rounded-full bg-black/60 px-4 py-2 text-sm font-semibold text-white transition hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  className="absolute top-4 right-4 rounded-full bg-black/60 p-2 text-white transition hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  aria-label="Close video"
                 >
-                  Close
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
                 </button>
               </div>
               <div className="flex items-center justify-center gap-4 px-6 py-4">
@@ -190,13 +221,6 @@ export default function Home() {
                   className="rounded-full bg-neutral-800 px-5 py-2 text-sm font-semibold text-white transition hover:bg-neutral-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
                 >
                   Stop
-                </button>
-                <button
-                  type="button"
-                  onClick={handleClose}
-                  className="rounded-full border border-white/30 px-5 py-2 text-sm font-semibold text-white transition hover:border-white/60 hover:text-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
-                >
-                  Close Modal
                 </button>
               </div>
             </div>

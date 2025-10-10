@@ -1,19 +1,21 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Tabs } from '../components/Tabs'
 import Badge from '../components/Badge'
 
 export default function NextSteps() {
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState('wrap')
 
   const tabs = [
     {
       id: 'wrap',
-      label: 'Wrap & Q&A',
+      label: t('nextSteps.tabs.wrap'),
       content: <WrapAndQA />
     },
     {
       id: 'mvp-sprint',
-      label: 'What are you going to do now?',
+      label: t('nextSteps.tabs.mvpSprint'),
       content: <MVPSprint />
     }
   ]
@@ -24,10 +26,10 @@ export default function NextSteps() {
         {/* Header */}
         <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Next Steps
+            {t('nextSteps.header.title')}
           </h1>
           <p className="text-xl text-gray-600">
-            Let's wrap up and plan your AI journey forward
+            {t('nextSteps.header.subtitle')}
           </p>
         </div>
 
@@ -39,41 +41,43 @@ export default function NextSteps() {
 }
 
 function WrapAndQA() {
+  const { t } = useTranslation()
+
   return (
     <div className="space-y-8">
       {/* Duration Badge */}
       <div className="flex justify-end">
         <div className="bg-indigo-100 border-2 border-indigo-400 px-4 py-2 rounded-lg">
-          <span className="text-sm font-semibold text-indigo-800">5 minutes</span>
+          <span className="text-sm font-semibold text-indigo-800">{t('nextSteps.wrap.duration')}</span>
         </div>
       </div>
 
       {/* Key Takeaways */}
       <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl p-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-6">Key Takeaways from Today</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-6">{t('nextSteps.wrap.takeawaysTitle')}</h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-white rounded-lg p-6 shadow-sm">
             <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
               <span className="text-3xl mr-3">🎯</span>
-              Core Concepts
+              {t('nextSteps.wrap.coreConceptsTitle')}
             </h3>
             <ul className="space-y-3 text-gray-700">
               <li className="flex items-start">
                 <span className="text-primary mr-3 font-bold">1.</span>
-                <span><strong>AI is learned by doing</strong> - hands-on practice beats passive learning</span>
+                <span dangerouslySetInnerHTML={{ __html: t('nextSteps.wrap.concept1') }} />
               </li>
               <li className="flex items-start">
                 <span className="text-primary mr-3 font-bold">2.</span>
-                <span><strong>Mistakes are teachers</strong> - embrace errors as learning opportunities</span>
+                <span dangerouslySetInnerHTML={{ __html: t('nextSteps.wrap.concept2') }} />
               </li>
               <li className="flex items-start">
                 <span className="text-primary mr-3 font-bold">3.</span>
-                <span><strong>Start simple</strong> - begin with basic tasks and build confidence</span>
+                <span dangerouslySetInnerHTML={{ __html: t('nextSteps.wrap.concept3') }} />
               </li>
               <li className="flex items-start">
                 <span className="text-primary mr-3 font-bold">4.</span>
-                <span><strong>Iterate rapidly</strong> - AI enables fast experimentation and refinement</span>
+                <span dangerouslySetInnerHTML={{ __html: t('nextSteps.wrap.concept4') }} />
               </li>
             </ul>
           </div>
@@ -81,24 +85,24 @@ function WrapAndQA() {
           <div className="bg-white rounded-lg p-6 shadow-sm">
             <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
               <span className="text-3xl mr-3">🛠️</span>
-              Practical Skills
+              {t('nextSteps.wrap.practicalSkillsTitle')}
             </h3>
             <ul className="space-y-3 text-gray-700">
               <li className="flex items-start">
                 <span className="text-secondary mr-3 font-bold">✓</span>
-                <span>Which AI tools to use for different tasks</span>
+                <span>{t('nextSteps.wrap.skill1')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-secondary mr-3 font-bold">✓</span>
-                <span>How to integrate tools into workflows</span>
+                <span>{t('nextSteps.wrap.skill2')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-secondary mr-3 font-bold">✓</span>
-                <span>Real-world use cases and applications</span>
+                <span>{t('nextSteps.wrap.skill3')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-secondary mr-3 font-bold">✓</span>
-                <span>The 4Ps framework for managing AI agents</span>
+                <span>{t('nextSteps.wrap.skill4')}</span>
               </li>
             </ul>
           </div>
@@ -107,45 +111,45 @@ function WrapAndQA() {
 
       {/* What You Can Do Now */}
       <div className="bg-white rounded-xl shadow-md p-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-6">What You Can Do Now</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-6">{t('nextSteps.wrap.whatYouCanTitle')}</h2>
 
         <div className="space-y-4">
           <div className="bg-green-50 rounded-lg p-6 border-l-4 border-green-400">
-            <h3 className="text-xl font-bold text-gray-900 mb-3">Immediate Actions:</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">{t('nextSteps.wrap.immediateTitle')}</h3>
             <ul className="space-y-3 text-gray-700">
               <li className="flex items-start">
                 <span className="text-green-600 mr-3 font-bold text-lg">→</span>
-                <span>Start experimenting with ChatGPT, Claude, or Gemini for daily tasks</span>
+                <span>{t('nextSteps.wrap.immediate1')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-green-600 mr-3 font-bold text-lg">→</span>
-                <span>Identify one workflow in your work that could be automated or enhanced with AI</span>
+                <span>{t('nextSteps.wrap.immediate2')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-green-600 mr-3 font-bold text-lg">→</span>
-                <span>Set up your AI tool accounts and explore their features</span>
+                <span>{t('nextSteps.wrap.immediate3')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-green-600 mr-3 font-bold text-lg">→</span>
-                <span>Practice prompt engineering - learn what works through trial and error</span>
+                <span>{t('nextSteps.wrap.immediate4')}</span>
               </li>
             </ul>
           </div>
 
           <div className="bg-blue-50 rounded-lg p-6 border-l-4 border-blue-400">
-            <h3 className="text-xl font-bold text-gray-900 mb-3">Next Week:</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">{t('nextSteps.wrap.nextWeekTitle')}</h3>
             <ul className="space-y-3 text-gray-700">
               <li className="flex items-start">
                 <span className="text-blue-600 mr-3 font-bold text-lg">→</span>
-                <span>Try one deep dive topic (research, image generation, or coding)</span>
+                <span>{t('nextSteps.wrap.nextWeek1')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-blue-600 mr-3 font-bold text-lg">→</span>
-                <span>Build a simple project using AI assistance</span>
+                <span>{t('nextSteps.wrap.nextWeek2')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-blue-600 mr-3 font-bold text-lg">→</span>
-                <span>Share your experiences with colleagues - teach what you've learned</span>
+                <span>{t('nextSteps.wrap.nextWeek3')}</span>
               </li>
             </ul>
           </div>
@@ -154,62 +158,61 @@ function WrapAndQA() {
 
       {/* Q&A Format */}
       <div className="bg-white rounded-xl shadow-md p-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-6">Questions & Discussion</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-6">{t('nextSteps.wrap.questionsTitle')}</h2>
 
         <div className="space-y-6">
           <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded">
-            <h3 className="font-bold text-gray-900 mb-3 text-lg">This is YOUR time!</h3>
+            <h3 className="font-bold text-gray-900 mb-3 text-lg">{t('nextSteps.wrap.yourTimeTitle')}</h3>
             <p className="text-gray-700 mb-4">
-              Ask anything - there are no silly questions. Whether it's about a specific tool,
-              a use case you're thinking about, or clarification on something we covered.
+              {t('nextSteps.wrap.yourTimeText')}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-gray-50 rounded-lg p-6">
-              <h4 className="font-bold text-gray-900 mb-3">Common Questions to Consider:</h4>
+              <h4 className="font-bold text-gray-900 mb-3">{t('nextSteps.wrap.commonQuestionsTitle')}</h4>
               <ul className="space-y-2 text-sm text-gray-700">
                 <li className="flex items-start">
                   <span className="text-primary mr-2">•</span>
-                  <span>Which AI tool should I start with for my specific needs?</span>
+                  <span>{t('nextSteps.wrap.commonQ1')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary mr-2">•</span>
-                  <span>How do I handle data privacy and security concerns?</span>
+                  <span>{t('nextSteps.wrap.commonQ2')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary mr-2">•</span>
-                  <span>What's the best way to learn prompt engineering?</span>
+                  <span>{t('nextSteps.wrap.commonQ3')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary mr-2">•</span>
-                  <span>How much will these tools cost for my use case?</span>
+                  <span>{t('nextSteps.wrap.commonQ4')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary mr-2">•</span>
-                  <span>Can you show me an example of [specific task]?</span>
+                  <span>{t('nextSteps.wrap.commonQ5')}</span>
                 </li>
               </ul>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-6">
-              <h4 className="font-bold text-gray-900 mb-3">Tips for Great Questions:</h4>
+              <h4 className="font-bold text-gray-900 mb-3">{t('nextSteps.wrap.tipsTitle')}</h4>
               <ul className="space-y-2 text-sm text-gray-700">
                 <li className="flex items-start">
                   <span className="text-green-600 mr-2">✓</span>
-                  <span>Be specific about your context and goals</span>
+                  <span>{t('nextSteps.wrap.tip1')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-600 mr-2">✓</span>
-                  <span>Share what you've already tried if applicable</span>
+                  <span>{t('nextSteps.wrap.tip2')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-600 mr-2">✓</span>
-                  <span>Ask about real challenges you're facing</span>
+                  <span>{t('nextSteps.wrap.tip3')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-600 mr-2">✓</span>
-                  <span>Don't hesitate to ask for clarification</span>
+                  <span>{t('nextSteps.wrap.tip4')}</span>
                 </li>
               </ul>
             </div>
@@ -221,17 +224,13 @@ function WrapAndQA() {
       <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl shadow-md p-8 text-center">
         <div className="text-5xl mb-4">🎉</div>
         <h2 className="text-3xl font-bold text-gray-900 mb-4">
-          Keep Practicing!
+          {t('nextSteps.wrap.keepPracticingTitle')}
         </h2>
         <p className="text-xl text-gray-700 mb-6">
-          The best way to get better with AI is to use it every day.
-          Start small, experiment boldly, and don't be afraid to make mistakes.
+          {t('nextSteps.wrap.keepPracticingText')}
         </p>
         <div className="bg-white rounded-lg p-6 inline-block">
-          <p className="text-gray-800 font-semibold italic">
-            "The only way to do great work is to love what you do." <br />
-            And with AI, you'll love how much more you can accomplish!
-          </p>
+          <p className="text-gray-800 font-semibold italic" dangerouslySetInnerHTML={{ __html: t('nextSteps.wrap.quoteText') }} />
         </div>
       </div>
     </div>
@@ -239,36 +238,38 @@ function WrapAndQA() {
 }
 
 function MVPSprint() {
+  const { t } = useTranslation()
+
   const steps = [
     {
       number: 1,
-      title: 'Brainstorm Your MVP Ideas',
-      duration: 'Tonight or this week',
-      description: 'Think about a simple project or tool that would be useful to you or your team',
+      title: t('nextSteps.mvpSprint.step1Title'),
+      duration: t('nextSteps.mvpSprint.step1Duration'),
+      description: t('nextSteps.mvpSprint.step1Desc'),
       details: [
-        'It should be achievable in a few hours',
-        'Focus on ONE core feature or function',
-        'Consider problems you face regularly at work',
-        'Don\'t overthink it - simpler is better for your first MVP'
+        t('nextSteps.mvpSprint.step1Detail1'),
+        t('nextSteps.mvpSprint.step1Detail2'),
+        t('nextSteps.mvpSprint.step1Detail3'),
+        t('nextSteps.mvpSprint.step1Detail4')
       ],
       examples: [
-        'A landing page for a side project',
-        'A simple calculator or converter tool',
-        'A dashboard to visualize data',
-        'An internal team resource site'
+        t('nextSteps.mvpSprint.step1Example1'),
+        t('nextSteps.mvpSprint.step1Example2'),
+        t('nextSteps.mvpSprint.step1Example3'),
+        t('nextSteps.mvpSprint.step1Example4')
       ]
     },
     {
       number: 2,
-      title: 'Create a Project Requirements Document (PRD)',
-      duration: '20-30 minutes',
-      description: 'Use ChatGPT or Claude to help you write a clear PRD that describes what you want to build',
+      title: t('nextSteps.mvpSprint.step2Title'),
+      duration: t('nextSteps.mvpSprint.step2Duration'),
+      description: t('nextSteps.mvpSprint.step2Desc'),
       details: [
-        'Describe the project\'s purpose and goals',
-        'List the main features and functionality',
-        'Specify your target audience or users',
-        'Include any design preferences or requirements',
-        'Mention technical constraints (if any)'
+        t('nextSteps.mvpSprint.step2Detail1'),
+        t('nextSteps.mvpSprint.step2Detail2'),
+        t('nextSteps.mvpSprint.step2Detail3'),
+        t('nextSteps.mvpSprint.step2Detail4'),
+        t('nextSteps.mvpSprint.step2Detail5')
       ],
       prompt: `I want to create a [PROJECT TYPE]. Can you help me write a Project Requirements Document (PRD)?
 
@@ -285,86 +286,86 @@ Please create a comprehensive PRD that a coding AI could use to build this proje
     },
     {
       number: 3,
-      title: 'Set Up Your Development Environment',
-      duration: '30-60 minutes (one-time setup)',
-      description: 'Get your tools ready for AI-assisted development',
+      title: t('nextSteps.mvpSprint.step3Title'),
+      duration: t('nextSteps.mvpSprint.step3Duration'),
+      description: t('nextSteps.mvpSprint.step3Desc'),
       options: [
         {
-          name: 'Option A: VS Code + GitHub Copilot',
+          name: t('nextSteps.mvpSprint.step3OptionA'),
           requirements: [
-            'Install VS Code (free)',
-            'Install GitHub Copilot extension ($10/month or free for students)',
-            'Create GitHub account (free)'
+            t('nextSteps.mvpSprint.step3OptionAReq1'),
+            t('nextSteps.mvpSprint.step3OptionAReq2'),
+            t('nextSteps.mvpSprint.step3OptionAReq3')
           ]
         },
         {
-          name: 'Option B: Claude Code (Recommended)',
+          name: t('nextSteps.mvpSprint.step3OptionB'),
           requirements: [
-            'Install Claude Code CLI (free)',
-            'Claude Pro account ($20/month)',
-            'Create GitHub account (free)'
+            t('nextSteps.mvpSprint.step3OptionBReq1'),
+            t('nextSteps.mvpSprint.step3OptionBReq2'),
+            t('nextSteps.mvpSprint.step3OptionBReq3')
           ]
         }
       ],
-      note: 'You also need either ChatGPT Plus ($20/month) or Claude Pro ($20/month) for the AI assistance'
+      note: t('nextSteps.mvpSprint.step3Note')
     },
     {
       number: 4,
-      title: 'Build Your MVP with AI Coding Agents',
-      duration: '1-3 hours',
-      description: 'Use your PRD and let AI do the heavy lifting',
+      title: t('nextSteps.mvpSprint.step4Title'),
+      duration: t('nextSteps.mvpSprint.step4Duration'),
+      description: t('nextSteps.mvpSprint.step4Desc'),
       steps: [
-        'Open your PRD in your AI tool (ChatGPT, Claude, or Claude Code)',
-        'Ask the AI to create the project based on your PRD',
-        'Review the code and ask for modifications as needed',
-        'Test the application locally on your computer',
-        'Iterate until it works as expected'
+        t('nextSteps.mvpSprint.step4Step1'),
+        t('nextSteps.mvpSprint.step4Step2'),
+        t('nextSteps.mvpSprint.step4Step3'),
+        t('nextSteps.mvpSprint.step4Step4'),
+        t('nextSteps.mvpSprint.step4Step5')
       ],
       tips: [
-        'Be specific about what you want changed',
-        'Test frequently as you build',
-        'Don\'t be afraid to ask the AI to explain the code',
-        'Save your conversation - you can refer back to it later'
+        t('nextSteps.mvpSprint.step4Tip1'),
+        t('nextSteps.mvpSprint.step4Tip2'),
+        t('nextSteps.mvpSprint.step4Tip3'),
+        t('nextSteps.mvpSprint.step4Tip4')
       ]
     },
     {
       number: 5,
-      title: 'Publish to GitHub',
-      duration: '15 minutes',
-      description: 'Version control and prepare for deployment',
+      title: t('nextSteps.mvpSprint.step5Title'),
+      duration: t('nextSteps.mvpSprint.step5Duration'),
+      description: t('nextSteps.mvpSprint.step5Desc'),
       steps: [
-        'Create a new repository on GitHub',
-        'Follow the AI\'s guidance to push your code',
-        'Add a README.md file describing your project',
-        'Commit and push all changes'
+        t('nextSteps.mvpSprint.step5Step1'),
+        t('nextSteps.mvpSprint.step5Step2'),
+        t('nextSteps.mvpSprint.step5Step3'),
+        t('nextSteps.mvpSprint.step5Step4')
       ],
-      note: 'The AI can help you with all the Git commands - just ask!'
+      note: t('nextSteps.mvpSprint.step5Note')
     },
     {
       number: 6,
-      title: 'Deploy to Netlify',
-      duration: '10 minutes',
-      description: 'Make your project live on the internet',
+      title: t('nextSteps.mvpSprint.step6Title'),
+      duration: t('nextSteps.mvpSprint.step6Duration'),
+      description: t('nextSteps.mvpSprint.step6Desc'),
       steps: [
-        'Create a free Netlify account',
-        'Connect your GitHub repository',
-        'Configure build settings (AI can help with this)',
-        'Deploy - Netlify will build and host your site automatically',
-        'Get your live URL to share with others'
+        t('nextSteps.mvpSprint.step6Step1'),
+        t('nextSteps.mvpSprint.step6Step2'),
+        t('nextSteps.mvpSprint.step6Step3'),
+        t('nextSteps.mvpSprint.step6Step4'),
+        t('nextSteps.mvpSprint.step6Step5')
       ],
-      bonus: 'Every time you push changes to GitHub, Netlify automatically rebuilds and updates your site!'
+      bonus: t('nextSteps.mvpSprint.step6Bonus')
     },
     {
       number: 7,
-      title: 'Test and Iterate',
-      duration: 'Ongoing',
-      description: 'Use your live site and continue improving it',
+      title: t('nextSteps.mvpSprint.step7Title'),
+      duration: t('nextSteps.mvpSprint.step7Duration'),
+      description: t('nextSteps.mvpSprint.step7Desc'),
       actions: [
-        'Visit your live site and test all features',
-        'Share with friends or colleagues for feedback',
-        'Make a list of improvements or new features',
-        'Use AI to implement changes',
-        'Push updates to GitHub and watch them go live'
+        t('nextSteps.mvpSprint.step7Action1'),
+        t('nextSteps.mvpSprint.step7Action2'),
+        t('nextSteps.mvpSprint.step7Action3'),
+        t('nextSteps.mvpSprint.step7Action4'),
+        t('nextSteps.mvpSprint.step7Action5')
       ]
     }
   ]
@@ -374,39 +375,63 @@ Please create a comprehensive PRD that a coding AI could use to build this proje
       {/* Duration Badge */}
       <div className="flex justify-end">
         <div className="bg-orange-100 border-2 border-orange-400 px-4 py-2 rounded-lg">
-          <span className="text-sm font-semibold text-orange-800">10 minutes + your MVP journey!</span>
+          <span className="text-sm font-semibold text-orange-800">{t('nextSteps.mvpSprint.duration')}</span>
         </div>
       </div>
 
       {/* Introduction */}
       <div className="bg-gradient-to-r from-orange-50 to-pink-50 rounded-xl p-8">
-        <div className="text-center mb-6">
-          <div className="text-5xl mb-4">🚀</div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Your MVP Building Journey Starts Now!
-          </h2>
-          <p className="text-xl text-gray-700">
-            Follow these steps to build and deploy your own AI-powered project
-          </p>
+        <div className="flex flex-wrap items-start justify-between gap-6 mb-6">
+          <div className="text-center flex-1 min-w-[300px]">
+            <div className="text-5xl mb-4">🚀</div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              {t('nextSteps.mvpSprint.heroTitle')}
+            </h2>
+            <p className="text-xl text-gray-700">
+              {t('nextSteps.mvpSprint.heroSubtitle')}
+            </p>
+          </div>
+          <a
+            href="https://chatgpt.com/share/68e91205-5520-800a-928d-8a24bf5e484e"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-3 rounded-2xl border-2 border-primary bg-gradient-to-r from-primary to-secondary px-5 py-4 shadow-md transition hover:scale-105 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary self-start"
+          >
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white group-hover:bg-white/30">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-6 w-6"
+                aria-hidden="true"
+              >
+                <path d="M5.055 7.06C3.805 6.347 2.25 7.25 2.25 8.69v8.122c0 1.44 1.555 2.343 2.805 1.628L12 14.471v2.34c0 1.44 1.555 2.343 2.805 1.628l7.108-4.061c1.26-.72 1.26-2.536 0-3.256l-7.108-4.061C13.555 6.346 12 7.249 12 8.689v2.34L5.055 7.06Z" />
+              </svg>
+            </span>
+            <div className="text-left">
+              <p className="text-base font-semibold text-white whitespace-nowrap">{t('nextSteps.mvpSprint.ctaButton')}</p>
+              <p className="text-xs text-white/90">{t('nextSteps.mvpSprint.ctaSubtitle')}</p>
+            </div>
+          </a>
         </div>
 
         <div className="bg-white rounded-lg p-6 mt-6">
-          <h3 className="font-bold text-gray-900 mb-3 text-lg">What You'll Accomplish:</h3>
+          <h3 className="font-bold text-gray-900 mb-3 text-lg">{t('nextSteps.mvpSprint.accomplishTitle')}</h3>
           <div className="grid md:grid-cols-3 gap-4">
             <div className="text-center p-4 bg-blue-50 rounded-lg">
               <div className="text-3xl mb-2">💡</div>
-              <p className="font-semibold text-gray-900">Brainstorm & Plan</p>
-              <p className="text-sm text-gray-600">Define your MVP idea</p>
+              <p className="font-semibold text-gray-900">{t('nextSteps.mvpSprint.accomplish1Title')}</p>
+              <p className="text-sm text-gray-600">{t('nextSteps.mvpSprint.accomplish1Subtitle')}</p>
             </div>
             <div className="text-center p-4 bg-purple-50 rounded-lg">
               <div className="text-3xl mb-2">🛠️</div>
-              <p className="font-semibold text-gray-900">Build with AI</p>
-              <p className="text-sm text-gray-600">Let AI create your project</p>
+              <p className="font-semibold text-gray-900">{t('nextSteps.mvpSprint.accomplish2Title')}</p>
+              <p className="text-sm text-gray-600">{t('nextSteps.mvpSprint.accomplish2Subtitle')}</p>
             </div>
             <div className="text-center p-4 bg-green-50 rounded-lg">
               <div className="text-3xl mb-2">🌐</div>
-              <p className="font-semibold text-gray-900">Deploy Live</p>
-              <p className="text-sm text-gray-600">Share your creation with the world</p>
+              <p className="font-semibold text-gray-900">{t('nextSteps.mvpSprint.accomplish3Title')}</p>
+              <p className="text-sm text-gray-600">{t('nextSteps.mvpSprint.accomplish3Subtitle')}</p>
             </div>
           </div>
         </div>
@@ -414,57 +439,54 @@ Please create a comprehensive PRD that a coding AI could use to build this proje
 
       {/* Prerequisites */}
       <div className="bg-white rounded-xl shadow-md p-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">What You'll Need</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('nextSteps.mvpSprint.needTitle')}</h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-blue-50 rounded-lg p-6 border-l-4 border-blue-500">
-            <h3 className="font-bold text-gray-900 mb-3">Required Accounts:</h3>
+            <h3 className="font-bold text-gray-900 mb-3">{t('nextSteps.mvpSprint.requiredAccountsTitle')}</h3>
             <ul className="space-y-2 text-gray-700 text-sm">
               <li className="flex items-start">
                 <span className="text-blue-600 mr-2 font-bold">•</span>
-                <span><strong>Claude Pro</strong> ($20/month) OR <strong>ChatGPT Plus</strong> ($20/month)</span>
+                <span dangerouslySetInnerHTML={{ __html: t('nextSteps.mvpSprint.requiredAccount1') }} />
               </li>
               <li className="flex items-start">
                 <span className="text-blue-600 mr-2 font-bold">•</span>
-                <span><strong>GitHub account</strong> (free)</span>
+                <span dangerouslySetInnerHTML={{ __html: t('nextSteps.mvpSprint.requiredAccount2') }} />
               </li>
               <li className="flex items-start">
                 <span className="text-blue-600 mr-2 font-bold">•</span>
-                <span><strong>Netlify account</strong> (free)</span>
+                <span dangerouslySetInnerHTML={{ __html: t('nextSteps.mvpSprint.requiredAccount3') }} />
               </li>
             </ul>
           </div>
 
           <div className="bg-purple-50 rounded-lg p-6 border-l-4 border-purple-500">
-            <h3 className="font-bold text-gray-900 mb-3">Recommended Tools:</h3>
+            <h3 className="font-bold text-gray-900 mb-3">{t('nextSteps.mvpSprint.recommendedToolsTitle')}</h3>
             <ul className="space-y-2 text-gray-700 text-sm">
               <li className="flex items-start">
                 <span className="text-purple-600 mr-2 font-bold">•</span>
-                <span><strong>VS Code</strong> with <strong>GitHub Copilot</strong> extension</span>
+                <span dangerouslySetInnerHTML={{ __html: t('nextSteps.mvpSprint.recommendedTool1') }} />
               </li>
               <li className="flex items-start">
                 <span className="text-purple-600 mr-2 font-bold">•</span>
-                <span>OR <strong>Claude Code CLI</strong> for command-line development</span>
+                <span dangerouslySetInnerHTML={{ __html: t('nextSteps.mvpSprint.recommendedTool2') }} />
               </li>
               <li className="flex items-start">
                 <span className="text-purple-600 mr-2 font-bold">•</span>
-                <span>Git installed on your computer</span>
+                <span>{t('nextSteps.mvpSprint.recommendedTool3')}</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded mt-6">
-          <p className="text-gray-800 text-sm">
-            <strong>Note:</strong> While there are monthly costs for AI tools, they're far less than hiring developers
-            ($3,000-$10,000+ per project) and you can cancel anytime. Consider it an investment in your capability!
-          </p>
+          <p className="text-gray-800 text-sm" dangerouslySetInnerHTML={{ __html: t('nextSteps.mvpSprint.costNote') }} />
         </div>
       </div>
 
       {/* Step-by-Step Guide */}
       <div className="space-y-6">
-        <h2 className="text-3xl font-bold text-gray-900">Step-by-Step MVP Building Guide</h2>
+        <h2 className="text-3xl font-bold text-gray-900">{t('nextSteps.mvpSprint.guideTitle')}</h2>
 
         {steps.map((step) => (
           <div key={step.number} className="bg-white rounded-xl shadow-md p-8">
@@ -485,7 +507,7 @@ Please create a comprehensive PRD that a coding AI could use to build this proje
 
             {step.details && (
               <div className="bg-gray-50 rounded-lg p-6 mb-4">
-                <h4 className="font-bold text-gray-900 mb-3">Key Points:</h4>
+                <h4 className="font-bold text-gray-900 mb-3">{t('nextSteps.mvpSprint.step1KeyPoints')}</h4>
                 <ul className="space-y-2">
                   {step.details.map((detail, idx) => (
                     <li key={idx} className="flex items-start text-gray-700">
@@ -499,7 +521,7 @@ Please create a comprehensive PRD that a coding AI could use to build this proje
 
             {step.examples && (
               <div className="bg-blue-50 rounded-lg p-6 mb-4">
-                <h4 className="font-bold text-gray-900 mb-3">Example Ideas:</h4>
+                <h4 className="font-bold text-gray-900 mb-3">{t('nextSteps.mvpSprint.step1Examples')}</h4>
                 <ul className="grid md:grid-cols-2 gap-2">
                   {step.examples.map((example, idx) => (
                     <li key={idx} className="flex items-start text-gray-700 text-sm">
@@ -513,7 +535,7 @@ Please create a comprehensive PRD that a coding AI could use to build this proje
 
             {step.prompt && (
               <div className="bg-purple-50 rounded-lg p-6 mb-4 border-l-4 border-purple-500">
-                <h4 className="font-bold text-gray-900 mb-3">Example Prompt to Use:</h4>
+                <h4 className="font-bold text-gray-900 mb-3">{t('nextSteps.mvpSprint.step2PromptTitle')}</h4>
                 <div className="bg-white rounded p-4 font-mono text-sm text-gray-700 whitespace-pre-wrap">
                   {step.prompt}
                 </div>
@@ -540,7 +562,7 @@ Please create a comprehensive PRD that a coding AI could use to build this proje
 
             {step.steps && (
               <div className="bg-gray-50 rounded-lg p-6 mb-4">
-                <h4 className="font-bold text-gray-900 mb-3">Steps:</h4>
+                <h4 className="font-bold text-gray-900 mb-3">{t('nextSteps.mvpSprint.step4Steps')}</h4>
                 <ol className="space-y-2">
                   {step.steps.map((substep, idx) => (
                     <li key={idx} className="flex items-start text-gray-700">
@@ -554,7 +576,7 @@ Please create a comprehensive PRD that a coding AI could use to build this proje
 
             {step.tips && (
               <div className="bg-green-50 rounded-lg p-6 mb-4">
-                <h4 className="font-bold text-gray-900 mb-3">Tips:</h4>
+                <h4 className="font-bold text-gray-900 mb-3">{t('nextSteps.mvpSprint.step4Tips')}</h4>
                 <ul className="space-y-2">
                   {step.tips.map((tip, idx) => (
                     <li key={idx} className="flex items-start text-gray-700 text-sm">
@@ -568,7 +590,7 @@ Please create a comprehensive PRD that a coding AI could use to build this proje
 
             {step.actions && (
               <div className="bg-blue-50 rounded-lg p-6 mb-4">
-                <h4 className="font-bold text-gray-900 mb-3">Actions:</h4>
+                <h4 className="font-bold text-gray-900 mb-3">{t('nextSteps.mvpSprint.step7Actions')}</h4>
                 <ul className="space-y-2">
                   {step.actions.map((action, idx) => (
                     <li key={idx} className="flex items-start text-gray-700">
@@ -582,17 +604,13 @@ Please create a comprehensive PRD that a coding AI could use to build this proje
 
             {step.bonus && (
               <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-4 border-l-4 border-yellow-400">
-                <p className="text-gray-800">
-                  <strong>Bonus:</strong> {step.bonus}
-                </p>
+                <p className="text-gray-800" dangerouslySetInnerHTML={{ __html: step.bonus }} />
               </div>
             )}
 
             {step.note && (
               <div className="bg-orange-50 border-l-4 border-orange-400 p-4 rounded">
-                <p className="text-gray-800 text-sm">
-                  <strong>Note:</strong> {step.note}
-                </p>
+                <p className="text-gray-800 text-sm" dangerouslySetInnerHTML={{ __html: step.note }} />
               </div>
             )}
           </div>
@@ -601,62 +619,62 @@ Please create a comprehensive PRD that a coding AI could use to build this proje
 
       {/* Checklist */}
       <div className="bg-white rounded-xl shadow-md p-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">MVP Sprint Checklist</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('nextSteps.mvpSprint.checklistTitle')}</h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-3">
-            <h3 className="font-bold text-gray-900 mb-3">Planning & Setup:</h3>
+            <h3 className="font-bold text-gray-900 mb-3">{t('nextSteps.mvpSprint.planningTitle')}</h3>
             <label className="flex items-start cursor-pointer">
               <input type="checkbox" className="mt-1 mr-3" />
-              <span className="text-gray-700">Brainstorm MVP idea</span>
+              <span className="text-gray-700">{t('nextSteps.mvpSprint.checklist1')}</span>
             </label>
             <label className="flex items-start cursor-pointer">
               <input type="checkbox" className="mt-1 mr-3" />
-              <span className="text-gray-700">Create PRD with AI assistance</span>
+              <span className="text-gray-700">{t('nextSteps.mvpSprint.checklist2')}</span>
             </label>
             <label className="flex items-start cursor-pointer">
               <input type="checkbox" className="mt-1 mr-3" />
-              <span className="text-gray-700">Set up AI coding tool (Copilot or Claude Code)</span>
+              <span className="text-gray-700">{t('nextSteps.mvpSprint.checklist3')}</span>
             </label>
             <label className="flex items-start cursor-pointer">
               <input type="checkbox" className="mt-1 mr-3" />
-              <span className="text-gray-700">Create GitHub account</span>
+              <span className="text-gray-700">{t('nextSteps.mvpSprint.checklist4')}</span>
             </label>
             <label className="flex items-start cursor-pointer">
               <input type="checkbox" className="mt-1 mr-3" />
-              <span className="text-gray-700">Create Netlify account</span>
+              <span className="text-gray-700">{t('nextSteps.mvpSprint.checklist5')}</span>
             </label>
           </div>
 
           <div className="space-y-3">
-            <h3 className="font-bold text-gray-900 mb-3">Building & Deploying:</h3>
+            <h3 className="font-bold text-gray-900 mb-3">{t('nextSteps.mvpSprint.buildingTitle')}</h3>
             <label className="flex items-start cursor-pointer">
               <input type="checkbox" className="mt-1 mr-3" />
-              <span className="text-gray-700">Build MVP with AI assistance</span>
+              <span className="text-gray-700">{t('nextSteps.mvpSprint.checklist6')}</span>
             </label>
             <label className="flex items-start cursor-pointer">
               <input type="checkbox" className="mt-1 mr-3" />
-              <span className="text-gray-700">Test locally</span>
+              <span className="text-gray-700">{t('nextSteps.mvpSprint.checklist7')}</span>
             </label>
             <label className="flex items-start cursor-pointer">
               <input type="checkbox" className="mt-1 mr-3" />
-              <span className="text-gray-700">Create GitHub repository</span>
+              <span className="text-gray-700">{t('nextSteps.mvpSprint.checklist8')}</span>
             </label>
             <label className="flex items-start cursor-pointer">
               <input type="checkbox" className="mt-1 mr-3" />
-              <span className="text-gray-700">Push code to GitHub</span>
+              <span className="text-gray-700">{t('nextSteps.mvpSprint.checklist9')}</span>
             </label>
             <label className="flex items-start cursor-pointer">
               <input type="checkbox" className="mt-1 mr-3" />
-              <span className="text-gray-700">Deploy to Netlify</span>
+              <span className="text-gray-700">{t('nextSteps.mvpSprint.checklist10')}</span>
             </label>
             <label className="flex items-start cursor-pointer">
               <input type="checkbox" className="mt-1 mr-3" />
-              <span className="text-gray-700">Test live site</span>
+              <span className="text-gray-700">{t('nextSteps.mvpSprint.checklist11')}</span>
             </label>
             <label className="flex items-start cursor-pointer">
               <input type="checkbox" className="mt-1 mr-3" />
-              <span className="text-gray-700">Share with others for feedback</span>
+              <span className="text-gray-700">{t('nextSteps.mvpSprint.checklist12')}</span>
             </label>
           </div>
         </div>
@@ -665,17 +683,16 @@ Please create a comprehensive PRD that a coding AI could use to build this proje
       {/* Final Encouragement */}
       <div className="bg-gradient-to-r from-primary to-secondary text-white rounded-xl shadow-lg p-8 text-center">
         <div className="text-5xl mb-4">🎯</div>
-        <h2 className="text-3xl font-bold mb-4">You've Got This!</h2>
+        <h2 className="text-3xl font-bold mb-4">{t('nextSteps.mvpSprint.finalTitle')}</h2>
         <p className="text-xl mb-6 leading-relaxed">
-          Remember: The workshop website you're looking at right now was built in 15 minutes using
-          these exact steps. If I can do it, you can too!
+          {t('nextSteps.mvpSprint.finalText')}
         </p>
         <div className="bg-white/20 rounded-lg p-6 backdrop-blur-sm">
           <p className="text-lg font-semibold mb-2">
-            "The best time to start was yesterday. The second best time is now."
+            {t('nextSteps.mvpSprint.finalQuote')}
           </p>
           <p className="text-sm">
-            Don't wait for the perfect idea - start with something simple and learn as you build.
+            {t('nextSteps.mvpSprint.finalNote')}
           </p>
         </div>
       </div>

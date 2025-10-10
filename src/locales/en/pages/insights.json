@@ -1,0 +1,128 @@
+{
+  "insights": {
+    "loading": "Synching live insights…",
+    "errorTitle": "We hit a snag",
+    "errorRetry": "Try refreshing, or check the Apps Script + Netlify logs.",
+    "header": {
+      "badge": "Live Intelligence",
+      "title": "Aalto AI Discovery Command Centre",
+      "subtitle": "Real-time pulse across every discovery interview — readiness, opportunities, and verbatim insight to fuel your next move.",
+      "downloadButton": "Download Report",
+      "downloadingButton": "Generating..."
+    },
+    "tabs": {
+      "pulseDashboard": "Pulse Dashboard",
+      "verbatimLibrary": "Verbatim Library"
+    },
+    "metrics": {
+      "interviewsCapturedTitle": "Interviews Captured",
+      "interviewsCapturedSubtitle": "Live sync from Google Sheets",
+      "interviewsCapturedInfo": "Total discovery interviews completed across process, data, decision-making, and energy-sector question sets.",
+      "interviewsCapturedFooter": "{{count}} departments · {{languages}}",
+      "avgDurationTitle": "Average Duration",
+      "avgDurationSubtitle": "Participant time invested",
+      "avgDurationInfo": "Average minutes participants spent covering the full interview framework (opening, deep dive, sector-specific, readiness).",
+      "avgDurationFooter": "{{count}} latest interviews analysed",
+      "topReadinessTitle": "Top Readiness Pulse",
+      "topReadinessInfo": "Share of interviewees rating overall readiness after discussing technical stack, culture, and resourcing questions.",
+      "topReadinessFooter": "{{count}} readiness datapoints",
+      "languagesTitle": "Languages Detected",
+      "languagesSubtitle": "Interview language mix",
+      "languagesInfo": "Preferred language captured during context-setting so follow-ups respect Finnish/English communication preferences.",
+      "languagesFooter": "{{count}} interviews tagged"
+    },
+    "readiness": {
+      "sectionBadge": "Readiness Pulse",
+      "sectionTitle": "Confidence Across the Organisation",
+      "signalsLabel": "{{count}} signals",
+      "highReadiness": "High Readiness",
+      "mediumReadiness": "Medium Readiness",
+      "lowReadiness": "Low Readiness",
+      "readinessInfo": "Shows how many interviewees reported high, medium, or low overall readiness after discussing technical, cultural, and resource questions."
+    },
+    "scores": {
+      "sectionBadge": "Capability Levels",
+      "sectionTitle": "AI Readiness Scores",
+      "scoresInfo": "Average 1-5 scores from the readiness assessment covering technology stack, change culture, and available people/budget.",
+      "technical": "Technical",
+      "cultural": "Cultural",
+      "resourcing": "Resourcing"
+    },
+    "challenges": {
+      "sectionBadge": "Signal Amplifier",
+      "sectionTitle": "Top Challenge Keywords",
+      "challengesInfo": "Keywords extracted from answers about inefficient processes, data pain points, and decision bottlenecks.",
+      "themesLabel": "{{count}} themes",
+      "noData": "No keyword data yet — capture a few interviews to light this up."
+    },
+    "departments": {
+      "sectionBadge": "Coverage Map",
+      "sectionTitle": "Departments in the Mix",
+      "departmentsInfo": "Shows which departments participated, aligning with the role-specific question tracks in the framework.",
+      "noData": "Departments will appear here once interviews are logged.",
+      "latestSpotlight": "Latest Spotlight"
+    },
+    "quote": {
+      "badge": "Notable Quote"
+    },
+    "verbatim": {
+      "noInterviewsTitle": "No interviews yet",
+      "noInterviewsText": "Once you capture interviews through the GPT, every verbatim insight will land here automatically.",
+      "currentChallenges": "🔥 Current Challenges",
+      "currentChallengesInfo": "Direct quotes from process and operations questions about bottlenecks, frustrations, and inefficiencies.",
+      "manualProcesses": "⚙️ Manual Processes",
+      "manualProcessesInfo": "Highlights tasks participants identified as manual or repetitive during workflow discussions.",
+      "aiOpportunities": "🤖 AI Opportunities",
+      "aiOpportunitiesInfo": "Ideas captured when exploring immediate, short-term, and strategic AI opportunities in the interview.",
+      "keyInsights": "💡 Key Insights",
+      "keyInsightsInfo": "Synthesis of the most important takeaways spanning readiness, sector context, and success vision prompts.",
+      "immediatePlay": "Immediate Play",
+      "immediatePlayInfo": "Pulled from the immediate (0-3 month) AI use cases discussed during opportunity identification.",
+      "shortTermMove": "Short-term Move",
+      "shortTermMoveInfo": "Links to 3-9 month AI initiatives highlighted in the interview roadmap conversation.",
+      "strategicBet": "Strategic Bet",
+      "strategicBetInfo": "Informed by the strategic (9-24 month) ambition prompts covering grid optimisation, trading, and renewables.",
+      "notableQuote": "Notable quote",
+      "noData": "No data captured yet.",
+      "technicalCapacity": "Technical Capacity",
+      "culturalCapacity": "Cultural Capacity",
+      "resourcingCapacity": "Resourcing Capacity",
+      "latestSelfAssessment": "Latest self-assessment",
+      "duration": "Duration · {{duration}}",
+      "language": "Language · {{language}}",
+      "email": "Email · {{email}}"
+    },
+    "pdf": {
+      "title": "Aalto AI Discovery Report",
+      "generatedOn": "Generated on {{date}}",
+      "pulseTitle": "Pulse Dashboard Summary",
+      "interviewsCaptured": "Interviews captured",
+      "avgDuration": "Average interview duration",
+      "topReadiness": "Top readiness pulse",
+      "languages": "Languages represented",
+      "readinessBreakdown": "Overall Readiness Breakdown",
+      "topChallenges": "Top Challenge Themes",
+      "departments": "Departments in the Conversation",
+      "verbatimTitle": "Verbatim Library Overview",
+      "roleDept": "Role / Department",
+      "refId": "Reference ID",
+      "interviewedOn": "Interviewed on",
+      "overallReadiness": "Overall readiness",
+      "readinessScores": "Readiness scores",
+      "notCaptured": "Not captured",
+      "notProvided": "Not provided",
+      "technicalScore": "Technical",
+      "culturalScore": "Cultural",
+      "resourcingScore": "Resourcing",
+      "currentChallenges": "Current challenges",
+      "manualProcesses": "Manual processes",
+      "aiOpportunities": "AI opportunities",
+      "keyInsights": "Key insights",
+      "notableQuotes": "Notable quotes",
+      "recommendations": "Recommendations",
+      "immediate": "Immediate",
+      "shortTerm": "Short-term",
+      "strategic": "Strategic"
+    }
+  }
+}

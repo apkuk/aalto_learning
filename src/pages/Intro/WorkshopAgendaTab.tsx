@@ -1,96 +1,100 @@
+import { useTranslation } from 'react-i18next'
+
 export default function WorkshopAgendaTab() {
+  const { t } = useTranslation()
+
   const agenda = [
     {
-      title: 'Introduction to the Session',
-      duration: '5 minutes',
-      description: 'Workshop goals, format, and expectations',
+      title: t('introduction.agenda.item1Title'),
+      duration: t('introduction.agenda.item1Duration'),
+      description: t('introduction.agenda.item1Desc'),
       color: 'bg-green-100 border-green-400',
       emphasis: [
-        'HANDS-ON workshop - you will PRACTICE, not just watch',
-        'AI is best learned by DOING - embrace the experience!',
-        'You WILL make mistakes. The AI will make mistakes. That\'s how you learn!',
-        'Mistakes are your teachers - they\'re opportunities for insight',
-        'Purpose: Have FUN while learning through direct experience'
+        t('introduction.agenda.item1Point1'),
+        t('introduction.agenda.item1Point2'),
+        t('introduction.agenda.item1Point3'),
+        t('introduction.agenda.item1Point4'),
+        t('introduction.agenda.item1Point5')
       ]
     },
     {
-      title: 'Introduction to Andrew / Who Am I',
-      duration: '10 minutes',
-      description: 'Background, AI journey, and credibility in the field',
+      title: t('introduction.agenda.item2Title'),
+      duration: t('introduction.agenda.item2Duration'),
+      description: t('introduction.agenda.item2Desc'),
       color: 'bg-blue-100 border-blue-400'
     },
     {
-      title: 'My AI Stack',
-      duration: '15 minutes',
-      description: 'Overview of tools used and how they integrate',
+      title: t('introduction.agenda.item3Title'),
+      duration: t('introduction.agenda.item3Duration'),
+      description: t('introduction.agenda.item3Desc'),
       color: 'bg-purple-100 border-purple-400',
       breakdown: [
-        'First 7 minutes: Andrew presents the AI stack',
-        'Next 8 minutes: YOU play with the tools yourself!'
+        t('introduction.agenda.item3Break1'),
+        t('introduction.agenda.item3Break2')
       ]
     },
     {
-      title: 'What I Use AI For',
-      duration: '10 minutes',
-      description: 'Real-world use cases with hands-on practice opportunities',
+      title: t('introduction.agenda.item4Title'),
+      duration: t('introduction.agenda.item4Duration'),
+      description: t('introduction.agenda.item4Desc'),
       color: 'bg-yellow-100 border-yellow-400',
-      note: 'Includes hands-on component for participants'
+      note: t('introduction.agenda.item4Note')
     },
     {
-      title: 'The 4Ps of AI Agent Management',
-      duration: '10 minutes',
-      description: 'Framework for managing AI agents effectively',
+      title: t('introduction.agenda.item5Title'),
+      duration: t('introduction.agenda.item5Duration'),
+      description: t('introduction.agenda.item5Desc'),
       color: 'bg-teal-100 border-teal-400',
       breakdown: [
-        'First 5 minutes: Andrew presents the 4Ps framework',
-        'Next 5 minutes: Participants explore their own settings'
+        t('introduction.agenda.item5Break1'),
+        t('introduction.agenda.item5Break2')
       ],
       subtopics: [
-        'Personas: Defining voice, character, and behavioral rules',
-        'Privacy: Data usage, training opt-outs, and security',
-        'Projects: Workstreams, files, and context management',
-        'Prompts: Crafting effective instructions and interactions'
+        t('introduction.agenda.item5Topic1'),
+        t('introduction.agenda.item5Topic2'),
+        t('introduction.agenda.item5Topic3'),
+        t('introduction.agenda.item5Topic4')
       ]
     },
     {
-      title: 'Deep Dives',
-      duration: '50 minutes',
-      description: 'In-depth exploration of key AI applications - HALF presentation, HALF hands-on practice for each topic',
+      title: t('introduction.agenda.item6Title'),
+      duration: t('introduction.agenda.item6Duration'),
+      description: t('introduction.agenda.item6Desc'),
       color: 'bg-red-100 border-red-400',
       subtopics: [
-        'Deep Research: Prompt engineering, browsing, and AI agents',
-        'Media: Image and video generation techniques',
-        'Coding: Chat-based generation, code vetting, and automation',
-        'Efficiency: Workflow automation and agent orchestration',
-        'Expertise: Domain specialization and custom models'
+        t('introduction.agenda.item6Topic1'),
+        t('introduction.agenda.item6Topic2'),
+        t('introduction.agenda.item6Topic3'),
+        t('introduction.agenda.item6Topic4'),
+        t('introduction.agenda.item6Topic5')
       ]
     },
     {
-      title: 'Wrap & Q&A',
-      duration: '5 minutes',
-      description: 'Key takeaways and questions from participants',
+      title: t('introduction.agenda.item7Title'),
+      duration: t('introduction.agenda.item7Duration'),
+      description: t('introduction.agenda.item7Desc'),
       color: 'bg-indigo-100 border-indigo-400'
     },
     {
-      title: 'Next Steps / Resources',
-      duration: '5 minutes',
-      description: 'Links to microsite, GitHub, and further reading',
+      title: t('introduction.agenda.item8Title'),
+      duration: t('introduction.agenda.item8Duration'),
+      description: t('introduction.agenda.item8Desc'),
       color: 'bg-pink-100 border-pink-400'
     },
     {
-      title: 'What are you going to do now?',
-      duration: '10 minutes',
-      description: 'Your hands-on MVP building journey starts here!',
+      title: t('introduction.agenda.item9Title'),
+      duration: t('introduction.agenda.item9Duration'),
+      description: t('introduction.agenda.item9Desc'),
       color: 'bg-orange-100 border-orange-400',
       subtopics: [
-        'Go away and brainstorm ideas for your own MVP',
-        'Learn how to create a Project Requirements Document (PRD)',
-        'Set up VS Code with GitHub Copilot OR Claude Code',
-        'Use Claude Pro OR ChatGPT Plus to develop your ideas',
-        'Take your PRD and work with coding agents to build a basic MVP',
-        'Publish your project to GitHub',
-        'Configure GitHub to auto-deploy to Netlify',
-        'See and test your live site in action!'
+        t('introduction.agenda.item9Topic1'),
+        t('introduction.agenda.item9Topic2'),
+        t('introduction.agenda.item9Topic3'),
+        t('introduction.agenda.item9Topic4'),
+        t('introduction.agenda.item9Topic5'),
+        t('introduction.agenda.item9Topic6'),
+        t('introduction.agenda.item9Topic7'),
+        t('introduction.agenda.item9Topic8')
       ]
     }
   ]
@@ -101,17 +105,17 @@ export default function WorkshopAgendaTab() {
       <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-6">
         <div className="flex flex-wrap gap-4 text-sm text-gray-700 mb-4">
           <div className="flex items-center">
-            <span className="font-semibold mr-2">Duration:</span>
-            2 hours (120 minutes)
+            <span className="font-semibold mr-2">{t('introduction.agenda.durationLabel')}</span>
+            {t('introduction.agenda.durationValue')}
           </div>
           <div className="flex items-center">
-            <span className="font-semibold mr-2">Format:</span>
-            HANDS-ON Interactive Workshop
+            <span className="font-semibold mr-2">{t('introduction.agenda.formatLabel')}</span>
+            {t('introduction.agenda.formatValue')}
           </div>
         </div>
         <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
           <p className="text-lg font-bold text-gray-900">
-            This is a HANDS-ON workshop - you'll PRACTICE, not just watch!
+            {t('introduction.agenda.handsOnNote')}
           </p>
         </div>
       </div>
@@ -132,7 +136,7 @@ export default function WorkshopAgendaTab() {
 
             {item.emphasis && (
               <div className="mt-4 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
-                <p className="font-bold text-gray-800 mb-2">Workshop Focus:</p>
+                <p className="font-bold text-gray-800 mb-2">{t('introduction.agenda.item1Focus')}</p>
                 <ul className="space-y-2">
                   {item.emphasis.map((point, idx) => (
                     <li key={idx} className="flex items-start">
@@ -146,7 +150,9 @@ export default function WorkshopAgendaTab() {
 
             {item.breakdown && (
               <div className="mt-4 bg-purple-50 border-l-4 border-purple-400 p-4 rounded">
-                <p className="font-bold text-gray-800 mb-2">Session Breakdown:</p>
+                <p className="font-bold text-gray-800 mb-2">
+                  {index === 2 ? t('introduction.agenda.item3Breakdown') : index === 4 ? t('introduction.agenda.item1Focus') : 'Session Breakdown:'}
+                </p>
                 <ul className="space-y-2">
                   {item.breakdown.map((point, idx) => (
                     <li key={idx} className="flex items-start">
@@ -160,13 +166,15 @@ export default function WorkshopAgendaTab() {
 
             {item.note && (
               <div className="mt-3 text-sm italic text-gray-600 bg-gray-50 p-3 rounded">
-                Note: {item.note}
+                {t('introduction.agenda.item4Note').includes(':') ? item.note : `Note: ${item.note}`}
               </div>
             )}
 
             {item.subtopics && (
               <div className="mt-4 pl-4 border-l-2 border-gray-300">
-                <p className="font-semibold text-gray-800 mb-2">Topics covered:</p>
+                <p className="font-semibold text-gray-800 mb-2">
+                  {index === 4 ? t('introduction.agenda.item5Topics') : 'Topics covered:'}
+                </p>
                 <ul className="space-y-2">
                   {item.subtopics.map((subtopic, idx) => (
                     <li key={idx} className="flex items-start">
@@ -183,31 +191,31 @@ export default function WorkshopAgendaTab() {
 
       {/* Summary */}
       <div className="bg-gradient-to-r from-primary to-secondary text-white rounded-xl p-8">
-        <h2 className="text-2xl font-bold mb-4">Workshop Outcomes</h2>
+        <h2 className="text-2xl font-bold mb-4">{t('introduction.agenda.outcomesTitle')}</h2>
         <ul className="space-y-3">
           <li className="flex items-start">
             <span className="mr-3 text-2xl">✓</span>
-            <span>HANDS-ON experience with modern AI tools and their practical applications</span>
+            <span>{t('introduction.agenda.outcome1')}</span>
           </li>
           <li className="flex items-start">
             <span className="mr-3 text-2xl">✓</span>
-            <span>Real practice building and deploying AI solutions - not just watching!</span>
+            <span>{t('introduction.agenda.outcome2')}</span>
           </li>
           <li className="flex items-start">
             <span className="mr-3 text-2xl">✓</span>
-            <span>Access to curated resources and ongoing support materials</span>
+            <span>{t('introduction.agenda.outcome3')}</span>
           </li>
           <li className="flex items-start">
             <span className="mr-3 text-2xl">✓</span>
-            <span>Practical strategies for integrating AI into your workflow</span>
+            <span>{t('introduction.agenda.outcome4')}</span>
           </li>
           <li className="flex items-start">
             <span className="mr-3 text-2xl">✓</span>
-            <span>A clear path forward to build your own MVP with AI coding agents</span>
+            <span>{t('introduction.agenda.outcome5')}</span>
           </li>
           <li className="flex items-start">
             <span className="mr-3 text-2xl">✓</span>
-            <span>Most importantly: Have FUN while learning!</span>
+            <span>{t('introduction.agenda.outcome6')}</span>
           </li>
         </ul>
       </div>

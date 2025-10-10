@@ -1,0 +1,128 @@
+{
+  "insights": {
+    "loading": "Synkronoidaan live-oivalluksia…",
+    "errorTitle": "Törmäsimme ongelmaan",
+    "errorRetry": "Yritä päivittää tai tarkista Apps Script + Netlify -lokit.",
+    "header": {
+      "badge": "Live-älykkyys",
+      "title": "Aalto AI Discovery -komentokeskus",
+      "subtitle": "Reaaliaikainen pulssi kaikista löytöhaastatteluista — valmius, mahdollisuudet ja sanallinen oivallus seuraavaa siirtoasi varten.",
+      "downloadButton": "Lataa raportti",
+      "downloadingButton": "Luodaan..."
+    },
+    "tabs": {
+      "pulseDashboard": "Pulssikojelauta",
+      "verbatimLibrary": "Sanallinen kirjasto"
+    },
+    "metrics": {
+      "interviewsCapturedTitle": "Tallennetut haastattelut",
+      "interviewsCapturedSubtitle": "Live-synkronointi Google Sheetsistä",
+      "interviewsCapturedInfo": "Yhteensä valmistuneet löytöhaastattelut prosessi-, data-, päätöksenteko- ja energiasektorikysymyssarjoissa.",
+      "interviewsCapturedFooter": "{{count}} osastoa · {{languages}}",
+      "avgDurationTitle": "Keskimääräinen kesto",
+      "avgDurationSubtitle": "Osallistujien sijoitettu aika",
+      "avgDurationInfo": "Keskimääräiset minuutit, jotka osallistujat käyttivät täydellisen haastattelukehyksen (avaus, syvä sukellus, sektorikohtainen, valmius) läpikäyntiin.",
+      "avgDurationFooter": "{{count}} viimeisintä haastattelua analysoitu",
+      "topReadinessTitle": "Huippuvalmius-pulssi",
+      "topReadinessInfo": "Osuus haastatelluista, jotka arvioivat kokonaisvalmiuden käsiteltyään tekniikkapinokkaa, kulttuuria ja resurssikysymyksiä.",
+      "topReadinessFooter": "{{count}} valmiusdatapistettä",
+      "languagesTitle": "Havaitut kielet",
+      "languagesSubtitle": "Haastattelukielten sekoitus",
+      "languagesInfo": "Ensisijainen kieli tallennettu kontekstin asettamisen aikana, jotta jatkotoimet kunnioittavat suomen/englannin viestintäpreferenssejä.",
+      "languagesFooter": "{{count}} haastattelua merkitty"
+    },
+    "readiness": {
+      "sectionBadge": "Valmius-pulssi",
+      "sectionTitle": "Luottamus koko organisaatiossa",
+      "signalsLabel": "{{count}} signaalia",
+      "highReadiness": "Korkea valmius",
+      "mediumReadiness": "Keskitason valmius",
+      "lowReadiness": "Matala valmius",
+      "readinessInfo": "Näyttää kuinka moni haastateltu raportoi korkean, keskitason tai matalan kokonaisvalmiuden käsiteltyään tekniset, kulttuuriset ja resurssikysymykset."
+    },
+    "scores": {
+      "sectionBadge": "Kyvykkyystasoت",
+      "sectionTitle": "AI-valmiuspisteet",
+      "scoresInfo": "Keskimääräiset 1-5 pisteet valmiusarvioinnista, joka kattaa teknologiapinon, muutoskulttuurin ja saatavilla olevat ihmiset/budjetin.",
+      "technical": "Tekninen",
+      "cultural": "Kulttuurinen",
+      "resourcing": "Resursointi"
+    },
+    "challenges": {
+      "sectionBadge": "Signaalivahvistin",
+      "sectionTitle": "Huippuhaaste-avainsanat",
+      "challengesInfo": "Avainsanat poimittu vastauksista tehottomista prosesseista, datakivuista ja päätöksentekopullonkauloista.",
+      "themesLabel": "{{count}} teemaa",
+      "noData": "Ei vielä avainsanadataa — tallenna muutama haastattelu valaisemaan tämä."
+    },
+    "departments": {
+      "sectionBadge": "Kattavuuskartta",
+      "sectionTitle": "Osastot mukana",
+      "departmentsInfo": "Näyttää mitkä osastot osallistuivat, linjassa roolikohtaisten kysymysratojen kanssa kehyksessä.",
+      "noData": "Osastot ilmestyvät tänne, kun haastattelut on kirjattu.",
+      "latestSpotlight": "Viimeisin kohdevalo"
+    },
+    "quote": {
+      "badge": "Huomionarvoinen lainaus"
+    },
+    "verbatim": {
+      "noInterviewsTitle": "Ei haastatteluja vielä",
+      "noInterviewsText": "Kun tallennat haastatteluja GPT:n kautta, jokainen sanallinen oivallus ilmestyy tänne automaattisesti.",
+      "currentChallenges": "🔥 Nykyiset haasteet",
+      "currentChallengesInfo": "Suorat lainaukset prosessi- ja operaatiokysymyksistä pullonkauloista, turhautumisesta ja tehottomuuksista.",
+      "manualProcesses": "⚙️ Manuaaliset prosessit",
+      "manualProcessesInfo": "Korostaa tehtäviä, jotka osallistujat tunnistivat manuaalisiksi tai toistuviksi työnkulkukeskustelujen aikana.",
+      "aiOpportunities": "🤖 AI-mahdollisuudet",
+      "aiOpportunitiesInfo": "Ideat tallennettu tutkittaessa välittömiä, lyhyen aikavälin ja strategisia AI-mahdollisuuksia haastattelussa.",
+      "keyInsights": "💡 Keskeiset oivallukset",
+      "keyInsightsInfo": "Synteesi tärkeimmistä johtopäätöksistä, jotka kattavat valmiuden, sektorikontekstin ja menestysvisio-kehotteet.",
+      "immediatePlay": "Välitön toiminta",
+      "immediatePlayInfo": "Poimittu välittömistä (0-3 kuukautta) AI-käyttötapauksista, joita käsiteltiin mahdollisuuksien tunnistamisen aikana.",
+      "shortTermMove": "Lyhyen aikavälin siirto",
+      "shortTermMoveInfo": "Linkit 3-9 kuukauden AI-aloitteisiin, jotka korostettiin haastattelun etenemiskeskustelussa.",
+      "strategicBet": "Strateginen panos",
+      "strategicBetInfo": "Tietoa strategisista (9-24 kuukautta) kunnianhimokehotteis-ta, jotka kattavat verkon optimoinnin, kaupankäynnin ja uusiutuvat energiat.",
+      "notableQuote": "Huomionarvoinen lainaus",
+      "noData": "Ei vielä tallennettua dataa.",
+      "technicalCapacity": "Tekninen kapasiteetti",
+      "culturalCapacity": "Kulttuurinen kapasiteetti",
+      "resourcingCapacity": "Resursointikapasiteetti",
+      "latestSelfAssessment": "Viimeisin itsearviointi",
+      "duration": "Kesto · {{duration}}",
+      "language": "Kieli · {{language}}",
+      "email": "Sähköposti · {{email}}"
+    },
+    "pdf": {
+      "title": "Aalto AI Discovery -raportti",
+      "generatedOn": "Luotu {{date}}",
+      "pulseTitle": "Pulssikojelaudan yhteenveto",
+      "interviewsCaptured": "Tallennetut haastattelut",
+      "avgDuration": "Keskimääräinen haastattelun kesto",
+      "topReadiness": "Huippuvalmiuspulssi",
+      "languages": "Edustetut kielet",
+      "readinessBreakdown": "Kokonaisvalmiuden jakautuminen",
+      "topChallenges": "Huippuhaasteteemat",
+      "departments": "Osastot keskustelussa",
+      "verbatimTitle": "Sanallisen kirjaston yleiskatsaus",
+      "roleDept": "Rooli / Osasto",
+      "refId": "Viitetunnus",
+      "interviewedOn": "Haastateltu",
+      "overallReadiness": "Kokonaisvalmius",
+      "readinessScores": "Valmiuspisteet",
+      "notCaptured": "Ei tallennettu",
+      "notProvided": "Ei annettu",
+      "technicalScore": "Tekninen",
+      "culturalScore": "Kulttuurinen",
+      "resourcingScore": "Resursointi",
+      "currentChallenges": "Nykyiset haasteet",
+      "manualProcesses": "Manuaaliset prosessit",
+      "aiOpportunities": "AI-mahdollisuudet",
+      "keyInsights": "Keskeiset oivallukset",
+      "notableQuotes": "Huomionarvoiset lainaukset",
+      "recommendations": "Suositukset",
+      "immediate": "Välitön",
+      "shortTerm": "Lyhyen aikavälin",
+      "strategic": "Strateginen"
+    }
+  }
+}

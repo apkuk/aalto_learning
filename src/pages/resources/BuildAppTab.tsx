@@ -5,10 +5,36 @@ export default function BuildAppTab() {
     <div className="space-y-6">
       {/* Hero Intro */}
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl shadow-lg p-8">
-        <h1 className="text-4xl font-bold mb-4">Build an App from Scratch: Step-by-Step Workflow</h1>
-        <p className="text-xl mb-6">
-          No prior coding? No problem. Use AI + IDE + Git + Netlify to go from idea → live app in hours.
-        </p>
+        <div className="flex flex-wrap items-start justify-between gap-6 mb-6">
+          <div className="flex-1 min-w-[300px]">
+            <h1 className="text-4xl font-bold mb-4">Build an App from Scratch: Step-by-Step Workflow</h1>
+            <p className="text-xl">
+              No prior coding? No problem. Use AI + IDE + Git + Netlify to go from idea → live app in hours.
+            </p>
+          </div>
+          <a
+            href="https://chatgpt.com/share/68e91205-5520-800a-928d-8a24bf5e484e"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-3 rounded-2xl border-2 border-white bg-white/10 backdrop-blur-sm px-5 py-4 shadow-md transition hover:bg-white/20 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white group-hover:bg-white/30">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-6 w-6"
+                aria-hidden="true"
+              >
+                <path d="M5.055 7.06C3.805 6.347 2.25 7.25 2.25 8.69v8.122c0 1.44 1.555 2.343 2.805 1.628L12 14.471v2.34c0 1.44 1.555 2.343 2.805 1.628l7.108-4.061c1.26-.72 1.26-2.536 0-3.256l-7.108-4.061C13.555 6.346 12 7.249 12 8.689v2.34L5.055 7.06Z" />
+              </svg>
+            </span>
+            <div className="text-left">
+              <p className="text-base font-semibold text-white whitespace-nowrap">Start your AI Sprint Now!</p>
+              <p className="text-xs text-white/90">Build your AI-powered app today</p>
+            </div>
+          </a>
+        </div>
 
         {/* Flow Timeline */}
         <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">

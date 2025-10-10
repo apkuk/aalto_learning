@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Tabs } from '../components/Tabs'
 import SessionOverview from './Intro/SessionOverview'
 import WorkshopAgendaTab from './Intro/WorkshopAgendaTab'
 
 export default function Introduction() {
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState('who-am-i')
 
   return (
@@ -13,14 +15,14 @@ export default function Introduction() {
         <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-4xl font-bold text-gray-900">
-              Introduction to the Session
+              {t('introduction.header.title')}
             </h1>
             <div className="bg-green-100 border-2 border-green-400 px-4 py-2 rounded-lg">
-              <span className="text-sm font-semibold text-green-800">5 minutes</span>
+              <span className="text-sm font-semibold text-green-800">{t('introduction.header.duration')}</span>
             </div>
           </div>
           <p className="text-xl text-gray-600">
-            Welcome! Let's set the stage for an exciting, hands-on learning experience.
+            {t('introduction.header.subtitle')}
           </p>
         </div>
 
@@ -29,12 +31,12 @@ export default function Introduction() {
           tabs={[
             {
               id: 'who-am-i',
-              label: 'Who Am I?',
+              label: t('introduction.tabs.whoAmI'),
               content: <SessionOverview />
             },
             {
               id: 'session-overview',
-              label: 'Agenda',
+              label: t('introduction.tabs.agenda'),
               content: <WorkshopAgendaTab />
             }
           ]}

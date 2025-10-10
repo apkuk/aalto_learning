@@ -1,4 +1,8 @@
+import { useTranslation } from 'react-i18next'
+
 export default function SessionOverview() {
+  const { t } = useTranslation()
+
   return (
     <div className="space-y-8">
       {/* Learning Philosophy - Hero Section */}
@@ -6,10 +10,10 @@ export default function SessionOverview() {
         <div className="text-center mb-6">
           <div className="text-5xl mb-4">🚀</div>
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            This is a HANDS-ON Workshop
+            {t('introduction.sessionOverview.heroTitle')}
           </h2>
           <p className="text-xl text-gray-700 italic">
-            You will PRACTICE, not just watch!
+            {t('introduction.sessionOverview.heroSubtitle')}
           </p>
         </div>
 
@@ -18,10 +22,9 @@ export default function SessionOverview() {
             <div className="flex items-start">
               <div className="text-3xl mr-4">💡</div>
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">AI is Best Learned by DOING</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{t('introduction.sessionOverview.principle1Title')}</h3>
                 <p className="text-gray-700">
-                  Theory is great, but the real magic happens when you get your hands on the tools.
-                  Today, you'll be actively experimenting and building alongside me.
+                  {t('introduction.sessionOverview.principle1Text')}
                 </p>
               </div>
             </div>
@@ -31,10 +34,9 @@ export default function SessionOverview() {
             <div className="flex items-start">
               <div className="text-3xl mr-4">🎯</div>
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">You WILL Make Mistakes. That's PERFECT!</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{t('introduction.sessionOverview.principle2Title')}</h3>
                 <p className="text-gray-700">
-                  The AI will make mistakes too. This isn't a bug - it's how you learn!
-                  Every error teaches you something new about how AI thinks and responds.
+                  {t('introduction.sessionOverview.principle2Text')}
                 </p>
               </div>
             </div>
@@ -44,10 +46,9 @@ export default function SessionOverview() {
             <div className="flex items-start">
               <div className="text-3xl mr-4">📚</div>
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Mistakes Are Your Teachers</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{t('introduction.sessionOverview.principle3Title')}</h3>
                 <p className="text-gray-700">
-                  Each unexpected result is an opportunity for insight. We'll embrace them together
-                  and discover what they reveal about effective AI interaction.
+                  {t('introduction.sessionOverview.principle3Text')}
                 </p>
               </div>
             </div>
@@ -57,10 +58,9 @@ export default function SessionOverview() {
             <div className="flex items-start">
               <div className="text-3xl mr-4">🎉</div>
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Have FUN While Learning!</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{t('introduction.sessionOverview.principle4Title')}</h3>
                 <p className="text-gray-700">
-                  This isn't a lecture - it's an adventure into what AI can do.
-                  Experiment boldly, ask questions freely, and enjoy the journey of discovery.
+                  {t('introduction.sessionOverview.principle4Text')}
                 </p>
               </div>
             </div>
@@ -70,49 +70,49 @@ export default function SessionOverview() {
 
       {/* Workshop Goals */}
       <div className="bg-white rounded-xl shadow-md p-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-6">Workshop Goals</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-6">{t('introduction.sessionOverview.goalsTitle')}</h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-blue-50 rounded-lg p-6 border-l-4 border-blue-500">
-            <h3 className="text-xl font-bold text-gray-900 mb-3">By the End of Today:</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">{t('introduction.sessionOverview.byEndTitle')}</h3>
             <ul className="space-y-3 text-gray-700">
               <li className="flex items-start">
                 <span className="text-blue-600 mr-3 font-bold text-lg">✓</span>
-                <span>Understand what AI can (and can't) do for you</span>
+                <span>{t('introduction.sessionOverview.byEnd1')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-blue-600 mr-3 font-bold text-lg">✓</span>
-                <span>Know which AI tools to use for different tasks</span>
+                <span>{t('introduction.sessionOverview.byEnd2')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-blue-600 mr-3 font-bold text-lg">✓</span>
-                <span>Have hands-on experience with real AI workflows</span>
+                <span>{t('introduction.sessionOverview.byEnd3')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-blue-600 mr-3 font-bold text-lg">✓</span>
-                <span>Feel confident exploring AI on your own</span>
+                <span>{t('introduction.sessionOverview.byEnd4')}</span>
               </li>
             </ul>
           </div>
 
           <div className="bg-purple-50 rounded-lg p-6 border-l-4 border-purple-500">
-            <h3 className="text-xl font-bold text-gray-900 mb-3">What We'll Cover:</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">{t('introduction.sessionOverview.whatCoverTitle')}</h3>
             <ul className="space-y-3 text-gray-700">
               <li className="flex items-start">
                 <span className="text-purple-600 mr-3 font-bold">→</span>
-                <span>My personal AI toolkit and workflow</span>
+                <span>{t('introduction.sessionOverview.whatCover1')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-purple-600 mr-3 font-bold">→</span>
-                <span>Real-world use cases from my daily work</span>
+                <span>{t('introduction.sessionOverview.whatCover2')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-purple-600 mr-3 font-bold">→</span>
-                <span>Deep dives into research, coding, and more</span>
+                <span>{t('introduction.sessionOverview.whatCover3')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-purple-600 mr-3 font-bold">→</span>
-                <span>Building your own AI-powered projects</span>
+                <span>{t('introduction.sessionOverview.whatCover4')}</span>
               </li>
             </ul>
           </div>
@@ -121,7 +121,7 @@ export default function SessionOverview() {
 
       {/* Workshop Format */}
       <div className="bg-white rounded-xl shadow-md p-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-6">How This Workshop Works</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-6">{t('introduction.sessionOverview.howWorksTitle')}</h2>
 
         <div className="space-y-6">
           <div className="flex items-start">
@@ -129,10 +129,9 @@ export default function SessionOverview() {
               1
             </div>
             <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">I'll Show You First</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t('introduction.sessionOverview.step1Title')}</h3>
               <p className="text-gray-700">
-                Brief demonstrations of tools and techniques - just enough to get you oriented.
-                We're keeping presentations short so you have maximum time to practice.
+                {t('introduction.sessionOverview.step1Text')}
               </p>
             </div>
           </div>
@@ -142,10 +141,9 @@ export default function SessionOverview() {
               2
             </div>
             <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Then YOU Try It</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t('introduction.sessionOverview.step2Title')}</h3>
               <p className="text-gray-700">
-                Immediately after each demonstration, you'll practice the same techniques yourself.
-                This is where the real learning happens - through direct experience.
+                {t('introduction.sessionOverview.step2Text')}
               </p>
             </div>
           </div>
@@ -155,10 +153,9 @@ export default function SessionOverview() {
               3
             </div>
             <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">We Learn Together</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t('introduction.sessionOverview.step3Title')}</h3>
               <p className="text-gray-700">
-                Questions are encouraged at any time! If something doesn't work as expected,
-                we'll troubleshoot together. That's often when the best insights emerge.
+                {t('introduction.sessionOverview.step3Text')}
               </p>
             </div>
           </div>
@@ -167,30 +164,30 @@ export default function SessionOverview() {
 
       {/* Expectations */}
       <div className="bg-white rounded-xl shadow-md p-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-6">What to Expect</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-6">{t('introduction.sessionOverview.expectTitle')}</h2>
 
         <div className="grid md:grid-cols-3 gap-6">
           <div className="text-center p-6 bg-gray-50 rounded-lg">
             <div className="text-4xl mb-3">⚡</div>
-            <h3 className="font-bold text-gray-900 mb-2">Fast-Paced</h3>
+            <h3 className="font-bold text-gray-900 mb-2">{t('introduction.sessionOverview.expect1Title')}</h3>
             <p className="text-sm text-gray-700">
-              We're covering a lot in 2 hours, so we'll keep things moving. Stay engaged!
+              {t('introduction.sessionOverview.expect1Text')}
             </p>
           </div>
 
           <div className="text-center p-6 bg-gray-50 rounded-lg">
             <div className="text-4xl mb-3">🤝</div>
-            <h3 className="font-bold text-gray-900 mb-2">Interactive</h3>
+            <h3 className="font-bold text-gray-900 mb-2">{t('introduction.sessionOverview.expect2Title')}</h3>
             <p className="text-sm text-gray-700">
-              This isn't passive learning. You'll be actively using AI tools throughout.
+              {t('introduction.sessionOverview.expect2Text')}
             </p>
           </div>
 
           <div className="text-center p-6 bg-gray-50 rounded-lg">
             <div className="text-4xl mb-3">🔄</div>
-            <h3 className="font-bold text-gray-900 mb-2">Iterative</h3>
+            <h3 className="font-bold text-gray-900 mb-2">{t('introduction.sessionOverview.expect3Title')}</h3>
             <p className="text-sm text-gray-700">
-              We'll experiment, learn from results, and refine our approach as we go.
+              {t('introduction.sessionOverview.expect3Text')}
             </p>
           </div>
         </div>
@@ -198,41 +195,41 @@ export default function SessionOverview() {
 
       {/* Requirements */}
       <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl p-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">What You'll Need</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('introduction.sessionOverview.needTitle')}</h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-white rounded-lg p-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-3">Required for Today:</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-3">{t('introduction.sessionOverview.requiredTitle')}</h3>
             <ul className="space-y-2 text-gray-700">
               <li className="flex items-start">
                 <span className="text-primary mr-2">•</span>
-                <span>A laptop or computer (tablets may be limited)</span>
+                <span>{t('introduction.sessionOverview.required1')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-primary mr-2">•</span>
-                <span>Internet connection</span>
+                <span>{t('introduction.sessionOverview.required2')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-primary mr-2">•</span>
-                <span>Curiosity and willingness to experiment</span>
+                <span>{t('introduction.sessionOverview.required3')}</span>
               </li>
             </ul>
           </div>
 
           <div className="bg-white rounded-lg p-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-3">Helpful to Have:</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-3">{t('introduction.sessionOverview.helpfulTitle')}</h3>
             <ul className="space-y-2 text-gray-700">
               <li className="flex items-start">
                 <span className="text-secondary mr-2">•</span>
-                <span>ChatGPT or Claude account (free tier is fine)</span>
+                <span>{t('introduction.sessionOverview.helpful1')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-secondary mr-2">•</span>
-                <span>GitHub account (for later exercises)</span>
+                <span>{t('introduction.sessionOverview.helpful2')}</span>
               </li>
               <li className="flex items-start">
                 <span className="text-secondary mr-2">•</span>
-                <span>Open mind about what's possible</span>
+                <span>{t('introduction.sessionOverview.helpful3')}</span>
               </li>
             </ul>
           </div>

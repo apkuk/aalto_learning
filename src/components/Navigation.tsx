@@ -1,52 +1,30 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import FloatingTimer from './FloatingTimer'
 
 const navItems = [
-  { path: '/', label: 'Home' },
-  { path: '/about', label: 'About Me' },
-  { path: '/intro-session', label: 'Introduction' },
-  { path: '/my-ai-stack', label: 'My AI Stack' },
-  { path: '/what-i-use-ai-for', label: 'What I Use AI For' },
-  { path: '/5ps', label: '4Ps' },
-  { path: '/next-steps', label: 'Next Steps' },
-  { path: '/resources', label: 'Resources' },
-  { path: '/insights', label: 'Insights' },
-  { path: '/summary', label: 'Summary' },
-]
-
-const timerOptions = [
-  { minutes: 3, color: 'bg-blue-500 hover:bg-blue-600', label: '3 MIN' },
-  { minutes: 5, color: 'bg-purple-500 hover:bg-purple-600', label: '5 MIN' },
-  { minutes: 8, color: 'bg-indigo-500 hover:bg-indigo-600', label: '8 MIN' },
-  { minutes: 10, color: 'bg-pink-500 hover:bg-pink-600', label: '10 MIN' },
-  { minutes: 15, color: 'bg-orange-500 hover:bg-orange-600', label: '15 MIN' },
+  { path: '/', labelKey: 'nav.home' },
+  { path: '/about', labelKey: 'nav.about' },
+  { path: '/intro-session', labelKey: 'nav.introduction' },
+  { path: '/my-ai-stack', labelKey: 'nav.myStack' },
+  { path: '/what-i-use-ai-for', labelKey: 'nav.whatIUse' },
+  { path: '/5ps', labelKey: 'nav.fourPs' },
+  { path: '/next-steps', labelKey: 'nav.nextSteps' },
+  { path: '/resources', labelKey: 'nav.resources' },
+  { path: '/insights', labelKey: 'nav.insights' },
+  { path: '/summary', labelKey: 'nav.summary' },
 ]
 
 export default function Navigation() {
   const location = useLocation()
+  const { t, i18n } = useTranslation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [timerDropdownOpen, setTimerDropdownOpen] = useState(false)
   const [floatingTimerOpen, setFloatingTimerOpen] = useState(false)
-  const [selectedMinutes, setSelectedMinutes] = useState(5)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const selectedMinutes = 5
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setTimerDropdownOpen(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  const handleTimerSelect = (minutes: number) => {
-    setSelectedMinutes(minutes)
-    setFloatingTimerOpen(true)
-    setTimerDropdownOpen(false)
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng)
   }
 
   return (
@@ -54,14 +32,38 @@ export default function Navigation() {
       <nav className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
-            <div className="flex items-center">
+            <div className="flex items-center gap-4">
               <Link to="/" className="text-xl font-bold text-primary">
-                AI Learning Platform
+                {t('nav.title')}
               </Link>
+
+              {/* Language Switcher - Desktop */}
+              <div className="hidden md:flex items-center gap-2">
+                <button
+                  onClick={() => changeLanguage('en')}
+                  className={`p-1 rounded transition-transform hover:scale-110 ${
+                    i18n.language === 'en' ? 'ring-2 ring-primary' : 'opacity-60 hover:opacity-100'
+                  }`}
+                  aria-label="Switch to English"
+                  title="English"
+                >
+                  <span className="text-2xl">🇬🇧</span>
+                </button>
+                <button
+                  onClick={() => changeLanguage('fi')}
+                  className={`p-1 rounded transition-transform hover:scale-110 ${
+                    i18n.language === 'fi' ? 'ring-2 ring-primary' : 'opacity-60 hover:opacity-100'
+                  }`}
+                  aria-label="Vaihda suomeksi"
+                  title="Suomi"
+                >
+                  <span className="text-2xl">🇫🇮</span>
+                </button>
+              </div>
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-1">
+            <div className="hidden md:flex items-center justify-center flex-1 space-x-1">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
@@ -72,12 +74,12 @@ export default function Navigation() {
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </Link>
               ))}
 
-              {/* Timer Dropdown */}
-              <div className="relative" ref={dropdownRef}>
+              {/* Timer Dropdown - COMMENTED OUT */}
+              {/* <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setTimerDropdownOpen(!timerDropdownOpen)}
                   className="px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-700 hover:bg-gray-100 flex items-center"
@@ -93,7 +95,6 @@ export default function Navigation() {
                   </svg>
                 </button>
 
-                {/* Dropdown Menu */}
                 {timerDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden">
                     <div className="px-4 py-2 bg-gray-50 border-b border-gray-200">
@@ -115,7 +116,7 @@ export default function Navigation() {
                     </div>
                   </div>
                 )}
-              </div>
+              </div> */}
             </div>
 
             {/* Mobile menu button */}
@@ -156,6 +157,28 @@ export default function Navigation() {
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-gray-200">
             <div className="px-2 pt-2 pb-3 space-y-1">
+              {/* Language Switcher - Mobile */}
+              <div className="flex items-center justify-center gap-4 py-3 border-b border-gray-200 mb-2">
+                <button
+                  onClick={() => changeLanguage('en')}
+                  className={`p-2 rounded transition-transform hover:scale-110 ${
+                    i18n.language === 'en' ? 'ring-2 ring-primary' : 'opacity-60'
+                  }`}
+                  aria-label="Switch to English"
+                >
+                  <span className="text-3xl">🇬🇧</span>
+                </button>
+                <button
+                  onClick={() => changeLanguage('fi')}
+                  className={`p-2 rounded transition-transform hover:scale-110 ${
+                    i18n.language === 'fi' ? 'ring-2 ring-primary' : 'opacity-60'
+                  }`}
+                  aria-label="Vaihda suomeksi"
+                >
+                  <span className="text-3xl">🇫🇮</span>
+                </button>
+              </div>
+
               {navItems.map((item) => (
                 <Link
                   key={item.path}
@@ -167,12 +190,12 @@ export default function Navigation() {
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </Link>
               ))}
 
-              {/* Timer options in mobile menu */}
-              <div className="border-t border-gray-200 pt-2 mt-2">
+              {/* Timer options in mobile menu - COMMENTED OUT */}
+              {/* <div className="border-t border-gray-200 pt-2 mt-2">
                 <p className="px-3 py-2 text-xs font-semibold text-gray-600">Timer</p>
                 {timerOptions.map((option) => (
                   <button
@@ -187,7 +210,7 @@ export default function Navigation() {
                     <span>⏱️</span>
                   </button>
                 ))}
-              </div>
+              </div> */}
             </div>
           </div>
         )}

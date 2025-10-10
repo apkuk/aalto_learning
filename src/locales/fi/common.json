@@ -1,0 +1,15 @@
+{
+  "nav": {
+    "home": "Koti",
+    "about": "Tietoa Andrew'sta",
+    "introduction": "Johdanto",
+    "myStack": "AI-työkaluni",
+    "whatIUse": "Mihin käytän tekoälyä",
+    "fourPs": "4P:tä",
+    "nextSteps": "Seuraavat askeleet",
+    "resources": "Resurssit",
+    "insights": "Oivallukset",
+    "summary": "Kokouksen yhteenveto",
+    "title": "AI-oppimisalusta"
+  }
+}
