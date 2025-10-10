@@ -12,7 +12,7 @@
     },
     "tabs": {
       "pulseDashboard": "Pulssikojelauta",
-      "verbatimLibrary": "Sanallinen kirjasto"
+      "verbatimLibrary": "Sanatarkka kirjasto"
     },
     "metrics": {
       "interviewsCapturedTitle": "Tallennetut haastattelut",
@@ -41,7 +41,7 @@
       "readinessInfo": "Näyttää kuinka moni haastateltu raportoi korkean, keskitason tai matalan kokonaisvalmiuden käsiteltyään tekniset, kulttuuriset ja resurssikysymykset."
     },
     "scores": {
-      "sectionBadge": "Kyvykkyystasoت",
+      "sectionBadge": "Kyvykkyystasot",
       "sectionTitle": "AI-valmiuspisteet",
       "scoresInfo": "Keskimääräiset 1-5 pisteet valmiusarvioinnista, joka kattaa teknologiapinon, muutoskulttuurin ja saatavilla olevat ihmiset/budjetin.",
       "technical": "Tekninen",
