@@ -3,11 +3,11 @@ import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import FloatingTimer from './FloatingTimer'
 
+// Workshop dropdown will be inserted after Introduction (index 2)
 const mainNavItems = [
   { path: '/', labelKey: 'nav.home' },
   { path: '/about', labelKey: 'nav.about' },
   { path: '/intro-session', labelKey: 'nav.introduction' },
-  // Workshop dropdown will be inserted here
   { path: '/resources', labelKey: 'nav.resources' },
   { path: '/insights', labelKey: 'nav.insights' },
   { path: '/next-steps', labelKey: 'nav.nextSteps' },
