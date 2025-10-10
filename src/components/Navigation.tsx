@@ -31,39 +31,16 @@ export default function Navigation() {
     <>
       <nav className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
+          <div className="hidden md:grid md:grid-cols-3 md:items-center h-16">
+            {/* Left: Logo */}
             <div className="flex items-center gap-4">
               <Link to="/" className="text-xl font-bold text-primary">
                 {t('nav.title')}
               </Link>
-
-              {/* Language Switcher - Desktop */}
-              <div className="hidden md:flex items-center gap-2">
-                <button
-                  onClick={() => changeLanguage('en')}
-                  className={`p-1 rounded transition-transform hover:scale-110 ${
-                    i18n.language === 'en' ? 'ring-2 ring-primary' : 'opacity-60 hover:opacity-100'
-                  }`}
-                  aria-label="Switch to English"
-                  title="English"
-                >
-                  <span className="text-2xl">🇬🇧</span>
-                </button>
-                <button
-                  onClick={() => changeLanguage('fi')}
-                  className={`p-1 rounded transition-transform hover:scale-110 ${
-                    i18n.language === 'fi' ? 'ring-2 ring-primary' : 'opacity-60 hover:opacity-100'
-                  }`}
-                  aria-label="Vaihda suomeksi"
-                  title="Suomi"
-                >
-                  <span className="text-2xl">🇫🇮</span>
-                </button>
-              </div>
             </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center justify-center flex-1 space-x-1">
+            {/* Center: Desktop Navigation */}
+            <div className="flex items-center justify-center space-x-1">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
@@ -77,50 +54,43 @@ export default function Navigation() {
                   {t(item.labelKey)}
                 </Link>
               ))}
+            </div>
 
-              {/* Timer Dropdown - COMMENTED OUT */}
-              {/* <div className="relative" ref={dropdownRef}>
-                <button
-                  onClick={() => setTimerDropdownOpen(!timerDropdownOpen)}
-                  className="px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-700 hover:bg-gray-100 flex items-center"
-                >
-                  Timer ⏱️
-                  <svg
-                    className={`ml-1 w-4 h-4 transition-transform ${timerDropdownOpen ? 'rotate-180' : ''}`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
+            {/* Right: Language Switcher */}
+            <div className="flex items-center justify-end gap-2">
+              <button
+                onClick={() => changeLanguage('en')}
+                className={`p-1 rounded transition-transform hover:scale-110 ${
+                  i18n.language === 'en' ? 'ring-2 ring-primary' : 'opacity-60 hover:opacity-100'
+                }`}
+                aria-label="Switch to English"
+                title="English"
+              >
+                <span className="text-2xl">🇬🇧</span>
+              </button>
+              <button
+                onClick={() => changeLanguage('fi')}
+                className={`p-1 rounded transition-transform hover:scale-110 ${
+                  i18n.language === 'fi' ? 'ring-2 ring-primary' : 'opacity-60 hover:opacity-100'
+                }`}
+                aria-label="Vaihda suomeksi"
+                title="Suomi"
+              >
+                <span className="text-2xl">🇫🇮</span>
+              </button>
+            </div>
+          </div>
 
-                {timerDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden">
-                    <div className="px-4 py-2 bg-gray-50 border-b border-gray-200">
-                      <p className="text-xs font-semibold text-gray-600">Select Duration</p>
-                    </div>
-                    <div className="py-1">
-                      {timerOptions.map((option) => (
-                        <button
-                          key={option.minutes}
-                          onClick={() => handleTimerSelect(option.minutes)}
-                          className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center justify-between group"
-                        >
-                          <span className="font-medium text-gray-700 group-hover:text-primary">
-                            {option.label}
-                          </span>
-                          <span className="text-2xl">⏱️</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div> */}
+          {/* Mobile Header */}
+          <div className="flex md:hidden justify-between h-16">
+            <div className="flex items-center gap-4">
+              <Link to="/" className="text-xl font-bold text-primary">
+                {t('nav.title')}
+              </Link>
             </div>
 
             {/* Mobile menu button */}
-            <div className="md:hidden flex items-center">
+            <div className="flex items-center">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
