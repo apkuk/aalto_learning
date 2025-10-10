@@ -52,16 +52,16 @@ export default function Navigation() {
     <>
       <nav className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="hidden md:grid md:grid-cols-3 md:items-center h-16">
+          <div className="hidden md:grid md:grid-cols-[auto_1fr_auto] md:items-center md:gap-4 h-16">
             {/* Left: Logo */}
-            <div className="flex items-center gap-4">
-              <Link to="/" className="text-xl font-bold text-primary">
+            <div className="flex items-center">
+              <Link to="/" className="text-xl font-bold text-primary whitespace-nowrap">
                 {t('nav.title')}
               </Link>
             </div>
 
             {/* Center: Desktop Navigation */}
-            <div className="flex items-center justify-center gap-0.5">
+            <div className="flex items-center justify-center gap-0.5 overflow-visible">
               {mainNavItems.slice(0, 3).map((item) => (
                 <Link
                   key={item.path}
